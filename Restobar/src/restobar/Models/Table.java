@@ -5,17 +5,21 @@ import java.util.ArrayList;
 
 public class Table//Mesa
 {
-    private String id;
+    private int id;
+    private int cutlery;//Cubiertos
     private List<Order> orders;
     //Constructors
-    public Table(String id)
+    public Table(int id,int cutlery)
     {
         this.id=id;
+        this.cutlery=cutlery;
         this.orders=new ArrayList();
     }
     //Getters and setters
-    public String getId(){return this.id;}
-    public void setId(String id){this.id=id;}
+    public int getId(){return this.id;}
+    public int getCutlery(){return this.cutlery;}
+    public void setId(int id){this.id=id;}
+    public void setCutlery(int cutlery){this.cutlery=cutlery;}
     //Funcitions
     public void addOrder(List<Product> products)
     {
