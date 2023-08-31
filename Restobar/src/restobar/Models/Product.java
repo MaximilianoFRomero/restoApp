@@ -1,36 +1,38 @@
 package restobar.Models;
 
-public class Product {
+public class Product//Producto
+{
     private String name;
     private String description;
-    private float cost;
-    private float price;
+    private int price;
     private Boolean elaborated;
+    private int category;
+    //Constructors
     public Product()
     {
         this.name="";
         this.description="";
-        this.cost=(float)0;
-        this.price=(float)0;
+        this.price=0;
         this.elaborated=false;
+        this.category=0;
     }
-    public Product(String name,String description,float cost,float price,Boolean elaborated)
+    public Product(String name,String description,int price,Boolean elaborated,int category)
     {
         this.name=name;
         this.description=description;
-        this.cost=cost;
         this.price=price;
         this.elaborated=elaborated;
+        this.category=category=0;
     }
-    //Getters and Setters
+    //Getters and setters
     public String getName(){return this.name;}
     public String getDescription(){return this.description;}
-    public float getCost(){return this.cost;}
-    public float getPrice(){return this.price;}
+    public int getPrice(){return this.price;}
     public Boolean getElaborated(){return this.elaborated;}
+    public int getCategory(){return this.category;}
     public void setName(String name){this.name=name;}
     public void setDescription(String description){this.description=description;}
-    public void setCost(float cost){this.cost=cost;}
-    public void setPrice(float price){this.price=price;}
+    public void setPrice(int price){this.price=price;}
     public void setElaborated(Boolean elaborated){this.elaborated=elaborated;}
+    public void setCategory(int category){this.category=category;}
 }

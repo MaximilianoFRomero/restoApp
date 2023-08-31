@@ -1,12 +1,10 @@
 package restobar;
 
-public class Restobar {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class Restobar
+{
+    public static void main(String[] args)
+    {
+        System.out.println("HOLA :)");
     }
     
 }
