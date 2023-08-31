@@ -18,7 +18,7 @@ public class Order//Pedido
     }
     public Order(List<Product> products)
     {
-        
+        this.products=products;
     }
     //Getters and setters
     public int getAmountPayable(){return this.amountPayable;}

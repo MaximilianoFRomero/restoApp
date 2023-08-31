@@ -12,9 +12,9 @@ public class TableController
         this.tables=new ArrayList();
     }
     //Functions
-    public void addTable(String id)
+    public void addTable(int id,int cutlery)
     {
-        this.tables.add(new Table(id));
+        this.tables.add(new Table(id,cutlery));
     }
     public void removeTable(int index)
     {

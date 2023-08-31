@@ -8,6 +8,7 @@ public class Table//Mesa
     private int id;
     private int cutlery;//Cubiertos
     private List<Order> orders;
+    private Waiter waiter;
     //Constructors
     public Table(int id,int cutlery)
     {
@@ -18,8 +19,10 @@ public class Table//Mesa
     //Getters and setters
     public int getId(){return this.id;}
     public int getCutlery(){return this.cutlery;}
+    public Waiter getWaiter(){return this.waiter;}
     public void setId(int id){this.id=id;}
     public void setCutlery(int cutlery){this.cutlery=cutlery;}
+    public void setWaiter(Waiter waiter){this.waiter=waiter;}
     //Funcitions
     public void addOrder(List<Product> products)
     {
