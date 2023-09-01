@@ -35,4 +35,17 @@ public class Product//Producto
     public void setPrice(int price){this.price=price;}
     public void setElaborated(Boolean elaborated){this.elaborated=elaborated;}
     public void setCategory(int category){this.category=category;}
+    //Functions
+    @Override
+    public String toString()
+    {
+        String s = "Product{\n";
+        s+="name: \""+name+"\",\n";
+        s+="description: \""+description+"\",\n";
+        s+="price: "+price+",\n";
+        s+="elaborated: "+elaborated+",\n";
+        s+="category: "+category+"\n";
+        s+="}";
+        return s;
+    }
 }
