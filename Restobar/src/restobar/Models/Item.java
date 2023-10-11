@@ -15,4 +15,9 @@ public class Item
     public int getTotalProduct(){return this.totalProduct;}
     public void setProduct(Product product){this.product=product;}
     public void setTotalProduct(int totalProduct){this.totalProduct=totalProduct;}
+    //Functions
+    public float calculateTotalPrice()
+    {
+        return this.product.getPrice().getValue()*totalProduct;
+    }
 }
