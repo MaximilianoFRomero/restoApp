@@ -8,7 +8,7 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
 {
     private Connection connect() throws SQLException
     {
-        return DriverManager.getConnection("jdbc:mariadb://localhost:3306/waiters?user=root&password=pass");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/titos?user=root&password=");
     }
     @Override
     public void save(DTOWaiter t) throws DAOException
