@@ -3,28 +3,29 @@ package restobar.Persistence;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
-import restobar.DTOs.DTOWaiter;
+import restobar.DTOs.DTOProduct;
 
-public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
+public class DAOProductSQL implements DAOInterface<DTOProduct>
 {
     private Connection connect() throws SQLException
     {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/titos?user=root&password=");
     }
     @Override
-    public void save(DTOWaiter t) throws DAOException
+    public void save(DTOProduct t) throws DAOException
     {
         Connection con=null;
         PreparedStatement stmt=null;
         ResultSet res=null;
         
-        String sql="INSERT INTO waiters(name,lastName) VALUES(?,?);";
+        String sql="INSERT INTO products(name,description,price) VALUES(?,?,?);";
         try
         {
             con=connect();
             stmt=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1,t.getName());
-            stmt.setString(2,t.getLastName());
+            stmt.setString(2,t.getDescription());
+            stmt.setFloat(3, t.getPrice());
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -60,27 +61,29 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
     }
 
     @Override
-    public void update(DTOWaiter t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void delete(DTOWaiter t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public DTOWaiter byId(long id) throws DAOException
+    public void update(DTOProduct t) throws DAOException
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<DTOWaiter> listAll() throws DAOException
+    public void delete(DTOProduct t) throws DAOException
     {
-        String sql = "SELECT wa.id, wa.name, wa.lastName "
-                + "FROM waiters wa;";
-        List<DTOWaiter> output = new ArrayList();
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public DTOProduct byId(long id) throws DAOException
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<DTOProduct> listAll() throws DAOException
+    {
+        String sql = "SELECT pr.id, pr.name, pr.description, pr.price "
+                + "FROM products pr;";
+        List<DTOProduct> output = new ArrayList();
         
         Connection cn = null;
         Statement stmt = null;
@@ -113,14 +116,15 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
         }
         return output;
     }
-    private void convertToList(ResultSet res, List<DTOWaiter> output) throws SQLException
+    private void convertToList(ResultSet res, List<DTOProduct> output) throws SQLException
     {
         while (res.next()) {
-            DTOWaiter wa = new DTOWaiter();
-            wa.setId(res.getInt(1));
-            wa.setName(res.getString(2));
-            wa.setLastName(res.getString(3));
-            output.add(wa);
+            DTOProduct pr = new DTOProduct();
+            pr.setId(res.getInt(1));
+            pr.setName(res.getString(2));
+            pr.setDescription(res.getString(3));
+            pr.setPrice(res.getFloat(4));
+            output.add(pr);
         }
-    }
+    }    
 }

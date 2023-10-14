@@ -2,26 +2,22 @@ package restobar.DTOs;
 
 import java.util.Objects;
 
-public class DTOWaiter
+public class DTOCategory
 {
     private int id;
     private String name;
-    private String lastName;
     //Constructors
-    public DTOWaiter(){}
-    public DTOWaiter(int id,String name,String lastName)
+    public DTOCategory(){}
+    public DTOCategory(int id,String name)
     {
         this.id=id;
         this.name=name;
-        this.lastName=lastName;
     }
     //Getters and setters
     public int getId(){return this.id;}
     public String getName(){return this.name;}
-    public String getLastName(){return this.lastName;}
     public void setId(int id){this.id=id;}
     public void setName(String name){this.name=name;}
-    public void setLastName(String lastName){this.lastName=lastName;}
     //Functions
     @Override
     public int hashCode()
@@ -29,7 +25,6 @@ public class DTOWaiter
         int hash=3;
         hash=29*hash+(int) (this.id^(this.id>>>32));
         hash=29*hash+Objects.hashCode(this.name);
-        hash=29*hash+Objects.hashCode(this.lastName);
         return hash;
     }
     @Override
@@ -53,19 +48,14 @@ public class DTOWaiter
         {
             return false;
         }
-        if(!Objects.equals(this.name,other.getName()))
-        {
-            return false;
-        }
-        return Objects.equals(this.lastName,other.getLastName());
+        return Objects.equals(this.name,other.getName());
     }
     @Override
     public String toString()
     {
-        String s="DTOWaiter{";
+        String s="DTOCategory{";
         s+="\"id\":"+this.id+",";
-        s+="\"name\":"+this.name+",";
-        s+="\"lastName\":"+this.lastName;
+        s+="\"name\":"+this.name;
         s+="}";
         return s;
     }
