@@ -3,28 +3,27 @@ package restobar.Persistence;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
-import restobar.DTOs.DTOWaiter;
+import restobar.DTOs.DTOCategory;
 
-public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
+public class DAOCategorySQL implements DAOInterface<DTOCategory>
 {
     private Connection connect() throws SQLException
     {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/titos?user=root&password=");
     }
     @Override
-    public void save(DTOWaiter t) throws DAOException
+    public void save(DTOCategory t) throws DAOException
     {
         Connection con=null;
         PreparedStatement stmt=null;
         ResultSet res=null;
         
-        String sql="INSERT INTO waiters(name,lastName) VALUES(?,?);";
+        String sql="INSERT INTO categories(name) VALUES(?);";
         try
         {
             con=connect();
             stmt=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1,t.getName());
-            stmt.setString(2,t.getLastName());
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -56,31 +55,33 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                     throw new DAOException(ex.getMessage());
                 }
             }
-        }
+        }        
     }
 
     @Override
-    public void update(DTOWaiter t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void delete(DTOWaiter t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public DTOWaiter byId(long id) throws DAOException
+    public void update(DTOCategory t) throws DAOException
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<DTOWaiter> listAll() throws DAOException
+    public void delete(DTOCategory t) throws DAOException
     {
-        String sql = "SELECT wa.id, wa.name, wa.lastName "
-                + "FROM waiters wa;";
-        List<DTOWaiter> output = new ArrayList();
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public DTOCategory byId(long id) throws DAOException
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<DTOCategory> listAll() throws DAOException
+    {
+        String sql = "SELECT ca.id, ca.name "
+                + "FROM categories ca;";
+        List<DTOCategory> output = new ArrayList();
         
         Connection cn = null;
         Statement stmt = null;
@@ -113,14 +114,13 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
         }
         return output;
     }
-    private void convertToList(ResultSet res, List<DTOWaiter> output) throws SQLException
+    private void convertToList(ResultSet res, List<DTOCategory> output) throws SQLException
     {
         while (res.next()) {
-            DTOWaiter wa = new DTOWaiter();
-            wa.setId(res.getInt(1));
-            wa.setName(res.getString(2));
-            wa.setLastName(res.getString(3));
-            output.add(wa);
+            DTOCategory ca = new DTOCategory();
+            ca.setId(res.getInt(1));
+            ca.setName(res.getString(2));
+            output.add(ca);
         }
     }
 }
