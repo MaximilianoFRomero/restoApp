@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import restobar.DTOs.DTOCategory;
 import restobar.Persistence.DAOCategorySQL;
 import restobar.Persistence.DAOException;
+import restobar.Persistence.DAOWaiterSQL;
 
 
 /**
@@ -21,10 +22,12 @@ import restobar.Persistence.DAOException;
 public class Menues extends javax.swing.JFrame {
 
     DAOCategorySQL daoCategory;
+    DAOWaiterSQL daoWaiter;
     public Menues() {
         initComponents();
         this.setExtendedState(6);
         this.daoCategory = new DAOCategorySQL();
+        this.daoWaiter= new DAOWaiterSQL();
         listCategories();
     }
 
@@ -452,6 +455,11 @@ public class Menues extends javax.swing.JFrame {
         jMenu11.add(jMenuItem16);
 
         jMenuItem17.setText("Listado de mozos");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
         jMenu11.add(jMenuItem17);
 
         jMenuBar4.add(jMenu11);
@@ -462,6 +470,11 @@ public class Menues extends javax.swing.JFrame {
         jMenu1.setText("Categorias");
 
         jMenuItem12.setText("Añadir categoria");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem12);
 
         jMenuItem13.setText("Modificar categoria");
@@ -521,6 +534,7 @@ public class Menues extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         CargaMozo m1 = new CargaMozo();
+        m1.setDao(daoWaiter);
         m1.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -547,6 +561,18 @@ public class Menues extends javax.swing.JFrame {
     private void mainCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainCategoriesActionPerformed
         
     }//GEN-LAST:event_mainCategoriesActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        addCategory addCatWin = new addCategory();
+        addCatWin.setVisible(true);
+        addCatWin.setDao(daoCategory);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        waiterList wList = new waiterList();
+        wList.setVisible(true);
+        wList.listAllWaiters(daoWaiter);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     /**
      * @param args the command line arguments
