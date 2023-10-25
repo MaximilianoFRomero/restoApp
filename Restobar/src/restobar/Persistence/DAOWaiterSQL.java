@@ -9,7 +9,7 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
 {
     private Connection connect() throws SQLException
     {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/titos?user=root&password=");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/RestoApp?user=root&password=");
     }
     @Override
     public void save(DTOWaiter t) throws DAOException

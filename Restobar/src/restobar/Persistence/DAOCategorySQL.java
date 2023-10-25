@@ -9,7 +9,7 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
 {
     private Connection connect() throws SQLException
     {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/titos?user=root&password=");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/RestoApp?user=root&password=");
     }
     @Override
     public void save(DTOCategory t) throws DAOException
