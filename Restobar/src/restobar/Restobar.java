@@ -37,9 +37,21 @@ public class Restobar
             Logger.getLogger(Restobar.class.getName()).log(Level.SEVERE, null, ex);
         }
         DAOProductSQL emProduct=new DAOProductSQL();
+        /*
+        DTOProduct t=new DTOProduct();
+        t.setName("Fanta");
+        t.setDescription("500cc de azucar naranja bebe.");
+        t.setPrice(400);
+        t.setIdCategory(2);
+        try {
+            emProduct.save(t);
+        } catch (DAOException ex) {
+            Logger.getLogger(Restobar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
         System.out.println("\nListar productos de la base de datos:");
         try {
-            for (DTOProduct o: emProduct.listAll()) {
+            for (DTOProduct o: emProduct.findByIdCategory(2)) {
                 System.out.println(o);
             }
         } catch (DAOException ex) {

@@ -18,7 +18,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
         PreparedStatement stmt=null;
         ResultSet res=null;
         
-        String sql="INSERT INTO products(name,description,price) VALUES(?,?,?);";
+        String sql="INSERT INTO products(name,description,price,idCategory) VALUES(?,?,?,?);";
         try
         {
             con=connect();
@@ -26,6 +26,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
             stmt.setString(1,t.getName());
             stmt.setString(2,t.getDescription());
             stmt.setFloat(3, t.getPrice());
+            stmt.setInt(4,t.getIdCategory());
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -83,6 +84,43 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
     {
         String sql = "SELECT pr.id, pr.name, pr.description, pr.price "
                 + "FROM products pr;";
+        List<DTOProduct> output = new ArrayList();
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            convertToList(res, output);
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
+    }
+    public List<DTOProduct> findByIdCategory(int idCategory) throws DAOException
+    {
+        String sql = "SELECT pr.id, pr.name, pr.description, pr.price "
+                + "FROM products pr WHERE pr.idCategory="+idCategory;
         List<DTOProduct> output = new ArrayList();
         
         Connection cn = null;
