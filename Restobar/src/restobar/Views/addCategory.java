@@ -6,8 +6,7 @@ package restobar.Views;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import restobar.DTOs.DTOCategory;
-import restobar.Persistence.DAOCategorySQL;
+import restobar.Controllers.CategoryController;
 import restobar.Persistence.DAOException;
 
 /**
@@ -16,11 +15,11 @@ import restobar.Persistence.DAOException;
  */
 public class addCategory extends javax.swing.JFrame {
 
-    DAOCategorySQL dao;
+    CategoryController cont;
     public addCategory() {
         initComponents();
     }
-    public void setDao(DAOCategorySQL d){this.dao=d;}
+    public void setCategoryController(CategoryController cont){this.cont=cont;}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,9 +121,7 @@ public class addCategory extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            DTOCategory dto = new DTOCategory();
-            dto.setName(textName.getText());
-            dao.save(dto);
+            cont.addCategory(textName.getText());
         } catch (DAOException ex) {
             Logger.getLogger(addCategory.class.getName()).log(Level.SEVERE, null, ex);
         }

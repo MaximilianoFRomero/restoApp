@@ -2,22 +2,22 @@ package restobar.Models;
 
 public class Category
 {
-    private int idCategory;
+    private long id;
     private String name;
     //Constructors
     public Category()
     {
-        this.idCategory=0;
+        this.id=0;
         this.name="";
     }
-    public Category(int idCategory,String name)
+    public Category(long id,String name)
     {
-        this.idCategory=idCategory;
+        this.id=id;
         this.name=name;
     }
     //Getters and setters
-    public int getIdCategory(){return this.idCategory;}
+    public long getId(){return this.id;}
     public String getName(){return this.name;}
-    public void setIdCategory(int idCategory){this.idCategory=idCategory;}
+    public void setId(long idCategory){this.id=idCategory;}
     public void setName(String name){this.name=name;}
 }

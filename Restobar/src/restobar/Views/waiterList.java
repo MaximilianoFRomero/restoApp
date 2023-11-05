@@ -5,12 +5,8 @@
 package restobar.Views;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import restobar.DTOs.DTOWaiter;
-import restobar.Persistence.DAOException;
-import restobar.Persistence.DAOWaiterSQL;
+import restobar.Models.Waiter;
 
 /**
  *
@@ -144,29 +140,20 @@ public class waiterList extends javax.swing.JFrame {
             }
         });
     }
-    public void listAllWaiters(DAOWaiterSQL dao){
+    public void listAllWaiters(List<Waiter> list){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nombre");
         model.addColumn("Apellido");
         Table.setModel(model);
-        List<DTOWaiter> dto;
-        try {
-            dto = dao.listAll();
-            String [] datos = new String[3];
-            for(int i=0;i<dto.size();i++)
-            {
-                datos[0]=dto.get(i).getId()+"";
-                datos[1]=dto.get(i).getName();
-                datos[2]=dto.get(i).getLastName();
-                model.addRow(datos);
-            }
-        } catch (DAOException ex) {
-            Logger.getLogger(waiterList.class.getName()).log(Level.SEVERE, null, ex);
+        String [] datos = new String[3];
+        for(int i=0;i<list.size();i++)
+        {
+            datos[0]=list.get(i).getId()+"";
+            datos[1]=list.get(i).getName();
+            datos[2]=list.get(i).getLastName();
+            model.addRow(datos);
         }
-        
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

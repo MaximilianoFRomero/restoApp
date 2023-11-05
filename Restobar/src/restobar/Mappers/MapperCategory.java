@@ -13,14 +13,14 @@ public class MapperCategory
     public Category convertDTOCategoryToCategory(DTOCategory dto)
     {
         Category c=new Category();
-        c.setIdCategory(dto.getId());
+        c.setId(dto.getId());
         c.setName(dto.getName());
         return c;
     }
     public DTOCategory convertCategoryToDTOCategory(Category c)
     {
         DTOCategory dto=new DTOCategory();
-        dto.setId(c.getIdCategory());
+        dto.setId(c.getId());
         dto.setName(c.getName());
         return dto;
     }

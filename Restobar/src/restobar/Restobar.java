@@ -36,8 +36,8 @@ public class Restobar
         } catch (DAOException ex) {
             Logger.getLogger(Restobar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DAOProductSQL emProduct=new DAOProductSQL();
         /*
+        DAOProductSQL emProduct=new DAOProductSQL();
         DTOProduct t=new DTOProduct();
         t.setName("Fanta");
         t.setDescription("500cc de azucar naranja bebe.");
@@ -48,7 +48,6 @@ public class Restobar
         } catch (DAOException ex) {
             Logger.getLogger(Restobar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
         System.out.println("\nListar productos de la base de datos:");
         try {
             for (DTOProduct o: emProduct.findByIdCategory(2)) {
@@ -57,6 +56,7 @@ public class Restobar
         } catch (DAOException ex) {
             Logger.getLogger(Restobar.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }
     
 }

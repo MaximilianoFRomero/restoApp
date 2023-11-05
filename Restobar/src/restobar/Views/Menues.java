@@ -6,22 +6,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import restobar.Controllers.CategoryController;
+import restobar.Controllers.WaiterController;
 import restobar.DTOs.DTOCategory;
 import restobar.Models.Category;
 import restobar.Persistence.DAOCategorySQL;
 import restobar.Persistence.DAOException;
-import restobar.Persistence.DAOWaiterSQL;
 
 public class Menues extends javax.swing.JFrame {
-
-    DAOCategorySQL daoCategory;
-    DAOWaiterSQL daoWaiter;
+    WaiterController waiterCont;
     CategoryController categoryCont;
     public Menues() {
         initComponents();
         this.setExtendedState(6);
-        this.daoCategory = new DAOCategorySQL();
-        this.daoWaiter= new DAOWaiterSQL();
+        this.waiterCont= new WaiterController();
         this.categoryCont=new CategoryController();
         listCategories();
     }
@@ -526,7 +523,7 @@ public class Menues extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         CargaMozo m1 = new CargaMozo();
-        m1.setDao(daoWaiter);
+        m1.setWaiterController(waiterCont);
         m1.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -557,13 +554,17 @@ public class Menues extends javax.swing.JFrame {
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         addCategory addCatWin = new addCategory();
         addCatWin.setVisible(true);
-        addCatWin.setDao(daoCategory);
+        addCatWin.setCategoryController(categoryCont);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        waiterList wList = new waiterList();
-        wList.setVisible(true);
-        wList.listAllWaiters(daoWaiter);
+        try {
+            waiterList wList = new waiterList();
+            wList.setVisible(true);
+            wList.listAllWaiters(waiterCont.listAll());
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     public static void main(String args[]) {

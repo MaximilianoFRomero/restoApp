@@ -2,19 +2,15 @@ package restobar.Views;
 
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import restobar.DTOs.DTOWaiter;
+import restobar.Controllers.WaiterController;
 import restobar.Persistence.DAOException;
-import restobar.Persistence.DAOWaiterSQL;
 
 public class CargaMozo extends javax.swing.JFrame {
-    
-    DAOWaiterSQL dao;
+    WaiterController cont;
     public CargaMozo() {
         initComponents();
     }
-    public void setDao(DAOWaiterSQL w){
-        this.dao=w;
-    }
+    public void setWaiterController(WaiterController w){this.cont=w;}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -129,13 +125,9 @@ public class CargaMozo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-            
+
         try {
-            DTOWaiter dto = new DTOWaiter();
-            dto.setName(textName.getText());
-            dto.setLastName(textLastName.getText());
-            dao.save(dto);
+            cont.addWaiter(0,textName.getText(),textLastName.getText());
         } catch (DAOException ex) {
             java.util.logging.Logger.getLogger(CargaMozo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

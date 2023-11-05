@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class DTOWaiter
 {
-    private int id;
+    private long id;
     private String name;
     private String lastName;
     //Constructors
     public DTOWaiter(){}
-    public DTOWaiter(int id,String name,String lastName)
+    public DTOWaiter(long id,String name,String lastName)
     {
         this.id=id;
         this.name=name;
         this.lastName=lastName;
     }
     //Getters and setters
-    public int getId(){return this.id;}
+    public long getId(){return this.id;}
     public String getName(){return this.name;}
     public String getLastName(){return this.lastName;}
-    public void setId(int id){this.id=id;}
+    public void setId(long id){this.id=id;}
     public void setName(String name){this.name=name;}
     public void setLastName(String lastName){this.lastName=lastName;}
     //Functions

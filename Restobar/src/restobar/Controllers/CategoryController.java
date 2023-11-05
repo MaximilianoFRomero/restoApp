@@ -9,13 +9,11 @@ import restobar.Persistence.DAOException;
 
 public class CategoryController
 {
-    private List<Category> categories;
     private DAOCategorySQL dao;
     private MapperCategory mapper;
     //Constructors
     public CategoryController()
     {
-        this.categories=new ArrayList();
         this.dao=new DAOCategorySQL();
         this.mapper=new MapperCategory();
     }
@@ -24,16 +22,14 @@ public class CategoryController
     {
         Category c=new Category();
         c.setName(name);
-        this.categories.add(c);
         this.dao.save(mapper.convertCategoryToDTOCategory(c));
     }
     public void removeCategory(int index)
     {
-        this.categories.remove(index);
     }
-    public Category getCategory(int index)
+    public Category getCategoryById(long id) throws DAOException
     {
-        return this.categories.get(index);
+        return mapper.convertDTOCategoryToCategory(this.dao.byId(id));
     }
     public List<Category> listAll() throws DAOException
     {

@@ -8,15 +8,17 @@ public class DTOProduct
     private String name;
     private String description;
     private float price;
-    private int idCategory;
+    private int stock;
+    private long idCategory;
     //Constructors
     public DTOProduct(){}
-    public DTOProduct(int id,String name,String description,float price,int idCategory)
+    public DTOProduct(int id,String name,String description,float price,int stock,long idCategory)
     {
         this.id=id;
         this.name=name;
         this.description=description;
         this.price=price;
+        this.stock=stock;
         this.idCategory=idCategory;
     }
     //Getters and setters
@@ -24,12 +26,14 @@ public class DTOProduct
     public String getName(){return this.name;}
     public String getDescription(){return this.description;}
     public float getPrice(){return this.price;}
-    public int getIdCategory(){return this.idCategory;}
+    public int getStock(){return this.stock;}
+    public long getIdCategory(){return this.idCategory;}
     public void setId(int id){this.id=id;}
     public void setName(String name){this.name=name;}
     public void setDescription(String description){this.description=description;}
     public void setPrice(float price){this.price=price;}
-    public void setIdCategory(int idCategory){this.idCategory=idCategory;}
+    public void setStock(int stock){this.stock=stock;}
+    public void setIdCategory(long idCategory){this.idCategory=idCategory;}
     //Functions
     @Override
     public int hashCode()
@@ -39,7 +43,8 @@ public class DTOProduct
         hash=29*hash+Objects.hashCode(this.name);
         hash=29*hash+Objects.hashCode(this.description);
         hash=29*hash+(int)this.price;
-        hash=29*hash+this.idCategory;
+        hash=29*hash+this.stock;
+        hash=29*hash+(int)this.idCategory;
         return hash;
     }
     @Override
@@ -75,6 +80,10 @@ public class DTOProduct
         {
             return false;
         }
+        if(this.stock!=other.getStock())
+        {
+            return false;
+        }
         return this.idCategory==other.getIdCategory();
     }
     @Override
@@ -85,6 +94,7 @@ public class DTOProduct
         s+="\"name\":"+this.name+",";
         s+="\"description\":"+this.description+",";
         s+="\"price\":"+this.price+",";
+        s+="\"stock\":"+this.stock+",";
         s+="\"idCategory\":"+this.idCategory;
         s+="}";
         return s;

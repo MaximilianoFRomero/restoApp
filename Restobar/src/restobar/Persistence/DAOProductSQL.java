@@ -26,7 +26,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
             stmt.setString(1,t.getName());
             stmt.setString(2,t.getDescription());
             stmt.setFloat(3, t.getPrice());
-            stmt.setInt(4,t.getIdCategory());
+            stmt.setLong(4,t.getIdCategory());
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())

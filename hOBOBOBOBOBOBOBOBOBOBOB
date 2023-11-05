@@ -1,0 +1,217 @@
+[33mcommit 95d3577be6ca140f0cf31845b46df6224d7efdcc[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Luca Suzier Daniel <lsd@LSDebian.lsd_server.com>
+Date:   Wed Oct 25 23:45:20 2023 -0300
+
+    feat<Mapper>:Added a mapper for Category.
+    Added a mapper for category.
+    
+    Added by Luca Suizer Daniel.
+
+[33mcommit 5da788494c17400b395fed12657b03a37fbd93b2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Luca Suizer Daniel <lsd@LSDebian.lsd_server.com>
+Date:   Wed Oct 25 20:57:13 2023 -0300
+
+    .
+
+[33mcommit bf4ddedd18b65625d050032dfd3f611def33456b[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Wed Oct 25 18:07:26 2023 -0300
+
+    feat(db): New database created and added
+
+[33mcommit 69a81d6f04e305a55d99733c031f5760b9e6b39c[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Wed Oct 25 17:43:14 2023 -0300
+
+    feat(db): New database created and added
+
+[33mcommit 04c5ec8727b55eea13fb930f3082b680f9583084[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Wed Oct 18 18:48:30 2023 -0300
+
+    feat(views): views resolution fixed
+
+[33mcommit 143632b71282ebfed53d892d65b0a785c0462dae[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Wed Oct 18 18:00:59 2023 -0300
+
+    feat(views): New view files added 18-10
+
+[33mcommit d2ebb4eab0f9baaba4d888b1a62db2fd433675d9[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Oct 14 19:07:30 2023 -0300
+
+    feat(views): new view files added
+
+[33mcommit 7505b056f83cd1f65f7fe759eb9b19b3d1728f1f[m
+Merge: e25ee18 8c27d3a
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Oct 14 00:52:02 2023 -0300
+
+    feat(views): New view files added
+
+[33mcommit e25ee187b7b1a87383ffa25610e16a89ba42c3a9[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Oct 14 00:43:01 2023 -0300
+
+    feat(views): New view files added
+
+[33mcommit 8c27d3a685804f7d456e0d9fe632ae46c51ed274[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Sat Oct 14 00:26:23 2023 -0300
+
+    feat<DTOs DAOs> Added new DTOs and DAOs
+    Added DTOs and DAOs for product and category.
+    Added method for list all entries of a table in the data base.
+    
+    Added by Luca Suizer Daniel
+
+[33mcommit 0f7ef680fdaf9a919740f92a625876898a3ec223[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Thu Oct 12 11:04:10 2023 -0300
+
+    feat<DB> Connection with the MySQL data base titos
+    Added a connection with the titos data base.
+    
+    Added by Luca Suizer Daniel
+
+[33mcommit 66dcb6097e9fabf667a8a010b3f28da5df104edf[m
+Author: Xero-1 <lucasuizerdaniel@gmail.com>
+Date:   Wed Oct 11 19:20:07 2023 -0300
+
+    chore<JDK> Main JDK project updated
+    Updated JDK to 17
+    
+    By Luca Suizer Daniel
+
+[33mcommit 6d193ef2d56b5eca9e28aac44422cfd63fad735b[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Wed Oct 11 17:45:57 2023 -0300
+
+    fix<DAOs> Added connection and save functions to DAOWaiterSQL
+    Added functions for connect and save a waiter to the interface DAOWaiterSQL.
+    
+    Added by Luca Suizer Daniel
+
+[33mcommit 635271a8e4a710717f74121ef8b8ce438472dd2c[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Wed Oct 11 15:43:51 2023 -0300
+
+    feat<DTOs Persistence> Added new class and interfaces
+    Added DTOWaiter,DAOException,DAOInterface and DAOWaiterSQL
+    Added methods for calculate the total price of an item and an order
+    
+    Added by Luca Suizer Daniel
+
+[33mcommit d516f8ccabc51baee6e7cb3abd207b628de8ec19[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Fri Sep 22 16:28:22 2023 -0300
+
+    docs(class) new drawio class diagram added
+
+[33mcommit 315a4489ae0ad4ec890240f253a00779b978f7b5[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Mon Sep 11 15:49:51 2023 -0300
+
+    feat<Models> Added new models
+    Added Model Item, Price and Category
+    
+    Added by Luca Suizer Daniel
+
+[33mcommit 581a99c7dc82e1b03de77ee79fdb9503d0dcafad[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Sep 2 19:00:42 2023 -0300
+
+    feat<views> Nuevas vistas añadidas
+    
+    added Vista cargaMozo, vista addProduct, Vista Menues
+    
+    added by Maximiliano Romero
+
+[33mcommit ce7a5d4cafc42af4a321b0e19f806fd482cc9530[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Sep 2 17:58:06 2023 -0300
+
+    feat<pdf> Class Diagram
+    added diagrama de clases en formato pdf para vista online
+    added by Maximiliano Romero
+
+[33mcommit 88b6a739d1fc7e04b1ee382b2f1986accaa39150[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Sep 2 17:55:27 2023 -0300
+
+    feat<class-diagram>
+    
+    addded diagrama de clases de Titos Restobar (en desarrollo, abierto a feat)
+    
+    added by Maximiliano Romero
+
+[33mcommit 0b3a9ea1b26630ad90f358756751ac82b6f99f7d[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Sep 2 17:53:59 2023 -0300
+
+    feat<specs>
+    added Consigna de la actividad articuladora
+    added by Maximiliano Romero
+
+[33mcommit 83cddbce1676fe708aac999531cbbf487f21fca0[m
+Merge: 890a6f9 3126dd8
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Sep 2 17:48:35 2023 -0300
+
+    fix<privacy-properties>
+    eliminado error de privacidad de propiedades de Netbeans
+    fixed by Maximiliano Romero
+
+[33mcommit 890a6f93794c89bbbbf5c7ae4fa819d1806d76be[m
+Author: Maximiliano Romero <maximilianoromerovigo@gmail.com>
+Date:   Sat Sep 2 17:45:21 2023 -0300
+
+    feat<views>
+    agregadas vistas cargamozos y menu
+    added by Maximiliano Romero
+
+[33mcommit 3126dd8ea30cd859f565706647ee9adde2ad91b1[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Fri Sep 1 16:01:02 2023 -0300
+
+    feat(Models): Añadí metodos toString con formato JSON a las clases del modelo y creé la clase Waiter
+    Creé y añadí la clase Waiter al modelo para representar a un mozo.
+    Añadí metodos toString a todas las clases del modelo con formato JSON.
+    Añadí al main un test para ver si el output de los toString es satisfactorio.
+    Cambie la clase Table para que solo tuviera una objeto de clase Order
+    
+    Revisar el output de los toString de los modelos para ver si cumplen bien con los estandares JSON.
+
+[33mcommit 2d97deb36f36dfc2b7a673f6bc65d5f736b05951[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Thu Aug 31 11:50:43 2023 -0300
+
+    feat(Models Controllers): Añadí el modelo y controladora de Waiter,también arreglé el problema de TableController.addTable()
+    Creé y añadí el modelo y controladora de la clase Waiter(Mozo).
+    Solucione un problema con el método addTable() de TableController,no se pedia la cantidad de personas como parametro.
+
+[33mcommit 00cf8f1328e2883c528404d0fa8125dc73f75818[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Thu Aug 31 10:30:35 2023 -0300
+
+    fix(Order Table): Cambie los ID de String a int y añadí más atributos
+    
+    En los modelos de Order y Table cambie los IDs a int
+    En el modelo Order añadí los atributos para el monto a cobrar,el monto pagado y las horas de apertura y cierre
+    En el modelo Table añadí un atributo para saber la cantidad de cubiertos que tiene la mesa
+
+[33mcommit 3e463913a752c8749c4a908e7f34ae1c0a6dc2fb[m
+Author: Luca Suizer Daniel <lucasuizerdaniel@gmail.com>
+Date:   Wed Aug 30 22:36:55 2023 -0300
+
+    feat(models controllers): Añadí 3 models y 2 controllers
+    
+    Creé y añadí modelos para product,order y table.
+    Creè y añadí controladoras para product y table.
+
+[33mcommit 04376c166560970b6cc521c67f9cf662adffd8fc[m
+Author: MaximilianoRomero <maximilianoromerovigo@gmail.com>
+Date:   Tue Aug 29 12:24:29 2023 -0300
+
+    First commit

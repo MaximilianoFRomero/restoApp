@@ -17,9 +17,9 @@ public class ProductController
     //Getters and setters
     public CategoryController getCategoryController(){return this.categoryCont;}
     //Funcitons
-    public void addProduct(int idProduct,String name,String description,float price,Boolean elaborated,Category category)
+    public void addProduct(int idProduct,String name,String description,float price,int stock,Category category)
     {
-        this.products.add(new Product(idProduct,name,description,price,elaborated,category));
+        this.products.add(new Product(idProduct,name,description,price,stock,category));
     }
     public void removeProduct(int index)
     {

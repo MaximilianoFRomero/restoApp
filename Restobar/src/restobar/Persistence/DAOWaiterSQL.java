@@ -72,7 +72,42 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
     @Override
     public DTOWaiter byId(long id) throws DAOException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String sql = "SELECT wa.id, wa.name, wa.lastName "
+                + "FROM waiters wa WHERE wa.id="+id;
+        DTOWaiter output = new DTOWaiter();
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            output.setId(res.getLong(1));
+            output.setName(res.getString(2));
+            output.setLastName(res.getString(3));
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
     }
 
     @Override
@@ -117,7 +152,7 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
     {
         while (res.next()) {
             DTOWaiter wa = new DTOWaiter();
-            wa.setId(res.getInt(1));
+            wa.setId(res.getLong(1));
             wa.setName(res.getString(2));
             wa.setLastName(res.getString(3));
             output.add(wa);
