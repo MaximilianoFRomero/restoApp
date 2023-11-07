@@ -71,44 +71,9 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     }
 
     @Override
-    public DTOCategory byId(long id) throws DAOException
+    public DTOCategory byId(int id) throws DAOException
     {
-        String sql = "SELECT ca.id, ca.name "
-                + "FROM categories ca WHERE ca.id="+id;
-        
-        Connection cn = null;
-        Statement stmt = null;
-        ResultSet res = null;
-        
-        DTOCategory output=new DTOCategory();
-        
-        try {
-            cn = connect();
-            stmt = cn.createStatement();
-            res = stmt.executeQuery(sql);
-            output.setId(res.getLong(1));
-            output.setName(res.getString(2));
-        } catch (SQLException ex) {
-            throw new DAOException(ex.getMessage());
-        } finally {
-            if (res != null) {
-                try {
-                    res.close();
-                    res = null;
-                } catch (SQLException ex) {
-                    throw new DAOException(ex.getMessage());
-                }
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                    stmt = null;
-                } catch (SQLException ex) {
-                    throw new DAOException(ex.getMessage());
-                }
-            }
-        }
-        return output;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -153,7 +118,7 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     {
         while (res.next()) {
             DTOCategory ca = new DTOCategory();
-            ca.setId(res.getLong(1));
+            ca.setId(res.getInt(1));
             ca.setName(res.getString(2));
             output.add(ca);
         }

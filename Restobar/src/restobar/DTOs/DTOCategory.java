@@ -4,19 +4,19 @@ import java.util.Objects;
 
 public class DTOCategory
 {
-    private long id;
+    private int id;
     private String name;
     //Constructors
     public DTOCategory(){}
-    public DTOCategory(long id,String name)
+    public DTOCategory(int id,String name)
     {
         this.id=id;
         this.name=name;
     }
     //Getters and setters
-    public long getId(){return this.id;}
+    public int getId(){return this.id;}
     public String getName(){return this.name;}
-    public void setId(long id){this.id=id;}
+    public void setId(int id){this.id=id;}
     public void setName(String name){this.name=name;}
     //Functions
     @Override
@@ -43,7 +43,7 @@ public class DTOCategory
             return false;
         }
         
-        final DTOWaiter other=(DTOWaiter) obj;
+        final DTOCategory other=(DTOCategory) obj;
         if(this.id!=other.getId())
         {
             return false;

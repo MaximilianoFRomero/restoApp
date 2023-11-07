@@ -18,7 +18,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
         PreparedStatement stmt=null;
         ResultSet res=null;
         
-        String sql="INSERT INTO products(name,description,price,idCategory) VALUES(?,?,?,?);";
+        String sql="INSERT INTO products(name,description,price,stock,idCategory) VALUES(?,?,?,?,?);";
         try
         {
             con=connect();
@@ -26,7 +26,8 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
             stmt.setString(1,t.getName());
             stmt.setString(2,t.getDescription());
             stmt.setFloat(3, t.getPrice());
-            stmt.setLong(4,t.getIdCategory());
+            stmt.setInt(4, t.getStock());
+            stmt.setInt(5,t.getIdCategory());
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -74,7 +75,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
     }
 
     @Override
-    public DTOProduct byId(long id) throws DAOException
+    public DTOProduct byId(int id) throws DAOException
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -82,7 +83,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
     @Override
     public List<DTOProduct> listAll() throws DAOException
     {
-        String sql = "SELECT pr.id, pr.name, pr.description, pr.price "
+        String sql = "SELECT pr.id, pr.name, pr.description, pr.price, pr.stock, pr.idCategory "
                 + "FROM products pr;";
         List<DTOProduct> output = new ArrayList();
         
@@ -119,7 +120,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
     }
     public List<DTOProduct> findByIdCategory(int idCategory) throws DAOException
     {
-        String sql = "SELECT pr.id, pr.name, pr.description, pr.price "
+        String sql = "SELECT pr.id, pr.name, pr.description, pr.price, pr.stock, pr.idCategory "
                 + "FROM products pr WHERE pr.idCategory="+idCategory;
         List<DTOProduct> output = new ArrayList();
         
@@ -162,6 +163,8 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
             pr.setName(res.getString(2));
             pr.setDescription(res.getString(3));
             pr.setPrice(res.getFloat(4));
+            pr.setStock(res.getInt(5));
+            pr.setIdCategory(res.getInt(6));
             output.add(pr);
         }
     }    

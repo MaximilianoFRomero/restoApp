@@ -6,20 +6,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import restobar.Controllers.CategoryController;
+import restobar.Controllers.ProductController;
 import restobar.Controllers.WaiterController;
-import restobar.DTOs.DTOCategory;
 import restobar.Models.Category;
-import restobar.Persistence.DAOCategorySQL;
 import restobar.Persistence.DAOException;
 
 public class Menues extends javax.swing.JFrame {
     WaiterController waiterCont;
     CategoryController categoryCont;
+    ProductController productCont;
     public Menues() {
         initComponents();
         this.setExtendedState(6);
         this.waiterCont= new WaiterController();
         this.categoryCont=new CategoryController();
+        this.productCont=new ProductController();
         listCategories();
     }
 
@@ -530,6 +531,7 @@ public class Menues extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         addProduct p1 = new addProduct();
         p1.setVisible(true);
+        p1.setProductController(productCont);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed

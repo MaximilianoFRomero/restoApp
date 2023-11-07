@@ -27,7 +27,7 @@ public class CategoryController
     public void removeCategory(int index)
     {
     }
-    public Category getCategoryById(long id) throws DAOException
+    public Category getCategoryById(int id) throws DAOException
     {
         return mapper.convertDTOCategoryToCategory(this.dao.byId(id));
     }

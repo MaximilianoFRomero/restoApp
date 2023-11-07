@@ -2,31 +2,48 @@ package restobar.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import restobar.Mappers.MapperProduct;
 import restobar.Models.Category;
+import restobar.Models.Price;
 import restobar.Models.Product;
+import restobar.Persistence.DAOException;
+import restobar.Persistence.DAOProductSQL;
 
 public class ProductController
 {
-    private List<Product> products;
+    private DAOProductSQL dao;
+    private MapperProduct mapper;
     private CategoryController categoryCont;
     public ProductController()
     {
-        this.products=new ArrayList();
+        this.dao=new DAOProductSQL();
+        this.mapper=new MapperProduct();
         this.categoryCont=new CategoryController();
     }
     //Getters and setters
     public CategoryController getCategoryController(){return this.categoryCont;}
     //Funcitons
-    public void addProduct(int idProduct,String name,String description,float price,int stock,Category category)
+    public void addProduct(String name,String description,float price,int stock,int idCategory) throws DAOException
     {
-        this.products.add(new Product(idProduct,name,description,price,stock,category));
+        Product p=new Product();
+        p.setName(name);
+        p.setDescription(description);
+        p.setPrice(new Price(price));
+        p.setStock(stock);
+        p.setCategory(categoryCont.getCategoryById(idCategory));
+        this.dao.save(mapper.convertProductToDTOProduct(p));
     }
     public void removeProduct(int index)
     {
-        this.products.remove(index);
     }
-    public Product getProduct(int index)
+    public Product getProductById(int id) throws DAOException
     {
-        return this.products.get(index);
+        return this.mapper.convertDTOProductToProduct(dao.byId(id));
     }
+    /*
+    public List<Product> getProductByIdCategory(long idCategory)
+    {
+        return 
+    }
+    */
 }

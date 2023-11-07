@@ -28,12 +28,12 @@ public class MapperWaiter
     }
     public List<Waiter> convertDTOWaitersToWaiters(List<DTOWaiter> listDTO)
     {
-        List<Waiter> listCategory=new ArrayList();
+        List<Waiter> listWaiter=new ArrayList();
         for(int i=0;i<listDTO.size();i++)
         {
-            listCategory.add(convertDTOWaiterToWaiter(listDTO.get(i)));
+            listWaiter.add(convertDTOWaiterToWaiter(listDTO.get(i)));
         }
-        return listCategory;
+        return listWaiter;
     }
 }
 

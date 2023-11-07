@@ -18,7 +18,7 @@ public class WaiterController
         this.mapper=new MapperWaiter();
     }
     //Functions
-    public void addWaiter(long id,String name,String lastName) throws DAOException
+    public void addWaiter(int id,String name,String lastName) throws DAOException
     {
         Waiter w=new Waiter();
         w.setId(id);
@@ -29,7 +29,7 @@ public class WaiterController
     public void removeWaiter(int index)
     {
     }
-    public Waiter getWaiterById(long id) throws DAOException
+    public Waiter getWaiterById(int id) throws DAOException
     {
         return mapper.convertDTOWaiterToWaiter(dao.byId(id));
     }

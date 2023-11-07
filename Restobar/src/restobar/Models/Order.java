@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Order//Pedido
 {
+    private long id;
     private float amountPaid;//Monto pagado
     private Date dateOpen;
     private Date dateClose;
@@ -13,6 +14,7 @@ public class Order//Pedido
     //Constructors
     public Order()
     {
+        this.id=0;
         this.items=new ArrayList();
         this.amountPaid=0;
         this.dateOpen=new Date();
@@ -22,9 +24,11 @@ public class Order//Pedido
         this.items=items;
     }
     //Getters and setters
+    public long getId(){return this.id;}
     public float getAmountPaid(){return this.amountPaid;}
     public Date getDateOpen(){return this.dateOpen;}
     public Date getDateClose(){return this.dateClose;}
+    public void setId(long id){this.id=id;}
     public void setDateOpen(Date dateOpen){this.dateOpen=dateOpen;}
     public void setDateClose(Date dateClose){this.dateClose=dateClose;}
     public void setAmountPaid(float amountPaid){this.amountPaid=amountPaid;}
@@ -44,8 +48,7 @@ public class Order//Pedido
     public float calculatePrice()
     {
         float result=0;
-        for(Item item: items)
-            result+=item.calculateTotalPrice();
+        
         return result;
     }
 }

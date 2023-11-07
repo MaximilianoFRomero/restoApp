@@ -15,20 +15,20 @@ public class MapperProduct
     public Product convertDTOProductToProduct(DTOProduct dto)
     {
         Product p=new Product();
-        p.setIdProduct(dto.getId());
+        p.setId(dto.getId());
         p.setName(dto.getName());
         p.setDescription(dto.getDescription());
         p.setPrice(new Price(dto.getPrice()));
         p.setStock(dto.getStock());
         Category c=new Category();
-        c.setId(dto.getId());
+        c.setId(dto.getIdCategory());
         p.setCategory(c);
         return p;
     }
     public DTOProduct convertProductToDTOProduct(Product p)
     {
         DTOProduct dto=new DTOProduct();
-        dto.setId(p.getIdProduct());
+        dto.setId(p.getId());
         dto.setName(p.getName());
         dto.setDescription(p.getDescription());
         dto.setPrice(p.getPrice().getValue());

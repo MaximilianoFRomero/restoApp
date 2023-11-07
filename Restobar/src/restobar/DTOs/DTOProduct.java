@@ -9,10 +9,10 @@ public class DTOProduct
     private String description;
     private float price;
     private int stock;
-    private long idCategory;
+    private int idCategory;
     //Constructors
     public DTOProduct(){}
-    public DTOProduct(int id,String name,String description,float price,int stock,long idCategory)
+    public DTOProduct(int id,String name,String description,float price,int stock,int idCategory)
     {
         this.id=id;
         this.name=name;
@@ -27,13 +27,13 @@ public class DTOProduct
     public String getDescription(){return this.description;}
     public float getPrice(){return this.price;}
     public int getStock(){return this.stock;}
-    public long getIdCategory(){return this.idCategory;}
+    public int getIdCategory(){return this.idCategory;}
     public void setId(int id){this.id=id;}
     public void setName(String name){this.name=name;}
     public void setDescription(String description){this.description=description;}
     public void setPrice(float price){this.price=price;}
     public void setStock(int stock){this.stock=stock;}
-    public void setIdCategory(long idCategory){this.idCategory=idCategory;}
+    public void setIdCategory(int idCategory){this.idCategory=idCategory;}
     //Functions
     @Override
     public int hashCode()
