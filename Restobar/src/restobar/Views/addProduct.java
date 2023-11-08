@@ -7,6 +7,9 @@ package restobar.Views;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 import restobar.Controllers.ProductController;
 import restobar.Models.Category;
 import restobar.Persistence.DAOException;
@@ -18,12 +21,24 @@ import restobar.Persistence.DAOException;
 public class addProduct extends javax.swing.JFrame {
 
     private ProductController cont;
+    private JComboBox cmbCategories;
+    private JTable tableProducts;
+    private Menues mainView;
     public addProduct() {
         initComponents();
     }
-    public addProduct(ProductController c) {
+    public addProduct(ProductController co,JTable t,JComboBox b,Menues f) {
         initComponents();
-        this.cont=c;
+        this.cont=co;
+        this.cmbCategories=b;
+        this.tableProducts=t;
+        this.mainView=f;
+        listCategories();
+    }
+    public addProduct(ProductController co,Menues f) {
+        initComponents();
+        this.cont=co;
+        this.mainView=f;
         listCategories();
     }
     /**
@@ -244,6 +259,11 @@ public class addProduct extends javax.swing.JFrame {
             else
                 stock=0;
             this.cont.addProduct(textName.getText(), textDescription.getText(), Float.valueOf(textPrice.getText()), 1, comboCategories.getSelectedIndex()+1);
+            if(cmbCategories.getSelectedIndex()+1==comboCategories.getSelectedIndex()+1)
+            {
+                mainView.listProductsByCategory(comboCategories.getSelectedIndex()+1);
+            }
+            
             this.dispose();
         } catch (DAOException ex) {
             Logger.getLogger(addProduct.class.getName()).log(Level.SEVERE, null, ex);

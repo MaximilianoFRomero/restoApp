@@ -532,7 +532,7 @@ public class Menues extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        addProduct p1 = new addProduct(productCont);
+        addProduct p1 = new addProduct(productCont,tableProducts,mainCategories,this);
         p1.setVisible(true);
         //p1.setProductController(productCont);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -560,6 +560,7 @@ public class Menues extends javax.swing.JFrame {
         addCategory addCatWin = new addCategory();
         addCatWin.setVisible(true);
         addCatWin.setCategoryController(categoryCont);
+        addCatWin.setCmbCategories(mainCategories);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
@@ -594,7 +595,7 @@ public class Menues extends javax.swing.JFrame {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void listProductsByCategory(int idCategory)
+    public void listProductsByCategory(int idCategory)
     {
         try {
             List<Product> p=this.productCont.getProductsFomCategory(idCategory);
