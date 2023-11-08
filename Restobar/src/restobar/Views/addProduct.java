@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import restobar.Controllers.ProductController;
+import restobar.Models.Category;
 import restobar.Persistence.DAOException;
 
 /**
@@ -20,7 +21,11 @@ public class addProduct extends javax.swing.JFrame {
     public addProduct() {
         initComponents();
     }
-    public void setProductController(ProductController c){this.cont=c;}
+    public addProduct(ProductController c) {
+        initComponents();
+        this.cont=c;
+        listCategories();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,7 +104,6 @@ public class addProduct extends javax.swing.JFrame {
         jLabel5.setText("Añadir nuevo producto");
 
         comboCategories.setMaximumRowCount(3);
-        comboCategories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bebidas", "Entradas", "Plato ppal", "Postres" }));
         comboCategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCategoriesActionPerformed(evt);
@@ -234,7 +238,12 @@ public class addProduct extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {
-            this.cont.addProduct("Papas", "Son unas papas", 0, 0, 1);
+            int stock;
+            if(checkElaborated.isSelected())
+                stock=-1;
+            else
+                stock=0;
+            this.cont.addProduct(textName.getText(), textDescription.getText(), Float.valueOf(textPrice.getText()), 1, comboCategories.getSelectedIndex()+1);
             this.dispose();
         } catch (DAOException ex) {
             Logger.getLogger(addProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -274,6 +283,16 @@ public class addProduct extends javax.swing.JFrame {
                 new addProduct().setVisible(true);
             }
         });
+    }
+    private void listCategories(){
+        try {
+            List<Category> c=this.cont.getCategoryController().listAll();
+            for (int i = 0; i < c.size();i++){
+                comboCategories.addItem(c.get(i).getName());
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

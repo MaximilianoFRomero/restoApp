@@ -30,7 +30,8 @@ public class ProductController
         p.setDescription(description);
         p.setPrice(new Price(price));
         p.setStock(stock);
-        p.setCategory(categoryCont.getCategoryById(idCategory));
+        //p.setCategory(categoryCont.getCategoryById(idCategory));
+        p.setCategory(new Category(idCategory,"NONE"));
         this.dao.save(mapper.convertProductToDTOProduct(p));
     }
     public void removeProduct(int index)
@@ -40,10 +41,12 @@ public class ProductController
     {
         return this.mapper.convertDTOProductToProduct(dao.byId(id));
     }
-    /*
-    public List<Product> getProductByIdCategory(long idCategory)
+    public List<Product> listAll() throws DAOException
     {
-        return 
+        return this.mapper.convertDTOProductsToProducts(dao.listAll());
     }
-    */
+    public List<Product> getProductsFomCategory(int idCategory) throws DAOException
+    {
+        return this.mapper.convertDTOProductsToProducts(dao.findByIdCategory(idCategory));
+    }
 }

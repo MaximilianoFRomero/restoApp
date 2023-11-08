@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 import restobar.Controllers.CategoryController;
 import restobar.Controllers.ProductController;
 import restobar.Controllers.WaiterController;
 import restobar.Models.Category;
+import restobar.Models.Product;
 import restobar.Persistence.DAOException;
 
 public class Menues extends javax.swing.JFrame {
@@ -22,6 +24,7 @@ public class Menues extends javax.swing.JFrame {
         this.categoryCont=new CategoryController();
         this.productCont=new ProductController();
         listCategories();
+        listProductsByCategory(1);
     }
 
     @SuppressWarnings("unchecked")
@@ -59,7 +62,7 @@ public class Menues extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         mainCategories = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tableProducts = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -279,7 +282,7 @@ public class Menues extends javax.swing.JFrame {
 
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tableProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -290,20 +293,15 @@ public class Menues extends javax.swing.JFrame {
                 "Codigo", "Descripcion", "Importe"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setResizable(false);
-            jTable3.getColumnModel().getColumn(1).setResizable(false);
-            jTable3.getColumnModel().getColumn(2).setResizable(false);
-        }
+        jScrollPane3.setViewportView(tableProducts);
 
         jButton6.setText("Añadir");
 
@@ -424,6 +422,11 @@ public class Menues extends javax.swing.JFrame {
         jMenu9.add(jMenuItem11);
 
         jMenuItem18.setText("Listado de productos");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem18);
 
         jMenuBar4.add(jMenu9);
@@ -529,9 +532,9 @@ public class Menues extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        addProduct p1 = new addProduct();
+        addProduct p1 = new addProduct(productCont);
         p1.setVisible(true);
-        p1.setProductController(productCont);
+        //p1.setProductController(productCont);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -550,7 +553,7 @@ public class Menues extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void mainCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainCategoriesActionPerformed
-        
+        listProductsByCategory(mainCategories.getSelectedIndex()+1);
     }//GEN-LAST:event_mainCategoriesActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
@@ -569,6 +572,11 @@ public class Menues extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        TESTproductList l=new TESTproductList(productCont);
+        l.setVisible(true);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -578,9 +586,30 @@ public class Menues extends javax.swing.JFrame {
     }
     private void listCategories(){
         try {
-            List<Category> c = this.categoryCont.listAll();
+            List<Category> c=this.categoryCont.listAll();
             for (int i = 0; i < c.size();i++){
                 mainCategories.addItem(c.get(i).getName());
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void listProductsByCategory(int idCategory)
+    {
+        try {
+            List<Product> p=this.productCont.getProductsFomCategory(idCategory);
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Codigo");
+            model.addColumn("Descripcion");
+            model.addColumn("Importe");
+            tableProducts.setModel(model);
+            String [] datos = new String[3];
+            for(int i=0;i<p.size();i++)
+            {
+                datos[0]=p.get(i).getId()+"";
+                datos[1]=p.get(i).getName();
+                datos[2]=p.get(i).getPrice().getValue()+"";
+                model.addRow(datos);
             }
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
@@ -642,9 +671,9 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JComboBox<String> mainCategories;
     private rojeru_san.RSLabelFecha rSLabelFecha1;
     private rojeru_san.RSLabelHora rSLabelHora1;
+    private javax.swing.JTable tableProducts;
     // End of variables declaration//GEN-END:variables
 }

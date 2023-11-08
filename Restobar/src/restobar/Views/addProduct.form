@@ -229,9 +229,6 @@
         <Component class="javax.swing.JComboBox" name="comboCategories">
           <Properties>
             <Property name="maximumRowCount" type="int" value="3"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Bebidas&quot;, &quot;Entradas&quot;, &quot;Plato ppal&quot;, &quot;Postres&quot; })" type="code"/>
-            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboCategoriesActionPerformed"/>
