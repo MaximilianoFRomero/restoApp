@@ -5,32 +5,36 @@ import java.util.List;
 import restobar.DTOs.DTOCategory;
 import restobar.Models.Category;
 
-public class MapperCategory
+public class MapperCategory implements MapperInterface<DTOCategory,Category>
 {
     public MapperCategory()
     {
     }
-    public Category convertDTOCategoryToCategory(DTOCategory dto)
-    {
-        Category c=new Category();
-        c.setId(dto.getId());
-        c.setName(dto.getName());
-        return c;
+
+    @Override
+    public Category convertDtoToObj(DTOCategory dto) {
+        Category o=new Category();
+        o.setId(dto.getId());
+        o.setName(dto.getName());
+        return o;
     }
-    public DTOCategory convertCategoryToDTOCategory(Category c)
-    {
+
+    @Override
+    public DTOCategory convertObjToDto(Category o) {
         DTOCategory dto=new DTOCategory();
-        dto.setId(c.getId());
-        dto.setName(c.getName());
+        dto.setId(o.getId());
+        dto.setName(o.getName());
         return dto;
     }
-    public List<Category> convertDTOCategoriesToCategories(List<DTOCategory> listDTO)
-    {
+
+    @Override
+    public List<Category> convertListDtoToListObj(List<DTOCategory> listDTO) {
         List<Category> listCategory=new ArrayList();
         for(int i=0;i<listDTO.size();i++)
         {
-            listCategory.add(convertDTOCategoryToCategory(listDTO.get(i)));
+            listCategory.add(convertDtoToObj(listDTO.get(i)));
         }
         return listCategory;
     }
+
 }

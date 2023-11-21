@@ -113,7 +113,8 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
         }
         return output;
     }
-    private void convertToList(ResultSet res, List<DTOWaiter> output) throws SQLException
+    @Override
+    public void convertToList(ResultSet res, List<DTOWaiter> output) throws SQLException
     {
         while (res.next()) {
             DTOWaiter wa = new DTOWaiter();

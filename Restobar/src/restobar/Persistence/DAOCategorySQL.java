@@ -55,7 +55,7 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                     throw new DAOException(ex.getMessage());
                 }
             }
-        }        
+        }      
     }
 
     @Override
@@ -114,7 +114,8 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
         }
         return output;
     }
-    private void convertToList(ResultSet res, List<DTOCategory> output) throws SQLException
+    @Override
+    public void convertToList(ResultSet res, List<DTOCategory> output) throws SQLException
     {
         while (res.next()) {
             DTOCategory ca = new DTOCategory();

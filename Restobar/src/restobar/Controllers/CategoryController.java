@@ -22,17 +22,17 @@ public class CategoryController
     {
         Category c=new Category();
         c.setName(name);
-        this.dao.save(mapper.convertCategoryToDTOCategory(c));
+        this.dao.save(mapper.convertObjToDto(c));
     }
     public void removeCategory(int index)
     {
     }
     public Category getCategoryById(int id) throws DAOException
     {
-        return mapper.convertDTOCategoryToCategory(this.dao.byId(id));
+        return mapper.convertDtoToObj(this.dao.byId(id));
     }
     public List<Category> listAll() throws DAOException
     {
-        return mapper.convertDTOCategoriesToCategories(dao.listAll());
+        return mapper.convertListDtoToListObj(dao.listAll());
     }
 }

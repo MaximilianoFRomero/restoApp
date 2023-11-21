@@ -7,41 +7,44 @@ import restobar.Models.Category;
 import restobar.Models.Price;
 import restobar.Models.Product;
 
-public class MapperProduct
+public class MapperProduct implements MapperInterface<DTOProduct,Product>
 {
     public MapperProduct()
     {
     }
-    public Product convertDTOProductToProduct(DTOProduct dto)
-    {
-        Product p=new Product();
-        p.setId(dto.getId());
-        p.setName(dto.getName());
-        p.setDescription(dto.getDescription());
-        p.setPrice(new Price(dto.getPrice()));
-        p.setStock(dto.getStock());
+
+    @Override
+    public Product convertDtoToObj(DTOProduct dto) {
+        Product o=new Product();
+        o.setId(dto.getId());
+        o.setName(dto.getName());
+        o.setDescription(dto.getDescription());
+        o.setPrice(new Price(dto.getPrice()));
+        o.setStock(dto.getStock());
         Category c=new Category();
         c.setId(dto.getIdCategory());
-        p.setCategory(c);
-        return p;
+        o.setCategory(c);
+        return o;
     }
-    public DTOProduct convertProductToDTOProduct(Product p)
-    {
+
+    @Override
+    public DTOProduct convertObjToDto(Product o) {
         DTOProduct dto=new DTOProduct();
-        dto.setId(p.getId());
-        dto.setName(p.getName());
-        dto.setDescription(p.getDescription());
-        dto.setPrice(p.getPrice().getValue());
-        dto.setStock(p.getStock());
-        dto.setIdCategory(p.getCategory().getId());
+        dto.setId(o.getId());
+        dto.setName(o.getName());
+        dto.setDescription(o.getDescription());
+        dto.setPrice(o.getPrice().getValue());
+        dto.setStock(o.getStock());
+        dto.setIdCategory(o.getCategory().getId());
         return dto;
     }
-    public List<Product> convertDTOProductsToProducts(List<DTOProduct> listDTO)
-    {
+
+    @Override
+    public List<Product> convertListDtoToListObj(List<DTOProduct> listDTO) {
         List<Product> listProduct=new ArrayList();
         for(int i=0;i<listDTO.size();i++)
         {
-            listProduct.add(convertDTOProductToProduct(listDTO.get(i)));
+            listProduct.add(convertDtoToObj(listDTO.get(i)));
         }
         return listProduct;
     }

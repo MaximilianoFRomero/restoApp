@@ -32,21 +32,21 @@ public class ProductController
         p.setStock(stock);
         //p.setCategory(categoryCont.getCategoryById(idCategory));
         p.setCategory(new Category(idCategory,"NONE"));
-        this.dao.save(mapper.convertProductToDTOProduct(p));
+        this.dao.save(mapper.convertObjToDto(p));
     }
     public void removeProduct(int index)
     {
     }
     public Product getProductById(int id) throws DAOException
     {
-        return this.mapper.convertDTOProductToProduct(dao.byId(id));
+        return this.mapper.convertDtoToObj(dao.byId(id));
     }
     public List<Product> listAll() throws DAOException
     {
-        return this.mapper.convertDTOProductsToProducts(dao.listAll());
+        return this.mapper.convertListDtoToListObj(dao.listAll());
     }
     public List<Product> getProductsFomCategory(int idCategory) throws DAOException
     {
-        return this.mapper.convertDTOProductsToProducts(dao.findByIdCategory(idCategory));
+        return this.mapper.convertListDtoToListObj(dao.findByIdCategory(idCategory));
     }
 }

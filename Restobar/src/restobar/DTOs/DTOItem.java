@@ -4,24 +4,28 @@ import java.util.Objects;
 
 public class DTOItem
 {
-    private long idProduct;
-    private long idOrder;
+    private int idProduct;
+    private int idOrder;
     private int totalProduct;
+    private float individualPrice;
     //Constructors
     public DTOItem(){}
-    public DTOItem(long idProduct,long idOrder,int totalProduct)
+    public DTOItem(int idProduct,int idOrder,int totalProduct,float individualPrice)
     {
         this.idProduct=idProduct;
         this.idOrder=idOrder;
         this.totalProduct=totalProduct;
+        this.individualPrice=individualPrice;
     }
     //Getters and setters
-    public long getIdProduct(){return this.idProduct;}
-    public long getIdOrder(){return this.idOrder;}
+    public int getIdProduct(){return this.idProduct;}
+    public int getIdOrder(){return this.idOrder;}
     public int getTotalProduct(){return this.totalProduct;}
-    public void setIdProduct(long idProduct){this.idProduct=idProduct;}
-    public void setIdOrder(long idOrder){this.idOrder=idOrder;}
+    public float getIndividualPrice(){return this.individualPrice;}
+    public void setIdProduct(int idProduct){this.idProduct=idProduct;}
+    public void setIdOrder(int idOrder){this.idOrder=idOrder;}
     public void setTotalProduct(int totalProduct){this.totalProduct=totalProduct;}
+    public void setIndividualPrice(float individualPrice){this.individualPrice=individualPrice;}
     //Functions
     @Override
     public int hashCode()
@@ -30,6 +34,7 @@ public class DTOItem
         hash=29*hash+(int) (this.idProduct^(this.idProduct>>>32));
         hash=29*hash+(int) (this.idOrder^(this.idOrder>>>32));
         hash=29*hash+this.totalProduct;
+        hash=29*hash+(int) this.individualPrice;
         return hash;
     }
     @Override
@@ -57,7 +62,11 @@ public class DTOItem
         {
             return false;
         }
-        return this.totalProduct==other.getTotalProduct();
+        if(this.totalProduct!=other.getTotalProduct())
+        {
+            return false;
+        }
+        return individualPrice==other.getIndividualPrice();
     }
     @Override
     public String toString()
@@ -65,7 +74,8 @@ public class DTOItem
         String s="DTOItem{";
         s+="\"idProduct\":"+this.idProduct+",";
         s+="\"idOrder\":"+this.idOrder+",";
-        s+="\"totalProduct\":"+this.totalProduct;
+        s+="\"totalProduct\":"+this.totalProduct+",";
+        s+="\"individualPrice\":"+this.individualPrice;
         s+="}";
         return s;
     }

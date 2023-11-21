@@ -155,7 +155,8 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
         }
         return output;
     }
-    private void convertToList(ResultSet res, List<DTOProduct> output) throws SQLException
+    @Override
+    public void convertToList(ResultSet res, List<DTOProduct> output) throws SQLException
     {
         while (res.next()) {
             DTOProduct pr = new DTOProduct();

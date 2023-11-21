@@ -5,33 +5,35 @@ import java.util.List;
 import restobar.DTOs.DTOWaiter;
 import restobar.Models.Waiter;
 
-public class MapperWaiter
+public class MapperWaiter implements MapperInterface<DTOWaiter,Waiter>
 {
     public MapperWaiter()
     {
     }
-    public Waiter convertDTOWaiterToWaiter(DTOWaiter dto)
-    {
-        Waiter w=new Waiter();
-        w.setId(dto.getId());
-        w.setName(dto.getName());
-        w.setLastName(dto.getLastName());
-        return w;
+    @Override
+    public Waiter convertDtoToObj(DTOWaiter dto) {
+        Waiter o=new Waiter();
+        o.setId(dto.getId());
+        o.setName(dto.getName());
+        o.setLastName(dto.getLastName());
+        return o;
     }
-    public DTOWaiter convertWaiterToDTOWaiter(Waiter w)
-    {
+
+    @Override
+    public DTOWaiter convertObjToDto(Waiter o) {
         DTOWaiter dto=new DTOWaiter();
-        dto.setId(w.getId());
-        dto.setName(w.getName());
-        dto.setLastName(w.getLastName());
+        dto.setId(o.getId());
+        dto.setName(o.getName());
+        dto.setLastName(o.getLastName());
         return dto;
     }
-    public List<Waiter> convertDTOWaitersToWaiters(List<DTOWaiter> listDTO)
-    {
+
+    @Override
+    public List<Waiter> convertListDtoToListObj(List<DTOWaiter> listDTO) {
         List<Waiter> listWaiter=new ArrayList();
         for(int i=0;i<listDTO.size();i++)
         {
-            listWaiter.add(convertDTOWaiterToWaiter(listDTO.get(i)));
+            listWaiter.add(convertDtoToObj(listDTO.get(i)));
         }
         return listWaiter;
     }

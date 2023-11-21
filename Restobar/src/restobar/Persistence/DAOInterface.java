@@ -1,6 +1,7 @@
 package restobar.Persistence;
 
 import java.util.List;
+import java.sql.*;
 
 public interface DAOInterface<T>
 {
@@ -9,5 +10,5 @@ public interface DAOInterface<T>
     public void delete(T t) throws DAOException;
     public T byId(int id) throws DAOException;
     public List<T> listAll() throws DAOException;
-    
+    public void convertToList(ResultSet res,List<T> ouput) throws SQLException;
 }

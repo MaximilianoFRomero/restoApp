@@ -2,27 +2,25 @@ package restobar.Models;
 
 public class Item
 {
-    private long idProduct;
-    private long idOrder;
+    private Product product;
+    private int idOrder;
     private int totalProduct;
+    private float individualPrice;
     //Constructors
-    public Item()
+    public Item(){}
+    public Item(Product product,int idOrder,int totalProduct)
     {
-        this.idProduct=0;
-        this.idOrder=0;
-        this.totalProduct=0;
-    }
-    public Item(long idProduct,long idOrder,int totalProduct)
-    {
-        this.idProduct=idProduct;
+        this.product=product;
         this.idOrder=idOrder;
         this.totalProduct=totalProduct;
     }
     //Getters and setters
-    public long getIdProduct(){return this.idProduct;}
-    public long getIdOrder(){return this.idOrder;}
+    public Product getProduct(){return this.product;}
+    public int getIdOrder(){return this.idOrder;}
     public int getTotalProduct(){return this.totalProduct;}
-    public void setIdProduct(long idProduct){this.idProduct=idProduct;}
-    public void setIdOrder(long idOrder){this.idOrder=idOrder;}
+    public float getIndividualPrice(){return this.individualPrice;}
+    public void setProduct(Product product){this.product=product;}
+    public void setIdOrder(int idOrder){this.idOrder=idOrder;}
     public void setTotalProduct(int totalProduct){this.totalProduct=totalProduct;}
+    public void setIndividualPrice(float individualPrice){this.individualPrice=individualPrice;}
 }

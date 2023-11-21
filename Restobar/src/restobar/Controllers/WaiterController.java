@@ -24,17 +24,17 @@ public class WaiterController
         w.setId(id);
         w.setName(name);
         w.setLastName(lastName);
-        this.dao.save(mapper.convertWaiterToDTOWaiter(w));
+        this.dao.save(mapper.convertObjToDto(w));
     }
     public void removeWaiter(int index)
     {
     }
     public Waiter getWaiterById(int id) throws DAOException
     {
-        return mapper.convertDTOWaiterToWaiter(dao.byId(id));
+        return mapper.convertDtoToObj(dao.byId(id));
     }
     public List<Waiter> listAll() throws DAOException
     {
-        return mapper.convertDTOWaitersToWaiters(dao.listAll());
+        return mapper.convertListDtoToListObj(dao.listAll());
     }
 }
