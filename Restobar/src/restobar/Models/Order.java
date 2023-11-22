@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 public class Order//Pedido
 {
-    private long id;
-    private float amountPaid;//Monto pagado
+    private int id;
+    private int idTable;
+    private Waiter waiter;
+    private int cutlery;
     private Date dateOpen;
     private Date dateClose;
     private List<Item> items;
@@ -15,23 +17,24 @@ public class Order//Pedido
     public Order()
     {
         this.id=0;
+        this.idTable=0;
+        this.cutlery=0;
         this.items=new ArrayList();
-        this.amountPaid=0;
         this.dateOpen=new Date();
     }
-    public Order(List<Item> items)
-    {
-        this.items=items;
-    }
     //Getters and setters
-    public long getId(){return this.id;}
-    public float getAmountPaid(){return this.amountPaid;}
+    public int getId(){return this.id;}
+    public int getIdTable(){return this.idTable;}
+    public Waiter getWaiter(){return this.waiter;}
+    public int getCutlery(){return this.cutlery;}
     public Date getDateOpen(){return this.dateOpen;}
     public Date getDateClose(){return this.dateClose;}
-    public void setId(long id){this.id=id;}
+    public void setId(int id){this.id=id;}
+    public void setIdTable(int idTable){this.idTable=idTable;}
+    public void setWaiter(Waiter waiter){this.waiter=waiter;}
+    public void setCutlery(int cutlery){this.cutlery=cutlery;}
     public void setDateOpen(Date dateOpen){this.dateOpen=dateOpen;}
     public void setDateClose(Date dateClose){this.dateClose=dateClose;}
-    public void setAmountPaid(float amountPaid){this.amountPaid=amountPaid;}
     //Functions
     public void addItem(Item item)
     {

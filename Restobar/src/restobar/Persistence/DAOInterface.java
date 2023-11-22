@@ -10,5 +10,5 @@ public interface DAOInterface<T>
     public void delete(T t) throws DAOException;
     public T byId(int id) throws DAOException;
     public List<T> listAll() throws DAOException;
-    public void convertToList(ResultSet res,List<T> ouput) throws SQLException;
+    public void convertToList(ResultSet res,List<T> output) throws SQLException;
 }

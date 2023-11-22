@@ -121,7 +121,7 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
     public List<DTOProduct> findByIdCategory(int idCategory) throws DAOException
     {
         String sql = "SELECT pr.id, pr.name, pr.description, pr.price, pr.stock, pr.idCategory "
-                + "FROM products pr WHERE pr.idCategory="+idCategory;
+                + "FROM products pr WHERE pr.idCategory="+idCategory+";";
         List<DTOProduct> output = new ArrayList();
         
         Connection cn = null;
