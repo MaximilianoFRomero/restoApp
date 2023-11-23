@@ -26,13 +26,21 @@ public class ControllerCategory
     }
     public void modifyCategory(int id,String name) throws DAOException
     {
-        Category c=new Category(id,name);
-        this.dao.update(mapper.convertObjToDto(c));
+        if(id!=1)
+        {
+            Category c=new Category(id,name);
+            this.dao.update(mapper.convertObjToDto(c));
+        }else
+            throw new DAOException("Not possible modify this category.");
     }
     public void removeCategoryById(int id) throws DAOException
     {
-        Category c=new Category(id,"NONE");
-        this.dao.delete(mapper.convertObjToDto(c));
+        if(id!=1)
+        {
+            Category c=new Category(id,"NONE");
+            this.dao.delete(mapper.convertObjToDto(c));
+        }else
+            throw new DAOException("Not possible remove this category.");
     }
     public Category getCategoryById(int id) throws DAOException
     {

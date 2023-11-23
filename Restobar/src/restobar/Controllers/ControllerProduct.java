@@ -56,4 +56,11 @@ public class ControllerProduct
     {
         return this.mapper.convertListDtoToListObj(dao.findByIdCategory(idCategory));
     }
+    public void changeCategoryToNone(List<Product> list) throws DAOException
+    {
+        for(int i=0;i<list.size();i++)
+            list.get(i).setCategory(new Category(1,"NONE"));
+        for(int i=0;i<list.size();i++)
+            dao.update(mapper.convertObjToDto(list.get(i)));
+    }
 }

@@ -471,6 +471,11 @@ public class Menues extends javax.swing.JFrame {
         jMenu1.add(jMenuItem12);
 
         jMenuItem13.setText("Modificar categoria");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem13);
 
         jMenuItem14.setText("Eliminar categoria");
@@ -534,7 +539,6 @@ public class Menues extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         addProduct p1 = new addProduct(productCont,tableProducts,mainCategories,this);
         p1.setVisible(true);
-        //p1.setProductController(productCont);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -577,6 +581,11 @@ public class Menues extends javax.swing.JFrame {
         TESTproductList l=new TESTproductList(productCont);
         l.setVisible(true);
     }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        modifyCategory m = new modifyCategory(categoryCont);
+        m.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -74,6 +74,8 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
 
     @Override
     public DTOItem byId(int id) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        /*
         String sql = "SELECT it.idProduct, it.idOrder, it.totalProduct, it.price "
                 + "FROM items it WHERE id="+id+";";
         DTOItem output = null;
@@ -111,6 +113,7 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
             }
         }
         return output;
+    */
     }
 
     @Override
@@ -167,5 +170,42 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
         dto.setIndividualPrice(res.getFloat(4));
         return dto;
     }
-    
+    public List<DTOItem> findByIdOrder(int idOrder) throws DAOException
+    {
+        String sql = "SELECT it.idProduct, it.idOrder, it.totalProduct, it.price "
+                + "FROM items it WHERE idOrder="+idOrder+";";
+        
+        List<DTOItem> output=new ArrayList();
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            convertToList(res, output);
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
+    }
 }
