@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import restobar.DTOs.DTOStock;
 
-public class DAOStock implements DAOInterface<DTOStock>
+public class DAOStockSQL implements DAOInterface<DTOStock>
 {
     private Connection connect() throws SQLException
     {
@@ -72,7 +72,43 @@ public class DAOStock implements DAOInterface<DTOStock>
 
     @Override
     public DTOStock byId(int id) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT st.idProduct, st.total "
+                + "FROM stocks st WHERE id="+id+";";
+        DTOStock output = null;
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            if(res.next())
+                output=createDTO(res);
+            else
+                throw new DAOException("Stock not founded.");
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
     }
 
     @Override
@@ -116,11 +152,16 @@ public class DAOStock implements DAOInterface<DTOStock>
     @Override
     public void convertToList(ResultSet res, List<DTOStock> output) throws SQLException {
         while (res.next()) {
-            DTOStock st = new DTOStock();
-            st.setIdProduct(res.getInt(1));
-            st.setTotal(res.getInt(2));
-            output.add(st);
+            output.add(createDTO(res));
         }
+    }
+
+    @Override
+    public DTOStock createDTO(ResultSet res) throws SQLException {
+        DTOStock dto = new DTOStock();
+        dto.setIdProduct(res.getInt(1));
+        dto.setTotal(res.getInt(2));
+        return dto;
     }
     
 }

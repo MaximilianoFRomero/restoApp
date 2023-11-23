@@ -7,12 +7,12 @@ import restobar.Models.Waiter;
 import restobar.Persistence.DAOException;
 import restobar.Persistence.DAOWaiterSQL;
 
-public class WaiterController
+public class ControllerWaiter
 {
     DAOWaiterSQL dao;
     MapperWaiter mapper;
     //Constructors
-    public WaiterController()
+    public ControllerWaiter()
     {
         this.dao=new DAOWaiterSQL();
         this.mapper=new MapperWaiter();
@@ -26,8 +26,16 @@ public class WaiterController
         w.setLastName(lastName);
         this.dao.save(mapper.convertObjToDto(w));
     }
-    public void removeWaiter(int index)
+    public void modifyWaiter(int id,String name,String lastName) throws DAOException
     {
+        Waiter w=new Waiter(id,name,lastName);
+        this.dao.update(mapper.convertObjToDto(w));
+    }
+    public void removeWaiterById(int id) throws DAOException
+    {
+        Waiter w=new Waiter();
+        w.setId(id);
+        this.dao.delete(mapper.convertObjToDto(w));
     }
     public Waiter getWaiterById(int id) throws DAOException
     {

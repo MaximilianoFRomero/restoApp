@@ -13,7 +13,6 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
     }
     @Override
     public void save(DTOItem t) throws DAOException {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Connection con=null;
         PreparedStatement stmt=null;
         ResultSet res=null;
@@ -75,17 +74,98 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
 
     @Override
     public DTOItem byId(int id) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT it.idProduct, it.idOrder, it.totalProduct, it.price "
+                + "FROM items it WHERE id="+id+";";
+        DTOItem output = null;
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            if(res.next())
+                output=createDTO(res);
+            else
+                throw new DAOException("Item not founded.");
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
     }
 
     @Override
     public List<DTOItem> listAll() throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT it.idProduct, it.idOrder, it.totalProduct, it.price "
+                + "FROM items it;";
+        List<DTOItem> output = new ArrayList();
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            convertToList(res, output);
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
     }
 
     @Override
     public void convertToList(ResultSet res, List<DTOItem> output) throws SQLException{
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        while (res.next()) {
+            output.add(createDTO(res));
+        }
+    }
+
+    @Override
+    public DTOItem createDTO(ResultSet res) throws SQLException {
+        DTOItem dto = new DTOItem();
+        dto.setIdProduct(res.getInt(1));
+        dto.setIdOrder(res.getInt(2));
+        dto.setTotalProduct(res.getInt(3));
+        dto.setIndividualPrice(res.getFloat(4));
+        return dto;
     }
     
 }

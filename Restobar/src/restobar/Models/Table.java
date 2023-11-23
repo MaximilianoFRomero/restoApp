@@ -7,6 +7,12 @@ public class Table//Mesa
     private Order order;
     //Constructors
     public Table(){}
+    public Table(int id,String name,Order order)
+    {
+        this.id=id;
+        this.name=name;
+        this.order=order;
+    }
     public Table(int id,String name)
     {
         this.id=id;

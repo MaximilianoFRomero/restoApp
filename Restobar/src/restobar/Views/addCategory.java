@@ -7,7 +7,7 @@ package restobar.Views;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import restobar.Controllers.CategoryController;
+import restobar.Controllers.ControllerCategory;
 import restobar.Persistence.DAOException;
 
 /**
@@ -16,12 +16,12 @@ import restobar.Persistence.DAOException;
  */
 public class addCategory extends javax.swing.JFrame {
 
-    private CategoryController cont;
+    private ControllerCategory cont;
     private JComboBox cmbCategories;
     public addCategory() {
         initComponents();
     }
-    public void setCategoryController(CategoryController cont){this.cont=cont;}
+    public void setCategoryController(ControllerCategory cont){this.cont=cont;}
     public void setCmbCategories(JComboBox c){this.cmbCategories=c;}
 
     /**

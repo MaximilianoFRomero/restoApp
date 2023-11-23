@@ -14,13 +14,23 @@ public class Order//Pedido
     private Date dateClose;
     private List<Item> items;
     //Constructors
+    public Order(int id,int idTable,Waiter waiter,int cutlery,Date dateOpen,Date dateClose)
+    {
+        this.id=id;
+        this.idTable=idTable;
+        this.cutlery=cutlery;
+        this.dateOpen=dateOpen;
+        this.dateClose=dateClose;
+        this.items=new ArrayList();
+    }
     public Order()
     {
         this.id=0;
         this.idTable=0;
         this.cutlery=0;
-        this.items=new ArrayList();
         this.dateOpen=new Date();
+        this.dateClose=new Date();
+        this.items=new ArrayList();
     }
     //Getters and setters
     public int getId(){return this.id;}

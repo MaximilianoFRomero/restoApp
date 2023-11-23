@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-11-2023 a las 21:01:44
+-- Tiempo de generación: 23-11-2023 a las 21:42:14
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -38,7 +38,35 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`) VALUES
 (1, 'Bebidas'),
-(2, 'Postres');
+(2, 'Entradas');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `items`
+--
+
+CREATE TABLE `items` (
+  `idProduct` int(11) NOT NULL,
+  `idOrder` int(11) NOT NULL,
+  `totalProduct` int(11) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `idTable` int(11) NOT NULL,
+  `idWaiter` int(11) NOT NULL,
+  `cutlery` int(11) NOT NULL,
+  `dateOpen` date NOT NULL,
+  `dateClose` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -51,7 +79,6 @@ CREATE TABLE `products` (
   `name` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
   `price` float NOT NULL,
-  `stock` int(11) NOT NULL,
   `idCategory` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -59,9 +86,32 @@ CREATE TABLE `products` (
 -- Volcado de datos para la tabla `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `price`, `stock`, `idCategory`) VALUES
-(1, 'Flan', 'Es un flan.', 30.5, 1, 2),
-(2, 'Coca cola', 'Es una coca cola(es pura azucar).', 300, 1, 1);
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `idCategory`) VALUES
+(1, 'Papas fritas', 'Son unas papas fritas.', 66.6, 2),
+(2, 'Coca cola 500ml', 'Son 500ml de azucar bebe.', 1000.5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `stocks`
+--
+
+CREATE TABLE `stocks` (
+  `idProduct` int(11) NOT NULL,
+  `total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tables`
+--
+
+CREATE TABLE `tables` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `idOrder` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -81,7 +131,7 @@ CREATE TABLE `waiters` (
 
 INSERT INTO `waiters` (`id`, `name`, `lastName`) VALUES
 (1, 'Luca', 'Suizer'),
-(2, 'Acul', 'Rezius');
+(2, 'Acul', 'rezius');
 
 --
 -- Índices para tablas volcadas
@@ -94,9 +144,21 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `products`
 --
 ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tables`
+--
+ALTER TABLE `tables`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -116,10 +178,22 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tables`
+--
+ALTER TABLE `tables`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `waiters`

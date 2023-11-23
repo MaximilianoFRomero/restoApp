@@ -12,8 +12,7 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/RestoApp?user=root&password=");
     }
     @Override
-    public void save(DTOWaiter t) throws DAOException
-    {
+    public void save(DTOWaiter t) throws DAOException{
         Connection con=null;
         PreparedStatement stmt=null;
         ResultSet res=null;
@@ -61,23 +60,111 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
 
     @Override
     public void update(DTOWaiter t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con=null;
+        PreparedStatement stmt=null;
+        
+        String sql="UPDATE categories SET name=?, lastName=? WHERE id=?;";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
+            stmt.setString(1,t.getName());
+            stmt.setString(2,t.getLastName());
+            stmt.setInt(3,t.getId());
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
+            throw new DAOException(ex.getMessage());
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                    stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
     }
 
     @Override
     public void delete(DTOWaiter t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection con=null;
+        PreparedStatement stmt=null;
+        
+        String sql="DELETE FROM waiters WHERE id=?;";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
+            stmt.setInt(1,t.getId());
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
+            throw new DAOException(ex.getMessage());
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                    stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
     }
 
     @Override
-    public DTOWaiter byId(int id) throws DAOException
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public DTOWaiter byId(int id) throws DAOException{
+        String sql = "SELECT wa.id, wa.name, wa.lastName "
+                + "FROM waiters wa WHERE id="+id+";";
+        DTOWaiter output = null;
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            if(res.next())
+                output=createDTO(res);
+            else
+                throw new DAOException("Waiter not founded.");
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
     }
 
     @Override
-    public List<DTOWaiter> listAll() throws DAOException
-    {
+    public List<DTOWaiter> listAll() throws DAOException{
         String sql = "SELECT wa.id, wa.name, wa.lastName "
                 + "FROM waiters wa;";
         List<DTOWaiter> output = new ArrayList();
@@ -114,14 +201,18 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
         return output;
     }
     @Override
-    public void convertToList(ResultSet res, List<DTOWaiter> output) throws SQLException
-    {
+    public void convertToList(ResultSet res, List<DTOWaiter> output) throws SQLException{
         while (res.next()) {
-            DTOWaiter wa = new DTOWaiter();
-            wa.setId(res.getInt(1));
-            wa.setName(res.getString(2));
-            wa.setLastName(res.getString(3));
-            output.add(wa);
+            output.add(createDTO(res));
         }
+    }
+
+    @Override
+    public DTOWaiter createDTO(ResultSet res) throws SQLException {
+        DTOWaiter dto = new DTOWaiter();
+        dto.setId(res.getInt(1));
+        dto.setName(res.getString(2));
+        dto.setLastName(res.getString(3));
+        return dto;
     }
 }

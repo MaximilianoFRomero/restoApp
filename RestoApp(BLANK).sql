@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-11-2023 a las 17:34:16
+-- Tiempo de generación: 23-11-2023 a las 21:34:45
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `RestoApp`
+-- Base de datos: `Titos`
 --
 
 -- --------------------------------------------------------
@@ -35,6 +35,34 @@ CREATE TABLE `categories` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `items`
+--
+
+CREATE TABLE `items` (
+  `idProduct` int(11) NOT NULL,
+  `idOrder` int(11) NOT NULL,
+  `totalProduct` int(11) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `idTable` int(11) NOT NULL,
+  `idWaiter` int(11) NOT NULL,
+  `cutlery` int(11) NOT NULL,
+  `dateOpen` date NOT NULL,
+  `dateClose` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `products`
 --
 
@@ -43,8 +71,30 @@ CREATE TABLE `products` (
   `name` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
   `price` float NOT NULL,
-  `stock` int(11) NOT NULL,
   `idCategory` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `stocks`
+--
+
+CREATE TABLE `stocks` (
+  `idProduct` int(11) NOT NULL,
+  `total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tables`
+--
+
+CREATE TABLE `tables` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `idOrder` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -70,9 +120,21 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `products`
 --
 ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tables`
+--
+ALTER TABLE `tables`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -92,9 +154,21 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tables`
+--
+ALTER TABLE `tables`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

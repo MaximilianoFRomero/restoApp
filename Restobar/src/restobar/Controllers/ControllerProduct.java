@@ -9,33 +9,40 @@ import restobar.Models.Product;
 import restobar.Persistence.DAOException;
 import restobar.Persistence.DAOProductSQL;
 
-public class ProductController
+public class ControllerProduct
 {
     private DAOProductSQL dao;
     private MapperProduct mapper;
-    private CategoryController categoryCont;
-    public ProductController()
+    private ControllerCategory categoryCont;
+    public ControllerProduct()
     {
         this.dao=new DAOProductSQL();
         this.mapper=new MapperProduct();
-        this.categoryCont=new CategoryController();
+        this.categoryCont=new ControllerCategory();
     }
     //Getters and setters
-    public CategoryController getCategoryController(){return this.categoryCont;}
+    public ControllerCategory getCategoryController(){return this.categoryCont;}
     //Funcitons
-    public void addProduct(String name,String description,float price,int stock,int idCategory) throws DAOException
+    public void addProduct(String name,String description,float price,int idCategory) throws DAOException
     {
         Product p=new Product();
         p.setName(name);
         p.setDescription(description);
         p.setPrice(new Price(price));
-        p.setStock(stock);
         //p.setCategory(categoryCont.getCategoryById(idCategory));
         p.setCategory(new Category(idCategory,"NONE"));
         this.dao.save(mapper.convertObjToDto(p));
     }
-    public void removeProduct(int index)
+    public void modifyProduct(int id,String name,String description,Price price,Category category) throws DAOException
     {
+        Product p=new Product(id,name,description,price.getValue(),category);
+        this.dao.update(mapper.convertObjToDto(p));
+    }
+    public void removeProductById(int id) throws DAOException
+    {
+        Product p=new Product();
+        p.setId(id);
+        this.dao.delete(mapper.convertObjToDto(p));
     }
     public Product getProductById(int id) throws DAOException
     {

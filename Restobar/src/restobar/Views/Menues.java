@@ -6,23 +6,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-import restobar.Controllers.CategoryController;
-import restobar.Controllers.ProductController;
-import restobar.Controllers.WaiterController;
+import restobar.Controllers.ControllerCategory;
+import restobar.Controllers.ControllerProduct;
+import restobar.Controllers.ControllerWaiter;
 import restobar.Models.Category;
 import restobar.Models.Product;
 import restobar.Persistence.DAOException;
 
 public class Menues extends javax.swing.JFrame {
-    WaiterController waiterCont;
-    CategoryController categoryCont;
-    ProductController productCont;
+    ControllerWaiter waiterCont;
+    ControllerCategory categoryCont;
+    ControllerProduct productCont;
     public Menues() {
         initComponents();
         this.setExtendedState(6);
-        this.waiterCont= new WaiterController();
-        this.categoryCont=new CategoryController();
-        this.productCont=new ProductController();
+        this.waiterCont= new ControllerWaiter();
+        this.categoryCont=new ControllerCategory();
+        this.productCont=new ControllerProduct();
         listCategories();
         listProductsByCategory(1);
     }

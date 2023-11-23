@@ -2,15 +2,15 @@ package restobar.Views;
 
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import restobar.Controllers.WaiterController;
+import restobar.Controllers.ControllerWaiter;
 import restobar.Persistence.DAOException;
 
 public class CargaMozo extends javax.swing.JFrame {
-    WaiterController cont;
+    ControllerWaiter cont;
     public CargaMozo() {
         initComponents();
     }
-    public void setWaiterController(WaiterController w){this.cont=w;}
+    public void setWaiterController(ControllerWaiter w){this.cont=w;}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -1,29 +1,29 @@
 package restobar.Persistence;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.sql.*;
-import restobar.DTOs.DTOCategory;
+import java.util.ArrayList;
+import java.util.List;
+import restobar.DTOs.DTOTable;
 
-public class DAOCategorySQL implements DAOInterface<DTOCategory>
+public class DAOTableSQL implements DAOInterface<DTOTable>
 {
     private Connection connect() throws SQLException
     {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/RestoApp?user=root&password=");
     }
     @Override
-    public void save(DTOCategory t) throws DAOException
-    {
+    public void save(DTOTable t) throws DAOException {
         Connection con=null;
         PreparedStatement stmt=null;
         ResultSet res=null;
         
-        String sql="INSERT INTO categories(name) VALUES(?);";
+        String sql="INSERT INTO tables(name,idOrder) VALUES(?,?);";
         try
         {
             con=connect();
             stmt=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1,t.getName());
+            stmt.setInt(2,t.getIdOrder());
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -59,18 +59,18 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     }
 
     @Override
-    public void update(DTOCategory t) throws DAOException
-    {
+    public void update(DTOTable t) throws DAOException {
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="UPDATE categories SET name=? WHERE id=?;";
+        String sql="UPDATE tables SET name=?, idOrder=? WHERE id=?;";
         try
         {
             con=connect();
             stmt=con.prepareStatement(sql);
             stmt.setString(1,t.getName());
-            stmt.setInt(2,t.getId());
+            stmt.setInt(2,t.getIdOrder());
+            stmt.setInt(3,t.getId());
             stmt.executeUpdate();
         }catch(SQLException ex)
         {
@@ -92,11 +92,11 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     }
 
     @Override
-    public void delete(DTOCategory t) throws DAOException{
+    public void delete(DTOTable t) throws DAOException {
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="DELETE FROM categories WHERE id=?;";
+        String sql="DELETE FROM tables WHERE id=?;";
         try
         {
             con=connect();
@@ -123,11 +123,10 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     }
 
     @Override
-    public DTOCategory byId(int id) throws DAOException
-    {
-        String sql = "SELECT ca.id, ca.name "
-                + "FROM categories ca WHERE id="+id+";";
-        DTOCategory output=null;
+    public DTOTable byId(int id) throws DAOException {
+        String sql = "SELECT ta.id, ta.name, ta.idOrder "
+                + "FROM tables ta WHERE id="+id+";";
+        DTOTable output = null;
         
         Connection cn = null;
         Statement stmt = null;
@@ -140,7 +139,7 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
             if(res.next())
                 output=createDTO(res);
             else
-                throw new DAOException("Category not founded.");
+                throw new DAOException("Table not founded.");
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage());
         } finally {
@@ -165,11 +164,10 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     }
 
     @Override
-    public List<DTOCategory> listAll() throws DAOException
-    {
-        String sql = "SELECT ca.id, ca.name "
-                + "FROM categories ca;";
-        List<DTOCategory> output = new ArrayList();
+    public List<DTOTable> listAll() throws DAOException {
+        String sql = "SELECT ta.id, ta.name, ta.idOrder "
+                + "FROM tables ta;";
+        List<DTOTable> output = new ArrayList();
         
         Connection cn = null;
         Statement stmt = null;
@@ -202,19 +200,21 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
         }
         return output;
     }
+
     @Override
-    public void convertToList(ResultSet res, List<DTOCategory> output) throws SQLException
-    {
+    public void convertToList(ResultSet res, List<DTOTable> output) throws SQLException {
         while (res.next()) {
             output.add(createDTO(res));
         }
     }
 
     @Override
-    public DTOCategory createDTO(ResultSet res) throws SQLException{
-        DTOCategory dto = new DTOCategory();
+    public DTOTable createDTO(ResultSet res) throws SQLException {
+        DTOTable dto = new DTOTable();
         dto.setId(res.getInt(1));
         dto.setName(res.getString(2));
+        dto.setIdOrder(res.getInt(3));
         return dto;
     }
+    
 }

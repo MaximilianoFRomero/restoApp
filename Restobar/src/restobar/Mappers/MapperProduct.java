@@ -20,7 +20,6 @@ public class MapperProduct implements MapperInterface<DTOProduct,Product>
         o.setName(dto.getName());
         o.setDescription(dto.getDescription());
         o.setPrice(new Price(dto.getPrice()));
-        o.setStock(dto.getStock());
         Category c=new Category();
         c.setId(dto.getIdCategory());
         o.setCategory(c);
@@ -34,7 +33,6 @@ public class MapperProduct implements MapperInterface<DTOProduct,Product>
         dto.setName(o.getName());
         dto.setDescription(o.getDescription());
         dto.setPrice(o.getPrice().getValue());
-        dto.setStock(o.getStock());
         dto.setIdCategory(o.getCategory().getId());
         return dto;
     }

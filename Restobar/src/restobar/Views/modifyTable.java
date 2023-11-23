@@ -4,7 +4,7 @@
  */
 package restobar.Views;
 
-import restobar.Controllers.TableController;
+import restobar.Controllers.ControllerTable;
 
 /**
  *
@@ -17,7 +17,7 @@ public class modifyTable extends javax.swing.JFrame {
      */
     public modifyTable() {
         initComponents();
-        TableController tc = new TableController();
+        ControllerTable tc = new ControllerTable();
     }
 
     /**

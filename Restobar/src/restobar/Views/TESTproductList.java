@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import restobar.Controllers.ProductController;
+import restobar.Controllers.ControllerProduct;
 import restobar.Models.Product;
 import restobar.Persistence.DAOException;
 
@@ -18,11 +18,11 @@ import restobar.Persistence.DAOException;
  */
 public class TESTproductList extends javax.swing.JFrame {
 
-    private ProductController cont;
+    private ControllerProduct cont;
     public TESTproductList() {
         initComponents();
     }
-    public TESTproductList(ProductController c) {
+    public TESTproductList(ControllerProduct c) {
         initComponents();
         this.cont=c;
         listProducts();
