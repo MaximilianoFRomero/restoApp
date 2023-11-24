@@ -11,35 +11,6 @@ public class MapperItem implements MapperInterface<DTOItem,Item>
     public MapperItem()
     {
     }
-    public Item convertDTOItemToItem(DTOItem dto)
-    {
-        Item i=new Item();
-        Product p=new Product();
-        p.setId(dto.getIdProduct());
-        i.setProduct(p);
-        i.setIdOrder(dto.getIdOrder());
-        i.setTotalProduct(dto.getTotalProduct());
-        i.setIndividualPrice(dto.getIndividualPrice());
-        return i;
-    }
-    public DTOItem convertItemToDTOItem(Item i)
-    {
-        DTOItem dto=new DTOItem();
-        dto.setIdProduct(i.getProduct().getId());
-        dto.setIdOrder(i.getIdOrder());
-        dto.setTotalProduct(i.getTotalProduct());
-        dto.setIndividualPrice(i.getIndividualPrice());
-        return dto;
-    }
-    public List<Item> convertDTOCategoriesToCategories(List<DTOItem> listDTO)
-    {
-        List<Item> listItem=new ArrayList();
-        for(int i=0;i<listDTO.size();i++)
-        {
-            listItem.add(convertDTOItemToItem(listDTO.get(i)));
-        }
-        return listItem;
-    }
 
     @Override
     public Item convertDtoToObj(DTOItem dto) {

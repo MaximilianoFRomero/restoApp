@@ -1,5 +1,6 @@
 package restobar.Controllers;
 
+import java.util.Date;
 import java.util.List;
 import restobar.Mappers.MapperTable;
 import restobar.Models.Order;
@@ -11,12 +12,16 @@ public class ControllerTable
 {
     private DAOTableSQL dao;
     private MapperTable mapper;
+    private ControllerOrder orderCont;
     //Constructors
     public ControllerTable()
     {
         this.dao=new DAOTableSQL();
         this.mapper=new MapperTable();
-    } 
+        this.orderCont=new ControllerOrder();
+    }
+    //Getters and setters
+    public ControllerOrder getOrderController(){return this.orderCont;}
     //Functions
     public void addTable(String name) throws DAOException
     {
@@ -35,9 +40,16 @@ public class ControllerTable
         t.setId(id);
         this.dao.delete(mapper.convertObjToDto(t));
     }
-    public Table getTableById(int id)
+    public Table getTableById(int id) throws DAOException
     {
-        return new Table();
+        Table result=this.mapper.convertDtoToObj(dao.byId(id));
+        if(result.getOrder().getId()!=1)
+            result.setOrder(orderCont.getOrderById(result.getOrder().getId()));
+        else
+        {
+            orderCont.addOrder(result.getId(), 1, 0, new Date());
+        }
+        return result;
     }
     public List<Table> listAll() throws DAOException
     {

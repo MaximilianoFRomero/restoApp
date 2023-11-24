@@ -127,7 +127,7 @@ public class CargaMozo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
-            cont.addWaiter(0,textName.getText(),textLastName.getText());
+            cont.addWaiter(textName.getText(),textLastName.getText());
         } catch (DAOException ex) {
             java.util.logging.Logger.getLogger(CargaMozo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

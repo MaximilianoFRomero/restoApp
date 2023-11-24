@@ -58,10 +58,16 @@ public class Order//Pedido
     {
         return this.items.get(index);
     }
+    public void addItems(List<Item> itemsToAdd)
+    {
+        for(int i=0;i<itemsToAdd.size();i++)
+            items.add(itemsToAdd.get(i));
+    }
     public float calculatePrice()
     {
         float result=0;
-        
+        for(int i=0;i<items.size();i++)
+            result+=items.get(0).calculateTotalPrice();
         return result;
     }
 }

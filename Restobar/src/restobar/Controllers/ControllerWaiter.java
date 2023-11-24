@@ -18,10 +18,9 @@ public class ControllerWaiter
         this.mapper=new MapperWaiter();
     }
     //Functions
-    public void addWaiter(int id,String name,String lastName) throws DAOException
+    public void addWaiter(String name,String lastName) throws DAOException
     {
         Waiter w=new Waiter();
-        w.setId(id);
         w.setName(name);
         w.setLastName(lastName);
         this.dao.save(mapper.convertObjToDto(w));

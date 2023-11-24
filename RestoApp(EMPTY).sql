@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-11-2023 a las 21:34:45
+-- Tiempo de generación: 24-11-2023 a las 20:13:10
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `Titos`
+-- Base de datos: `RestoApp`
 --
 
 -- --------------------------------------------------------
@@ -31,6 +31,13 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'Sin categoría');
 
 -- --------------------------------------------------------
 
@@ -56,9 +63,16 @@ CREATE TABLE `orders` (
   `idTable` int(11) NOT NULL,
   `idWaiter` int(11) NOT NULL,
   `cutlery` int(11) NOT NULL,
-  `dateOpen` date NOT NULL,
-  `dateClose` date NOT NULL
+  `dateOpen` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `dateClose` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `orders`
+--
+
+INSERT INTO `orders` (`id`, `idTable`, `idWaiter`, `cutlery`, `dateOpen`, `dateClose`) VALUES
+(1, 1, 1, 0, '2023-11-24 18:56:08', '2023-11-24 18:56:08');
 
 -- --------------------------------------------------------
 
@@ -97,6 +111,13 @@ CREATE TABLE `tables` (
   `idOrder` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tables`
+--
+
+INSERT INTO `tables` (`id`, `name`, `idOrder`) VALUES
+(1, 'Sin mesa asignada', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -108,6 +129,13 @@ CREATE TABLE `waiters` (
   `name` varchar(100) NOT NULL,
   `lastName` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `waiters`
+--
+
+INSERT INTO `waiters` (`id`, `name`, `lastName`) VALUES
+(1, 'Sin mozo', '');
 
 --
 -- Índices para tablas volcadas
@@ -151,13 +179,13 @@ ALTER TABLE `waiters`
 -- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
@@ -169,13 +197,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `waiters`
 --
 ALTER TABLE `waiters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

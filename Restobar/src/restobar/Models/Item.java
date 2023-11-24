@@ -23,4 +23,9 @@ public class Item
     public void setIdOrder(int idOrder){this.idOrder=idOrder;}
     public void setTotalProduct(int totalProduct){this.totalProduct=totalProduct;}
     public void setIndividualPrice(float individualPrice){this.individualPrice=individualPrice;}
+    //Functions
+    public float calculateTotalPrice()
+    {
+        return this.individualPrice*totalProduct;
+    }
 }

@@ -21,7 +21,10 @@ public class addCategory extends javax.swing.JFrame {
     public addCategory() {
         initComponents();
     }
-    public void setCategoryController(ControllerCategory cont){this.cont=cont;}
+    public addCategory(ControllerCategory cont) {
+        initComponents();
+        this.cont=cont;
+    }
     public void setCmbCategories(JComboBox c){this.cmbCategories=c;}
 
     /**

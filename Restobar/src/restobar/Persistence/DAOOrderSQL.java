@@ -13,6 +13,9 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
     }
     @Override
     public void save(DTOOrder t) throws DAOException {
+        java.sql.Timestamp dateOpen=new java.sql.Timestamp(t.getDateOpen().getTime());
+        java.sql.Timestamp dateClose=new java.sql.Timestamp(t.getDateClose().getTime());
+        
         Connection con=null;
         PreparedStatement stmt=null;
         ResultSet res=null;
@@ -25,8 +28,8 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
             stmt.setInt(1,t.getIdTable());
             stmt.setInt(2,t.getIdWaiter());
             stmt.setInt(3,t.getCutlery());
-            stmt.setDate(4, (Date) t.getDateOpen());
-            stmt.setDate(5, (Date) t.getDateClose());
+            stmt.setTimestamp(4, dateOpen);
+            stmt.setTimestamp(5, dateClose);
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -63,6 +66,9 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
 
     @Override
     public void update(DTOOrder t) throws DAOException {
+        java.sql.Timestamp dateOpen=new java.sql.Timestamp(t.getDateOpen().getTime());
+        java.sql.Timestamp dateClose=new java.sql.Timestamp(t.getDateClose().getTime());
+        
         Connection con=null;
         PreparedStatement stmt=null;
         
@@ -74,8 +80,8 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
             stmt.setInt(1,t.getIdTable());
             stmt.setInt(2,t.getIdWaiter());
             stmt.setInt(3,t.getCutlery());
-            stmt.setDate(4, (Date) t.getDateOpen());
-            stmt.setDate(5, (Date) t.getDateClose());
+            stmt.setTimestamp(4, dateOpen);
+            stmt.setTimestamp(5, dateClose);
             stmt.setInt(6,t.getId());
             stmt.executeUpdate();
         }catch(SQLException ex)
@@ -225,5 +231,41 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
         dto.setDateClose(res.getDate(6));
         return dto;
     }
-    
+    public List<DTOOrder> findByIdTable(int idTable) throws DAOException
+    {
+        String sql = "SELECT or.id, or.idTable, or.idWaiter, or.cutlery, or.dateOpen, or.dateClose "
+                + "FROM orders or WHERE idTable"+idTable+";";
+        List<DTOOrder> output = new ArrayList();
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            convertToList(res, output);
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
+    }
 }

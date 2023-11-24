@@ -29,8 +29,7 @@ public class ControllerProduct
         p.setName(name);
         p.setDescription(description);
         p.setPrice(new Price(price));
-        //p.setCategory(categoryCont.getCategoryById(idCategory));
-        p.setCategory(new Category(idCategory,"NONE"));
+        p.setCategory(categoryCont.getCategoryById(idCategory));
         this.dao.save(mapper.convertObjToDto(p));
     }
     public void modifyProduct(int id,String name,String description,Price price,Category category) throws DAOException
@@ -46,21 +45,37 @@ public class ControllerProduct
     }
     public Product getProductById(int id) throws DAOException
     {
-        return this.mapper.convertDtoToObj(dao.byId(id));
+        Product p=mapper.convertDtoToObj(dao.byId(id));
+        Category cat=categoryCont.getCategoryById(p.getCategory().getId());
+        p.setCategory(cat);
+        return p;
     }
     public List<Product> listAll() throws DAOException
     {
-        return this.mapper.convertListDtoToListObj(dao.listAll());
+        //OPTIMIZE THIS
+        List<Product> results=this.mapper.convertListDtoToListObj(dao.listAll());
+        for(int i=0;i<results.size();i++)
+        {
+            results.get(i).setCategory(categoryCont.getCategoryById(results.get(i).getCategory().getId()));
+        }
+        return results;
     }
-    public List<Product> getProductsFomCategory(int idCategory) throws DAOException
+    public List<Product> getProductsFromCategory(int idCategory) throws DAOException
     {
-        return this.mapper.convertListDtoToListObj(dao.findByIdCategory(idCategory));
+        List<Product> results=this.mapper.convertListDtoToListObj(dao.findByIdCategory(idCategory));
+        Category categorySearched=categoryCont.getCategoryById(idCategory);
+        for(int i=0;i<results.size();i++)
+        {
+            results.get(i).setCategory(categorySearched);
+        }
+        return results;
     }
     public void changeCategoryToNone(List<Product> list) throws DAOException
     {
         for(int i=0;i<list.size();i++)
+        {
             list.get(i).setCategory(new Category(1,"NONE"));
-        for(int i=0;i<list.size();i++)
             dao.update(mapper.convertObjToDto(list.get(i)));
+        }
     }
 }

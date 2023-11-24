@@ -8,6 +8,7 @@ public class Restobar
     {
         Menues init = new Menues();
         init.setVisible(true);
+        
         System.out.println("TODO BIEN :) en OPENJDK 17");
     }
 }
