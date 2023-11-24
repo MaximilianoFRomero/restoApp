@@ -27,14 +27,22 @@ public class ControllerWaiter
     }
     public void modifyWaiter(int id,String name,String lastName) throws DAOException
     {
-        Waiter w=new Waiter(id,name,lastName);
-        this.dao.update(mapper.convertObjToDto(w));
+        if(id!=1)
+        {
+            Waiter w=new Waiter(id,name,lastName);
+            this.dao.update(mapper.convertObjToDto(w));
+        }else
+            throw new DAOException("Not possible modify this waiter.");
     }
     public void removeWaiterById(int id) throws DAOException
     {
-        Waiter w=new Waiter();
-        w.setId(id);
-        this.dao.delete(mapper.convertObjToDto(w));
+        if(id!=1)
+        {
+            Waiter w=new Waiter();
+            w.setId(id);
+            this.dao.delete(mapper.convertObjToDto(w));
+        }else
+            throw new DAOException("Not possible remove this waiter.");
     }
     public Waiter getWaiterById(int id) throws DAOException
     {

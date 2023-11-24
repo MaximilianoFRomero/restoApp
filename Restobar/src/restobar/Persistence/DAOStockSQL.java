@@ -62,53 +62,70 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
 
     @Override
     public void update(DTOStock t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void delete(DTOStock t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public DTOStock byId(int id) throws DAOException {
-        String sql = "SELECT st.idProduct, st.total "
-                + "FROM stocks st WHERE id="+id+";";
-        DTOStock output = null;
+        Connection con=null;
+        PreparedStatement stmt=null;
         
-        Connection cn = null;
-        Statement stmt = null;
-        ResultSet res = null;
-        
-        try {
-            cn = connect();
-            stmt = cn.createStatement();
-            res = stmt.executeQuery(sql);
-            if(res.next())
-                output=createDTO(res);
-            else
-                throw new DAOException("Stock not founded.");
-        } catch (SQLException ex) {
+        String sql="UPDATE stocks set total=? WHERE idProduct=?;";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
+            stmt.setInt(1,t.getTotal());
+            stmt.setInt(2,t.getIdProduct());
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
             throw new DAOException(ex.getMessage());
-        } finally {
-            if (res != null) {
-                try {
-                    res.close();
-                    res = null;
-                } catch (SQLException ex) {
-                    throw new DAOException(ex.getMessage());
-                }
-            }
-            if (stmt != null) {
-                try {
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
                     stmt.close();
                     stmt = null;
-                } catch (SQLException ex) {
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }
         }
-        return output;
+    }
+
+    @Override
+    public void delete(DTOStock t) throws DAOException {
+        Connection con=null;
+        PreparedStatement stmt=null;
+        
+        String sql="DELETE FROM stocks WHERE idProduct=?;";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
+            stmt.setInt(1,t.getIdProduct());
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
+            throw new DAOException(ex.getMessage());
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                    stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+    }
+
+    @Override
+    public DTOStock byId(int id) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -163,5 +180,44 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
         dto.setTotal(res.getInt(2));
         return dto;
     }
-    
+    public DTOStock getStockFromIdProduct(int idProduct) throws DAOException
+    {
+        String sql = "SELECT st.idProduct, st.total "
+                + "FROM stocks st WHERE idProduct="+idProduct+";";
+        DTOStock output = null;
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            cn = connect();
+            stmt = cn.createStatement();
+            res = stmt.executeQuery(sql);
+            if(res.next())
+                output=createDTO(res);
+            else
+               throw new DAOException("Stock not founded.");
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
+    }
 }

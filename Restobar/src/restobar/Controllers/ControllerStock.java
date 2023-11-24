@@ -11,12 +11,16 @@ public class ControllerStock
 {
     private DAOStockSQL dao;
     private MapperStock mapper;
+    private ControllerProduct productCont;
     //Constructors
     public ControllerStock()
     {
         this.dao=new DAOStockSQL();
         this.mapper=new MapperStock();
+        this.productCont=new ControllerProduct();
     }
+    //Getters and setters
+    public ControllerProduct getProductController(){return this.productCont;}
     //Functions
     public void addStock(int idProduct,int total) throws DAOException
     {
@@ -27,15 +31,27 @@ public class ControllerStock
         o.setTotal(total);
         this.dao.save(mapper.convertObjToDto(o));
     }
-    public void removeStock(int index)
-    {}
-    public Stock getStockById(int id)
+    public void removeStockByIdProduct(int idProduct) throws DAOException
     {
-        return new Stock();
+        Stock o=new Stock();
+        Product c=new Product();
+        c.setId(idProduct);
+        o.setProduct(c);
+        this.dao.delete(mapper.convertObjToDto(o));
+    }
+    public Stock getStockByIdProduct(int idProduct) throws DAOException
+    {
+        Stock result=this.mapper.convertDtoToObj(dao.getStockFromIdProduct(idProduct));
+        result.setProduct(this.productCont.getProductById(idProduct));
+        return result;
     }
     public List<Stock> listAll() throws DAOException
     {
-        return this.mapper.convertListDtoToListObj(dao.listAll());
+        List<Stock> results=this.mapper.convertListDtoToListObj(dao.listAll());
+        for(int i=0;i<results.size();i++)
+        {
+            results.get(i).setProduct(this.productCont.getProductById(results.get(i).getProduct().getId()));
+        }
+        return results;
     }
-    
 }
