@@ -10,6 +10,7 @@ import restobar.Controllers.ControllerProduct;
 import restobar.Controllers.ControllerTable;
 import restobar.Controllers.ControllerWaiter;
 import restobar.Models.Category;
+import restobar.Models.Order;
 import restobar.Models.Product;
 import restobar.Models.Table;
 import restobar.Persistence.DAOException;
@@ -66,7 +67,7 @@ public class Menues extends javax.swing.JFrame {
         mainCategories = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableProducts = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        btnAddProduct = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTables = new javax.swing.JTable();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -306,7 +307,12 @@ public class Menues extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tableProducts);
 
-        jButton6.setText("Añadir");
+        btnAddProduct.setText("Añadir");
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProductActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCategoryLayout = new javax.swing.GroupLayout(pnlCategory);
         pnlCategory.setLayout(pnlCategoryLayout);
@@ -321,7 +327,7 @@ public class Menues extends javax.swing.JFrame {
                             .addComponent(mainCategories, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlCategoryLayout.createSequentialGroup()
                                 .addGroup(pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton6)
+                                    .addComponent(btnAddProduct)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -337,7 +343,7 @@ public class Menues extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6)
+                .addComponent(btnAddProduct)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -598,8 +604,12 @@ public class Menues extends javax.swing.JFrame {
         //TEST FOR VIEW SELECTED TABLE
         //pnlOrder.setVisible(true);
         //lblTableSelected.setText("Pedido Mesa: "+tblTables.getValueAt(tblTables.getSelectedRow(), 0));
-        
+        displayOrderFromTable(2);
     }//GEN-LAST:event_tblTablesFocusGained
+
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
+        
+    }//GEN-LAST:event_btnAddProductActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -656,31 +666,34 @@ public class Menues extends javax.swing.JFrame {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void showOrderFromTable(Table table)
+    public void displayOrderFromTable(int id)
     {
-        /*
         try {
-            
+            Order o=tableCont.getTableById(id).getOrder();
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Codigo");
+            model.addColumn("Nombre");
+            model.addColumn("Cantidad");
+            model.addColumn("Importe");
+            tblOrder.setModel(model);
+            String [] datos = new String[4];
+            Product p;
+            for(int i=0;i<o.getItems().size();i++)
+            {
+                p=productCont.getProductById(o.getItems().get(i).getProduct().getId());
+                datos[0]=p.getId()+"";
+                datos[1]=p.getName();
+                datos[2]=o.getItems().get(i).getTotalProduct()+"";
+                datos[3]=o.getItems().get(i).calculateTotalPrice()+"";
+                model.addRow(datos);
+            }
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Codigo");
-            model.addColumn("Cantidad");
-            model.addColumn("Descripcion");
-            model.addColumn("Importe");
-            tblTables.setModel(model);
-            String [] datos = new String[4];
-            for(int i=0;i<t.size();i++)
-            {
-                datos[0]=t.get(i).getName();
-                model.addRow(datos);
-            }
-        }
-        */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddProduct;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JButton jButton1;
@@ -688,7 +701,6 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;

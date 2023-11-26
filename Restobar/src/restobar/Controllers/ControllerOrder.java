@@ -26,14 +26,13 @@ public class ControllerOrder
         this.mapperItem=new MapperItem();
     }
     //Functions
-    public void addOrder(int idTable,int idWaiter,int cutlery,Date dateOpen) throws DAOException
+    public void addOrder(int idTable,int idWaiter,int cutlery) throws DAOException
     {
         Order o=new Order();
         o.setIdTable(idTable);
         Waiter c=new Waiter();
         c.setId(idWaiter);
         o.setWaiter(c);
-        o.setDateOpen(dateOpen);
         this.dao.save(mapper.convertObjToDto(o));
     }
     public void modifyOrder(int id,int idTable,Waiter waiter,int cutlery,Date dateOpen,Date dateClose) throws DAOException
@@ -56,6 +55,10 @@ public class ControllerOrder
     public List<Order> listAllOrders() throws DAOException
     {
         return this.mapper.convertListDtoToListObj(dao.listAll());
+    }
+    public List<Order> listAllOrdersByIdTable(int idTable) throws DAOException
+    {
+        return this.mapper.convertListDtoToListObj(dao.findByIdTable(idTable));
     }
     public void addItemToOrder(Item item,Order order) throws DAOException
     {

@@ -136,8 +136,8 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
 
     @Override
     public DTOOrder byId(int id) throws DAOException {
-        String sql = "SELECT or.id, or.idTable, or.idWaiter, or.cutlery, or.dateOpen, or.dateClose "
-                + "FROM orders or WHERE id="+id+";";
+        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose "
+                + "FROM orders WHERE id="+id+";";
         DTOOrder output = null;
         
         Connection cn = null;
@@ -233,8 +233,8 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
     }
     public List<DTOOrder> findByIdTable(int idTable) throws DAOException
     {
-        String sql = "SELECT or.id, or.idTable, or.idWaiter, or.cutlery, or.dateOpen, or.dateClose "
-                + "FROM orders or WHERE idTable"+idTable+";";
+        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose "
+                + "FROM orders WHERE idTable="+idTable+";";
         List<DTOOrder> output = new ArrayList();
         
         Connection cn = null;

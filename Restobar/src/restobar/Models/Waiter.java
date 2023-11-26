@@ -8,7 +8,7 @@ public class Waiter
     //Constructors
     public Waiter()
     {
-        this.id=0;
+        this.id=1;
         this.name="";
         this.lastName="";
     }

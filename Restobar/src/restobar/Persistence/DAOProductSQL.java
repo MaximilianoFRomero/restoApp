@@ -129,8 +129,8 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
 
     @Override
     public DTOProduct byId(int id) throws DAOException{
-        String sql = "SELECT pr.id, pr.name, pr.description, pr.price, pr.idCategory "
-                + "FROM products pr WHERE id="+id+";";
+        String sql = "SELECT id, name, description, price, idCategory "
+                + "FROM products WHERE id="+id+";";
         DTOProduct output = null;
         
         Connection cn = null;

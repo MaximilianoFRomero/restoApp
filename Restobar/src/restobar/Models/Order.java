@@ -14,6 +14,16 @@ public class Order//Pedido
     private Date dateClose;
     private List<Item> items;
     //Constructors
+    public Order()
+    {
+        this.id=1;
+        this.idTable=1;
+        this.waiter=new Waiter();
+        this.cutlery=0;
+        this.dateOpen=new Date();
+        this.dateClose=dateOpen;
+        this.items=new ArrayList();
+    }
     public Order(int id,int idTable,Waiter waiter,int cutlery,Date dateOpen,Date dateClose)
     {
         this.id=id;
@@ -21,15 +31,6 @@ public class Order//Pedido
         this.cutlery=cutlery;
         this.dateOpen=dateOpen;
         this.dateClose=dateClose;
-        this.items=new ArrayList();
-    }
-    public Order()
-    {
-        this.id=0;
-        this.idTable=0;
-        this.cutlery=0;
-        this.dateOpen=new Date();
-        this.dateClose=new Date();
         this.items=new ArrayList();
     }
     //Getters and setters
@@ -62,6 +63,10 @@ public class Order//Pedido
     {
         for(int i=0;i<itemsToAdd.size();i++)
             items.add(itemsToAdd.get(i));
+    }
+    public List<Item> getItems()
+    {
+        return this.items;
     }
     public float calculatePrice()
     {

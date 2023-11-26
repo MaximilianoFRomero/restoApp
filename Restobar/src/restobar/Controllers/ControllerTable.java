@@ -1,6 +1,5 @@
 package restobar.Controllers;
 
-import java.util.Date;
 import java.util.List;
 import restobar.Mappers.MapperTable;
 import restobar.Models.Order;
@@ -27,6 +26,7 @@ public class ControllerTable
     {
         Table ta=new Table();
         ta.setName(name);
+        ta.setOrder(new Order());
         dao.save(mapper.convertObjToDto(ta));
     }
     public void modifyTable(int id,String name,Order order) throws DAOException
@@ -47,7 +47,16 @@ public class ControllerTable
             result.setOrder(orderCont.getOrderById(result.getOrder().getId()));
         else
         {
-            orderCont.addOrder(result.getId(), 1, 0, new Date());
+            orderCont.addOrder(id,0,0);
+            List<Order>resultOrders=orderCont.listAllOrdersByIdTable(id);
+            for(int i=0;i<resultOrders.size();i++)
+            {
+                if(resultOrders.get(i).getDateOpen().equals(resultOrders.get(i).getDateClose()))
+                {
+                    modifyTable(id,result.getName(),resultOrders.get(i));
+                    result.setOrder(resultOrders.get(i));
+                }
+            }
         }
         return result;
     }

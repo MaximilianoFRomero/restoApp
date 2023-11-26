@@ -36,7 +36,7 @@ public class Table//Mesa
     //Functions
     public void startNewOrder(Order newOrder)
     {
-        if(order.getId()!=0)
+        if(order.getId()!=1)
             this.order=newOrder;
     }
     public Order endCurrentOrder()
