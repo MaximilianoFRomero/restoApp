@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import restobar.Controllers.ControllerProduct;
@@ -28,7 +29,7 @@ public class Menues extends javax.swing.JFrame {
         listCategories();
         listProductsByCategory(1);
         listTables();
-        //pnlOrder.setVisible(false);
+        pnlCategory.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -68,9 +69,9 @@ public class Menues extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tableProducts = new javax.swing.JTable();
         btnAddProduct = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblTables = new javax.swing.JTable();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jScrollPane5 = new javax.swing.JScrollPane();
+        lstTables = new javax.swing.JList<>();
         jMenuBar4 = new javax.swing.JMenuBar();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -89,6 +90,7 @@ public class Menues extends javax.swing.JFrame {
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
+        jMenuItem20 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -122,7 +124,6 @@ public class Menues extends javax.swing.JFrame {
         pnlOrder.setAutoscrolls(true);
 
         lblTableSelected.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTableSelected.setText("Pedido Mesa:");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Cerrar Mesa");
@@ -202,7 +203,8 @@ public class Menues extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblOrder.setColumnSelectionAllowed(true);
+        tblOrder.setCellSelectionEnabled(false);
+        tblOrder.setRowSelectionAllowed(true);
         tblOrder.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tblOrder);
         tblOrder.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -230,21 +232,22 @@ public class Menues extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
                         .addGroup(pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane4)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(104, 104, 104))
-                    .addGroup(pnlOrderLayout.createSequentialGroup()
-                        .addComponent(lblTableSelected, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(109, 109, 109)
-                        .addComponent(rSLabelFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rSLabelHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
+                        .addComponent(lblTableSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
+                                .addComponent(rSLabelFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rSLabelHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         pnlOrderLayout.setVerticalGroup(
             pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,39 +349,20 @@ public class Menues extends javax.swing.JFrame {
                 .addComponent(btnAddProduct)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        tblTables.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tblTables.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Mesa 1"},
-                {"Mesa 2"},
-                {"Mesa 3"},
-                {"Mesa 4"}
-            },
-            new String [] {
-                ""
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        lstTables.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lstTables.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstTablesMouseClicked(evt);
             }
         });
-        tblTables.setIntercellSpacing(new java.awt.Dimension(5, 5));
-        tblTables.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tblTablesFocusGained(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblTables);
-        if (tblTables.getColumnModel().getColumnCount() > 0) {
-            tblTables.getColumnModel().getColumn(0).setResizable(false);
-        }
+        jScrollPane5.setViewportView(lstTables);
 
         jMenu8.setText("Mesas");
 
@@ -472,6 +456,20 @@ public class Menues extends javax.swing.JFrame {
         jMenuBar4.add(jMenu11);
 
         jMenu10.setText("Stock");
+        jMenu10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu10ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem20.setText("Lista");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem20);
+
         jMenuBar4.add(jMenu10);
 
         jMenu1.setText("Categorias");
@@ -509,21 +507,21 @@ public class Menues extends javax.swing.JFrame {
                     .addComponent(pnlCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -600,16 +598,25 @@ public class Menues extends javax.swing.JFrame {
         m.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
-    private void tblTablesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblTablesFocusGained
-        //TEST FOR VIEW SELECTED TABLE
-        //pnlOrder.setVisible(true);
-        //lblTableSelected.setText("Pedido Mesa: "+tblTables.getValueAt(tblTables.getSelectedRow(), 0));
-        displayOrderFromTable(2);
-    }//GEN-LAST:event_tblTablesFocusGained
-
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         
     }//GEN-LAST:event_btnAddProductActionPerformed
+
+    private void lstTablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTablesMouseClicked
+        System.out.println("ID="+lstTables.getSelectedIndex());
+        lblTableSelected.setText("Pedido="+lstTables.getSelectedValue());
+        displayOrderFromTable(lstTables.getSelectedIndex()+1);
+        pnlCategory.setVisible(true);
+    }//GEN-LAST:event_lstTablesMouseClicked
+
+    private void jMenu10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu10ActionPerformed
+        
+    }//GEN-LAST:event_jMenu10ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        listStock ls = new listStock();
+        ls.setVisible(true);
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -651,20 +658,19 @@ public class Menues extends javax.swing.JFrame {
     }
     public void listTables()
     {
+        
         try {
             List<Table> t=this.tableCont.listAll();
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Mesas");
-            tblTables.setModel(model);
-            String [] datos = new String[1];
+            DefaultListModel model = new DefaultListModel();
+            lstTables.setModel(model);
             for(int i=0;i<t.size();i++)
             {
-                datos[0]=t.get(i).getName();
-                model.addRow(datos);
+                model.addElement(t.get(i).getName());
             }
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     public void displayOrderFromTable(int id)
     {
@@ -727,6 +733,7 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -735,14 +742,15 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblTableSelected;
+    private javax.swing.JList<String> lstTables;
     private javax.swing.JComboBox<String> mainCategories;
     private javax.swing.JPanel pnlCategory;
     private javax.swing.JPanel pnlOrder;
@@ -750,6 +758,5 @@ public class Menues extends javax.swing.JFrame {
     private rojeru_san.RSLabelHora rSLabelHora1;
     private javax.swing.JTable tableProducts;
     private javax.swing.JTable tblOrder;
-    private javax.swing.JTable tblTables;
     // End of variables declaration//GEN-END:variables
 }
