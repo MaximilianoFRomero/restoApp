@@ -23,15 +23,10 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
             con=connect();
             stmt=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1,t.getIdProduct());
-            stmt.setInt(1,t.getIdOrder());
-            stmt.setInt(1,t.getTotalProduct());
-            stmt.setFloat(1,t.getIndividualPrice());
+            stmt.setInt(2,t.getIdOrder());
+            stmt.setInt(3,t.getTotalProduct());
+            stmt.setFloat(4,t.getIndividualPrice());
             stmt.executeUpdate();
-            res=stmt.getGeneratedKeys();
-            /*
-            if(res.next())
-                t.setId(res.getInt(1));
-            */
         }catch(SQLException ex)
         {
             throw new DAOException(ex.getMessage());
@@ -67,7 +62,7 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="UPDATE items SET idProduct=?, idOrder=?, totalProduct=?, price=? WHERE idOrder=?;";
+        String sql="UPDATE items SET idProduct=?, idOrder=?, totalProduct=?, price=? WHERE idOrder=? AND idProduct=?;";
         try
         {
             con=connect();
@@ -77,6 +72,7 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
             stmt.setInt(3,t.getTotalProduct());
             stmt.setFloat(4,t.getIndividualPrice());
             stmt.setInt(5,t.getIdOrder());
+            stmt.setInt(6,t.getIdProduct());
             stmt.executeUpdate();
         }catch(SQLException ex)
         {
@@ -102,7 +98,7 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="DELETE FROM items WHERE idProduct=?, idOrder=?;";
+        String sql="DELETE FROM items WHERE idProduct=? AND idOrder=?;";
         try
         {
             con=connect();

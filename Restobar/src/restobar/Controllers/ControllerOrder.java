@@ -63,6 +63,36 @@ public class ControllerOrder
     public void addItemToOrder(Item item,Order order) throws DAOException
     {
         item.setIdOrder(order.getId());
-        this.daoItem.save(mapperItem.convertObjToDto(item));
+        boolean founded=false;
+        int i=0;
+        while(i<order.getItems().size() && !founded)
+        {
+            if(item.getProduct().getId()==order.getItem(i).getProduct().getId())
+            {
+                founded=true;
+            }
+            i++;
+        }        
+        if(!founded)
+            this.daoItem.save(mapperItem.convertObjToDto(item));
+        else
+            throw new DAOException("Item already added to order.");
+    }
+    public void modifyItemFromOrder(int idProduct,int totalProduct,float individualPrice,Order order) throws DAOException
+    {
+        Item item=new Item();
+        item.getProduct().setId(idProduct);
+        item.getProduct().getPrice().setValue(individualPrice);
+        item.setTotalProduct(totalProduct);
+        item.setIdOrder(order.getId());
+        this.daoItem.update(mapperItem.convertObjToDto(item));
+    }
+    public void changeTotalProductFromItem(int modification,Item item) throws DAOException
+    {
+        item.setTotalProduct(item.getTotalProduct()+modification);
+        if(item.getTotalProduct()>0)
+            this.daoItem.update(mapperItem.convertObjToDto(item));
+        else
+            this.daoItem.delete(mapperItem.convertObjToDto(item));
     }
 }

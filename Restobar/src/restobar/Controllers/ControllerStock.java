@@ -17,10 +17,11 @@ public class ControllerStock
     {
         this.dao=new DAOStockSQL();
         this.mapper=new MapperStock();
-        this.productCont=new ControllerProduct();
+        this.productCont=null;
     }
     //Getters and setters
     public ControllerProduct getProductController(){return this.productCont;}
+    public void setProductController(ControllerProduct cont){this.productCont=cont;}
     //Functions
     public void addStock(int idProduct,int total) throws DAOException
     {

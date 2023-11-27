@@ -13,6 +13,7 @@ public class Item
         this.product=product;
         this.idOrder=idOrder;
         this.totalProduct=totalProduct;
+        this.individualPrice=product.getPrice().getValue();
     }
     //Getters and setters
     public Product getProduct(){return this.product;}
