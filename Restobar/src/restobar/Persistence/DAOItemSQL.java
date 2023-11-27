@@ -186,8 +186,8 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
     }
     public List<DTOItem> findByIdOrder(int idOrder) throws DAOException
     {
-        String sql = "SELECT it.idProduct, it.idOrder, it.totalProduct, it.price "
-                + "FROM items it WHERE idOrder="+idOrder+";";
+        String sql = "SELECT idProduct, idOrder, totalProduct, price "
+                + "FROM items WHERE idOrder="+idOrder+";";
         
         List<DTOItem> output=new ArrayList();
         
@@ -221,5 +221,35 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
             }
         }
         return output;
+    }
+    public void deleteByIdOrder(int idOrder) throws DAOException
+    {
+        Connection con=null;
+        PreparedStatement stmt=null;
+        
+        String sql="DELETE FROM items WHERE idOrder=?;";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
+            stmt.setInt(2,idOrder);
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
+            throw new DAOException(ex.getMessage());
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                    stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
     }
 }

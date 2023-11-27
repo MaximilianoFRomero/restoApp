@@ -1,12 +1,11 @@
 package restobar.Views;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import restobar.Controllers.ControllerOrder;
 import restobar.Controllers.ControllerProduct;
 import restobar.Controllers.ControllerStock;
 import restobar.Controllers.ControllerTable;
@@ -22,15 +21,25 @@ public class Menues extends javax.swing.JFrame {
     ControllerWaiter waiterCont;
     ControllerProduct productCont;
     ControllerStock stockCont;
+    ControllerOrder orderCont;
     ControllerTable tableCont;
     public Menues() {
         initComponents();
         this.setExtendedState(6);
+        
         this.waiterCont= new ControllerWaiter();
+        
         this.productCont=new ControllerProduct();
-        this.tableCont=new ControllerTable();
         this.stockCont=new ControllerStock();
         this.stockCont.setProductController(productCont);
+        
+        this.orderCont=new ControllerOrder();
+        this.orderCont.setControllerWaiter(waiterCont);
+        this.orderCont.setControllerProduct(productCont);
+        
+        this.tableCont=new ControllerTable();
+        this.tableCont.setControllerOrder(orderCont);
+        
         listCategories();
         listProductsByCategory(1);
         listTables();
@@ -55,7 +64,7 @@ public class Menues extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         lblTableSelected = new javax.swing.JLabel();
         btnCloseOrder = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblOrderTotal = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         btnAddOneProductToOrder = new javax.swing.JButton();
@@ -138,8 +147,8 @@ public class Menues extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Total:");
+        lblOrderTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblOrderTotal.setText("Total:");
 
         btnAddOneProductToOrder.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btnAddOneProductToOrder.setText("+");
@@ -250,9 +259,11 @@ public class Menues extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
-                        .addGroup(pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlOrderLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblOrderTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(104, 104, 104))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
                         .addComponent(lblTableSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,7 +293,7 @@ public class Menues extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblOrderTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -545,13 +556,13 @@ public class Menues extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseOrderActionPerformed
-        PayView newPayView = new PayView();
+        PayView newPayView = new PayView(tableCont,lstTables.getSelectedIndex()+1);
         newPayView.setVisible(true);
     }//GEN-LAST:event_btnCloseOrderActionPerformed
 
     private void btnAddOneProductToOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOneProductToOrderActionPerformed
         try {
-            tableCont.getOrderController().changeTotalProductFromItem(1, tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getItem(tblOrder.getSelectedRow()));
+            orderCont.changeTotalProductFromItem(1, tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getItem(tblOrder.getSelectedRow()));
             displayOrderFromTable(lstTables.getSelectedIndex()+1);
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
@@ -621,9 +632,9 @@ public class Menues extends javax.swing.JFrame {
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         try {
-            Product p= productCont.getProductById(Integer.valueOf(tblProducts.getValueAt(tblProducts.getSelectedRow(), 0).toString()));
-            Item item=new Item(p,0,1);
-            tableCont.getOrderController().addItemToOrder(item,tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder());
+            int selectedProduct=Integer.valueOf(tblProducts.getValueAt(tblProducts.getSelectedRow(), 0).toString());
+            Item item=new Item(productCont.getProductById(selectedProduct),0,1);
+            orderCont.addItemToOrder(item,tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder());
             displayOrderFromTable(lstTables.getSelectedIndex()+1);
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
@@ -647,7 +658,7 @@ public class Menues extends javax.swing.JFrame {
 
     private void btnSubProductToOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubProductToOrderActionPerformed
         try {
-            tableCont.getOrderController().changeTotalProductFromItem(-1, tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getItem(tblOrder.getSelectedRow()));
+            tableCont.getControllerOrder().changeTotalProductFromItem(-1, tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getItem(tblOrder.getSelectedRow()));
             displayOrderFromTable(lstTables.getSelectedIndex()+1);
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
@@ -743,10 +754,12 @@ public class Menues extends javax.swing.JFrame {
                 datos[3]=o.getItems().get(i).calculateTotalPrice()+"";
                 model.addRow(datos);
             }
+            this.lblOrderTotal.setText("Total="+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().calculatePrice());
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOneProductToOrder;
@@ -757,7 +770,6 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JButton btnUp;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
@@ -799,6 +811,7 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel lblOrderTotal;
     private javax.swing.JLabel lblTableSelected;
     private javax.swing.JList<String> lstTables;
     private javax.swing.JComboBox<String> mainCategories;

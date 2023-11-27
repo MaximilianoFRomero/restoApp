@@ -216,5 +216,35 @@ public class DAOTableSQL implements DAOInterface<DTOTable>
         dto.setIdOrder(res.getInt(3));
         return dto;
     }
-    
+    public void endOrderById(int id) throws DAOException
+    {
+        Connection con=null;
+        PreparedStatement stmt=null;
+        
+        String sql="UPDATE tables SET idOrder=? WHERE id=?;";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
+            stmt.setInt(1,1);
+            stmt.setInt(2,id);
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
+            throw new DAOException(ex.getMessage());
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                    stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+    }
 }

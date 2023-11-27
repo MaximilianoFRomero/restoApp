@@ -17,10 +17,11 @@ public class ControllerTable
     {
         this.dao=new DAOTableSQL();
         this.mapper=new MapperTable();
-        this.orderCont=new ControllerOrder();
+        this.orderCont=null;
     }
     //Getters and setters
-    public ControllerOrder getOrderController(){return this.orderCont;}
+    public ControllerOrder getControllerOrder(){return this.orderCont;}
+    public void setControllerOrder(ControllerOrder c){this.orderCont=c;}
     //Functions
     public void addTable(String name) throws DAOException
     {
@@ -47,21 +48,20 @@ public class ControllerTable
             result.setOrder(orderCont.getOrderById(result.getOrder().getId()));
         else
         {
-            orderCont.addOrder(id,0,0);
-            List<Order>resultOrders=orderCont.listAllOrdersByIdTable(id);
-            for(int i=0;i<resultOrders.size();i++)
-            {
-                if(resultOrders.get(i).getDateOpen().equals(resultOrders.get(i).getDateClose()))
-                {
-                    modifyTable(id,result.getName(),resultOrders.get(i));
-                    result.setOrder(resultOrders.get(i));
-                }
-            }
+            orderCont.addOrder(id,1,0);
+            result.setOrder(orderCont.foundActiveOrderByIdTable(id));
+            this.dao.update(mapper.convertObjToDto(result));
         }
         return result;
     }
     public List<Table> listAll() throws DAOException
     {
         return this.mapper.convertListDtoToListObj(dao.listAll());
+    }
+    public void endOrderByIdTable(int id) throws DAOException
+    {
+        Table tableSelected=getTableById(id);
+        this.orderCont.modifyOrder(tableSelected.endCurrentOrder());
+        this.dao.endOrderById(id);
     }
 }

@@ -21,7 +21,7 @@ public class Order//Pedido
         this.waiter=new Waiter();
         this.cutlery=0;
         this.dateOpen=new Date();
-        this.dateClose=dateOpen;
+        this.dateClose=null;
         this.items=new ArrayList();
     }
     public Order(int id,int idTable,Waiter waiter,int cutlery,Date dateOpen,Date dateClose)
@@ -72,7 +72,7 @@ public class Order//Pedido
     {
         float result=0;
         for(int i=0;i<items.size();i++)
-            result+=items.get(0).calculateTotalPrice();
+            result+=items.get(i).calculateTotalPrice();
         return result;
     }
 }

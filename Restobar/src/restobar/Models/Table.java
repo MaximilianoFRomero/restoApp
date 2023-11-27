@@ -41,7 +41,8 @@ public class Table//Mesa
     }
     public Order endCurrentOrder()
     {
-        this.order.setDateClose(new Date());
-        return this.order;
+        Order oldOrder=this.order;
+        oldOrder.setDateClose(new Date());
+        return oldOrder;
     }
 }

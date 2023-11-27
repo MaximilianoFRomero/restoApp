@@ -14,13 +14,12 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
     @Override
     public void save(DTOOrder t) throws DAOException {
         java.sql.Timestamp dateOpen=new java.sql.Timestamp(t.getDateOpen().getTime());
-        java.sql.Timestamp dateClose=new java.sql.Timestamp(t.getDateClose().getTime());
         
         Connection con=null;
         PreparedStatement stmt=null;
         ResultSet res=null;
         
-        String sql="INSERT INTO orders(idTable,idWaiter,cutlery,dateOpen,dateClose) VALUES(?,?,?,?,?);";
+        String sql="INSERT INTO orders(idTable,idWaiter,cutlery,dateOpen,dateClose) VALUES(?,?,?,?,NULL);";
         try
         {
             con=connect();
@@ -29,7 +28,6 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
             stmt.setInt(2,t.getIdWaiter());
             stmt.setInt(3,t.getCutlery());
             stmt.setTimestamp(4, dateOpen);
-            stmt.setTimestamp(5, dateClose);
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -228,7 +226,10 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
         dto.setIdWaiter(res.getInt(3));
         dto.setCutlery(res.getInt(4));
         dto.setDateOpen(res.getDate(5));
-        dto.setDateClose(res.getDate(6));
+        if(res.getDate(6)!=null)
+            dto.setDateClose(res.getDate(6));
+        else
+            dto.setDateClose(null);
         return dto;
     }
     public List<DTOOrder> findByIdTable(int idTable) throws DAOException
