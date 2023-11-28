@@ -3,6 +3,8 @@ package restobar.Persistence;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import restobar.DTOs.DTOCategory;
 
 public class DAOCategorySQL implements DAOInterface<DTOCategory>
@@ -55,6 +57,17 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -83,6 +96,17 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                 {
                     stmt.close();
                     stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
                 }catch (SQLException ex)
                 {
                     throw new DAOException(ex.getMessage());
@@ -119,6 +143,17 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -129,13 +164,13 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                 + "FROM categories ca WHERE id="+id+";";
         DTOCategory output=null;
         
-        Connection cn = null;
+        Connection con=null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             if(res.next())
                 output=createDTO(res);
@@ -160,6 +195,15 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try {
+                    con.close();
+                    con=null;
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOCategorySQL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         return output;
     }
@@ -171,13 +215,13 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                 + "FROM categories ca;";
         List<DTOCategory> output = new ArrayList();
         
-        Connection cn = null;
+        Connection con=null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -197,6 +241,15 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
                     stmt = null;
                 } catch (SQLException ex) {
                     throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try {
+                    con.close();
+                    con=null;
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOCategorySQL.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

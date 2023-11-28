@@ -57,6 +57,17 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         } 
     }
 
@@ -84,6 +95,17 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
                 {
                     stmt.close();
                     stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
                 }catch (SQLException ex)
                 {
                     throw new DAOException(ex.getMessage());
@@ -120,6 +142,17 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -134,13 +167,13 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
                 + "FROM stocks st;";
         List<DTOStock> output = new ArrayList();
         
-        Connection cn = null;
+        Connection con = null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -159,6 +192,17 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }
@@ -186,13 +230,13 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
                 + "FROM stocks st WHERE idProduct="+idProduct+";";
         DTOStock output = null;
         
-        Connection cn = null;
+        Connection con = null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             if(res.next())
                 output=createDTO(res);
@@ -214,6 +258,17 @@ public class DAOStockSQL implements DAOInterface<DTOStock>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }

@@ -55,6 +55,17 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -83,6 +94,17 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                 {
                     stmt.close();
                     stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
                 }catch (SQLException ex)
                 {
                     throw new DAOException(ex.getMessage());
@@ -119,6 +141,17 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -128,13 +161,13 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                 + "FROM waiters wa WHERE id="+id+";";
         DTOWaiter output = null;
         
-        Connection cn = null;
+        Connection con = null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             if(res.next())
                 output=createDTO(res);
@@ -159,6 +192,18 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
         return output;
     }
@@ -169,13 +214,13 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                 + "FROM waiters wa;";
         List<DTOWaiter> output = new ArrayList();
         
-        Connection cn = null;
+        Connection con = null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -194,6 +239,17 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }

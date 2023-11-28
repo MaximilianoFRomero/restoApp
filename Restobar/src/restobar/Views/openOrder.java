@@ -8,19 +8,22 @@ import restobar.Models.Order;
 import restobar.Persistence.DAOException;
 
 public class openOrder extends javax.swing.JFrame {
-    ControllerOrder cont;
-    private int idOrder;
+    private Order orderSelected;
+    private ControllerOrder cont;
+    private Menues mainView;
     public openOrder() {
         initComponents();
     }
-    public openOrder(ControllerOrder c,int idOrder) {
+    public openOrder(Order orderSelected,ControllerOrder c,Menues mainView) {
         initComponents();
-        this.idOrder=idOrder;
+        this.orderSelected=orderSelected;
         this.cont=c;
+        this.mainView=mainView;
         try {
-            for(int i=0;i<cont.getControllerWaiter().listAll().size();i++)
+            int sizeWaiters=cont.getControllerWaiter().listAll().size();
+            for(int i=0;i<sizeWaiters;i++)
             {
-                cmbWaiters.addItem(cont.getControllerWaiter().getWaiterById(1+i).getName());
+                cmbWaiters.addItem(cont.getControllerWaiter().getWaiterById(1+i).toString());
             }
         } catch (DAOException ex) {
             Logger.getLogger(openOrder.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,11 +143,11 @@ public class openOrder extends javax.swing.JFrame {
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         int selectedWaiter=cmbWaiters.getSelectedIndex()+1;
         try {
-            Order o = cont.getOrderById(idOrder);
-            o.getWaiter().setId(selectedWaiter);
-            o.setDateOpen(new Date());
-            o.setCutlery(Integer.valueOf(spnCutlery.getValue().toString()));
-            cont.modifyOrder(o);
+            orderSelected.getWaiter().setId(selectedWaiter);
+            orderSelected.setDateOpen(new Date());
+            orderSelected.setCutlery(Integer.valueOf(spnCutlery.getValue().toString()));
+            cont.modifyOrder(orderSelected);
+            mainView.displayOrderFromTable();
         } catch (DAOException ex) {
             Logger.getLogger(openOrder.class.getName()).log(Level.SEVERE, null, ex);
         }

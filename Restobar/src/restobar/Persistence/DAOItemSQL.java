@@ -53,6 +53,16 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
                 {
                     throw new DAOException(ex.getMessage());
                 }
+            }if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
             }
         }
     }
@@ -85,6 +95,16 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
                 {
                     stmt.close();
                     stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
                 }catch (SQLException ex)
                 {
                     throw new DAOException(ex.getMessage());
@@ -122,6 +142,17 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -136,13 +167,13 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
                 + "FROM items it;";
         List<DTOItem> output = new ArrayList();
         
-        Connection cn = null;
-        Statement stmt = null;
-        ResultSet res = null;
+        Connection con=null;
+        Statement stmt=null;
+        ResultSet res=null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con=connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -161,6 +192,17 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }
@@ -191,13 +233,13 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
         
         List<DTOItem> output=new ArrayList();
         
-        Connection cn = null;
-        Statement stmt = null;
-        ResultSet res = null;
+        Connection con=null;
+        Statement stmt=null;
+        ResultSet res=null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con=connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -216,6 +258,17 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con=null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }
@@ -245,6 +298,17 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
                 {
                     stmt.close();
                     stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con=null;
                 }catch (SQLException ex)
                 {
                     throw new DAOException(ex.getMessage());

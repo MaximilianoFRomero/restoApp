@@ -58,6 +58,17 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -88,6 +99,17 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                 {
                     stmt.close();
                     stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
                 }catch (SQLException ex)
                 {
                     throw new DAOException(ex.getMessage());
@@ -124,6 +146,17 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -133,13 +166,13 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                 + "FROM products WHERE id="+id+";";
         DTOProduct output = null;
         
-        Connection cn = null;
+        Connection con = null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             if(res.next())
                 output=createDTO(res);
@@ -164,6 +197,17 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
         return output;
     }
@@ -174,13 +218,13 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                 + "FROM products pr;";
         List<DTOProduct> output = new ArrayList();
         
-        Connection cn = null;
+        Connection con = null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -199,6 +243,17 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }
@@ -210,13 +265,13 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                 + "FROM products pr WHERE pr.idCategory="+idCategory+";";
         List<DTOProduct> output = new ArrayList();
         
-        Connection cn = null;
+        Connection con = null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con = connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -235,6 +290,17 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }

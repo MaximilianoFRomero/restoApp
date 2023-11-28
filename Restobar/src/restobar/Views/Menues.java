@@ -19,13 +19,14 @@ import restobar.Models.Table;
 import restobar.Persistence.DAOException;
 
 public class Menues extends javax.swing.JFrame {
-    ControllerWaiter waiterCont;
-    ControllerProduct productCont;
-    ControllerStock stockCont;
-    ControllerOrder orderCont;
-    ControllerTable tableCont;
+    private ControllerWaiter waiterCont;
+    private ControllerProduct productCont;
+    private ControllerStock stockCont;
+    private ControllerOrder orderCont;
+    private ControllerTable tableCont;
     
     private Table tableSelected;
+    private int count=0;
     
     public Menues() {
         initComponents();
@@ -154,7 +155,7 @@ public class Menues extends javax.swing.JFrame {
         });
 
         lblOrderTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblOrderTotal.setText("Total:");
+        lblOrderTotal.setText("Total =");
 
         btnAddOneProductToOrder.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btnAddOneProductToOrder.setText("+");
@@ -578,8 +579,8 @@ public class Menues extends javax.swing.JFrame {
 
     private void btnAddOneProductToOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOneProductToOrderActionPerformed
         try {
-            orderCont.changeTotalProductFromItem(1, tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getItem(tblOrder.getSelectedRow()));
-            displayOrderFromTable(lstTables.getSelectedIndex()+1);
+            orderCont.changeTotalProductFromItem(1, tableSelected.getOrder().getItem(tblOrder.getSelectedRow()));
+            displayOrderFromTable();
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -597,8 +598,6 @@ public class Menues extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        //addProduct p1 = new addProduct(productCont,tblProducts,mainCategories,this);
-        //p1.setVisible(true);
         addProduct win=new addProduct(stockCont,this);
         win.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -652,26 +651,28 @@ public class Menues extends javax.swing.JFrame {
         try {
             int selectedProduct=Integer.valueOf(tblProducts.getValueAt(tblProducts.getSelectedRow(), 0).toString());
             Item item=new Item(productCont.getProductById(selectedProduct),0,1);
-            orderCont.addItemToOrder(item,tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder());
-            displayOrderFromTable(lstTables.getSelectedIndex()+1);
+            orderCont.addItemToOrder(item,tableSelected.getOrder());
+            displayOrderFromTable();
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAddProductActionPerformed
 
     private void lstTablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTablesMouseClicked
-        lblTableSelected.setText("Pedido="+lstTables.getSelectedValue());
         try {
-            if(tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getWaiter().getId()!=1)
-                displayOrderFromTable(lstTables.getSelectedIndex()+1);
+            tableSelected=tableCont.getTableById(lstTables.getSelectedIndex()+1);
+            if(tableSelected.getOrder().getWaiter().getId()!=1)
+                displayOrderFromTable();
             else
             {
-                openOrder sw = new openOrder(orderCont,tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getId());
+                openOrder sw = new openOrder(tableSelected.getOrder(),orderCont,this);
                 sw.setVisible(true);
             }
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
+        count++;
+        System.out.println("COUNT="+count);
         pnlCategory.setVisible(true);
     }//GEN-LAST:event_lstTablesMouseClicked
 
@@ -686,8 +687,10 @@ public class Menues extends javax.swing.JFrame {
 
     private void btnSubProductToOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubProductToOrderActionPerformed
         try {
-            tableCont.getControllerOrder().changeTotalProductFromItem(-1, tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getItem(tblOrder.getSelectedRow()));
-            displayOrderFromTable(lstTables.getSelectedIndex()+1);
+            orderCont.changeTotalProductFromItem(-1, tableSelected.getOrder().getItem(tblOrder.getSelectedRow()));
+            if(tableSelected.getOrder().getItem(tblOrder.getSelectedRow()).getTotalProduct()<=0)
+                tableSelected.getOrder().removeItem(tblOrder.getSelectedRow());
+            displayOrderFromTable();
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -747,7 +750,6 @@ public class Menues extends javax.swing.JFrame {
     }
     public void listTables()
     {
-        
         try {
             List<Table> t=this.tableCont.listAll();
             DefaultListModel model = new DefaultListModel();
@@ -761,10 +763,11 @@ public class Menues extends javax.swing.JFrame {
         }
         
     }
-    public void displayOrderFromTable(int id)
+    public void displayOrderFromTable()
     {
         try {
-            Order o=tableCont.getTableById(id).getOrder();
+            lblTableSelected.setText("Pedido="+lstTables.getSelectedValue());
+            Order o=tableSelected.getOrder();
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Codigo");
             model.addColumn("Nombre");
@@ -775,16 +778,16 @@ public class Menues extends javax.swing.JFrame {
             for(int i=0;i<o.getItems().size();i++)
             {
                 Product p=productCont.getProductById(o.getItem(i).getProduct().getId());
-                datos[0]=o.getItems().get(i).getProduct().getId()+"";
+                datos[0]=tableSelected.getOrder().getItem(i).getProduct().getId()+"";
                 datos[1]=p.getName();
-                datos[2]=o.getItems().get(i).getTotalProduct()+"";
-                datos[3]=o.getItems().get(i).calculateTotalPrice()+"";
+                datos[2]=tableSelected.getOrder().getItem(i).getTotalProduct()+"";
+                datos[3]=tableSelected.getOrder().getItem(i).calculateTotalPrice()+"";
                 model.addRow(datos);
             }
             //Metodo precio total en tiempo real
-            this.lblOrderTotal.setText("Total = "+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().calculatePrice());
-            this.lblOrderCutlery.setText("Cubiertos: "+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getCutlery());
-            this.lblOrderWaiter.setText("Mozo: "+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getWaiter().getName());
+            this.lblOrderTotal.setText("Total = "+tableSelected.getOrder().calculatePrice());
+            this.lblOrderCutlery.setText("Cubiertos: "+tableSelected.getOrder().getCutlery());
+            this.lblOrderWaiter.setText("Mozo: "+waiterCont.getWaiterById(tableSelected.getOrder().getWaiter().getId()));
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }

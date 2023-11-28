@@ -39,7 +39,7 @@ public class ControllerOrder
     {
         Order o=new Order();
         o.setIdTable(idTable);
-        o.setWaiter(waiterCont.getWaiterById(idWaiter));
+        //o.setWaiter(waiterCont.getWaiterById(idWaiter));
         this.dao.save(mapper.convertObjToDto(o));
     }
     public void modifyOrder(int id,int idTable,int idWaiter,int cutlery,Date dateOpen,Date dateClose) throws DAOException
@@ -61,7 +61,7 @@ public class ControllerOrder
     public Order getOrderById(int id) throws DAOException
     {
         Order o=mapper.convertDtoToObj(dao.byId(id));
-        o.setWaiter(waiterCont.getWaiterById(o.getWaiter().getId()));
+        //o.setWaiter(waiterCont.getWaiterById(o.getWaiter().getId()));
         o.addItems(mapperItem.convertListDtoToListObj(daoItem.findByIdOrder(id)));
         return o;
     }
@@ -92,8 +92,10 @@ public class ControllerOrder
             i++;
         }        
         if(!founded)
+        {
             this.daoItem.save(mapperItem.convertObjToDto(item));
-        else
+            order.addItem(item);
+        }else
             throw new DAOException("Item already added to order.");
     }
     public void addItemToOrder(int idProduct,int totalProduct,Order order) throws DAOException

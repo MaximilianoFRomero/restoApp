@@ -59,13 +59,23 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
     @Override
     public void update(DTOOrder t) throws DAOException {
         java.sql.Timestamp dateOpen=new java.sql.Timestamp(t.getDateOpen().getTime());
-        
         
         Connection con=null;
         PreparedStatement stmt=null;
@@ -103,6 +113,17 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -134,6 +155,17 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
     }
 
@@ -143,13 +175,13 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                 + "FROM orders WHERE id="+id+";";
         DTOOrder output = null;
         
-        Connection cn = null;
+        Connection con=null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con=connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             if(res.next())
                 output=createDTO(res);
@@ -174,6 +206,17 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                     throw new DAOException(ex.getMessage());
                 }
             }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
         }
         return output;
     }
@@ -184,13 +227,13 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                 + "FROM orders or;";
         List<DTOOrder> output = new ArrayList();
         
-        Connection cn = null;
+        Connection con=null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con=connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -209,6 +252,17 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }
@@ -243,13 +297,13 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                 + "FROM orders WHERE idTable="+idTable+";";
         List<DTOOrder> output = new ArrayList();
         
-        Connection cn = null;
+        Connection con=null;
         Statement stmt = null;
         ResultSet res = null;
         
         try {
-            cn = connect();
-            stmt = cn.createStatement();
+            con=connect();
+            stmt = con.createStatement();
             res = stmt.executeQuery(sql);
             convertToList(res, output);
         } catch (SQLException ex) {
@@ -268,6 +322,17 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                     stmt.close();
                     stmt = null;
                 } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
                     throw new DAOException(ex.getMessage());
                 }
             }
