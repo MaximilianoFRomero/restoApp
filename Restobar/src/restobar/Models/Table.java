@@ -106,4 +106,8 @@ public class Table//Mesa
         oldOrder.setDateClose(new Date());
         return oldOrder;
     }
+    public String toString()
+    {
+        return this.name;
+    }
 }

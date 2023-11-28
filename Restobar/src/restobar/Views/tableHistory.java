@@ -18,7 +18,7 @@ public class tableHistory extends javax.swing.JFrame {
         rSLabelHora1 = new rojeru_san.RSLabelHora();
         rSLabelFecha1 = new rojeru_san.RSLabelFecha();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblOrders = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -35,7 +35,7 @@ public class tableHistory extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setText("Mesa:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"001", "13-10-23", "12:25", "14:16", "$5699"},
                 {null, null, null, null, null},
@@ -50,7 +50,7 @@ public class tableHistory extends javax.swing.JFrame {
                 "Nro de Pedido", "Fecha", "Hora de Apertura", "Hora de Cierre", "Importe Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblOrders);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,6 +97,7 @@ public class tableHistory extends javax.swing.JFrame {
                             .addComponent(rSLabelFecha1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
+                .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -162,8 +163,8 @@ public class tableHistory extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private rojeru_san.RSLabelFecha rSLabelFecha1;
     private rojeru_san.RSLabelHora rSLabelHora1;
+    private javax.swing.JTable tblOrders;
     // End of variables declaration//GEN-END:variables
 }

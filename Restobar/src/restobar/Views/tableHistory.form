@@ -140,7 +140,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tblOrders">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {&quot;001&quot;, &quot;13-10-23&quot;, &quot;12:25&quot;, &quot;14:16&quot;, &quot;$5699&quot;},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;Nro de Pedido&quot;, &quot;Fecha&quot;, &quot;Hora de Apertura&quot;, &quot;Hora de Cierre&quot;, &quot;Importe Total&quot;&#xa;    }&#xa;)" type="code"/>

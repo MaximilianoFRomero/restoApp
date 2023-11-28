@@ -26,7 +26,6 @@ public class Menues extends javax.swing.JFrame {
     private ControllerTable tableCont;
     
     private Table tableSelected;
-    private int count=0;
     
     public Menues() {
         initComponents();
@@ -91,15 +90,13 @@ public class Menues extends javax.swing.JFrame {
         tblProducts = new javax.swing.JTable();
         btnAddProduct = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         lstTables = new javax.swing.JList<>();
         jMenuBar4 = new javax.swing.JMenuBar();
         jMenu8 = new javax.swing.JMenu();
         mItemAddTable = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnItemTableEdit = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem19 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -396,17 +393,12 @@ public class Menues extends javax.swing.JFrame {
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        lstTables.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         lstTables.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstTablesMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(lstTables);
+        jScrollPane1.setViewportView(lstTables);
 
         jMenu8.setText("Mesas");
 
@@ -418,21 +410,13 @@ public class Menues extends javax.swing.JFrame {
         });
         jMenu8.add(mItemAddTable);
 
-        jMenuItem9.setText("Eliminar mesa");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        mnItemTableEdit.setText("Eliminar/Modificar mesa");
+        mnItemTableEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                mnItemTableEditActionPerformed(evt);
             }
         });
-        jMenu8.add(jMenuItem9);
-
-        jMenuItem1.setText("Modificar mesa");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem1);
+        jMenu8.add(mnItemTableEdit);
 
         jMenuItem6.setText("Historial de pedidos");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -441,9 +425,6 @@ public class Menues extends javax.swing.JFrame {
             }
         });
         jMenu8.add(jMenuItem6);
-
-        jMenuItem19.setText("Listado de mesas");
-        jMenu8.add(jMenuItem19);
 
         jMenuBar4.add(jMenu8);
 
@@ -550,22 +531,22 @@ public class Menues extends javax.swing.JFrame {
                     .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pnlCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
@@ -586,10 +567,10 @@ public class Menues extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddOneProductToOrderActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        deleteTable deleteT = new deleteTable();
+    private void mnItemTableEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemTableEditActionPerformed
+        editTable deleteT = new editTable(tableCont,this);
         deleteT.setVisible(true);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_mnItemTableEditActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         CargaMozo m1 = new CargaMozo();
@@ -606,11 +587,6 @@ public class Menues extends javax.swing.JFrame {
         addTable t1 = new addTable(tableCont,this);
         t1.setVisible(true);
     }//GEN-LAST:event_mItemAddTableActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        modifyTable modifyT = new modifyTable();
-        modifyT.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         selectTable selectT = new selectTable();
@@ -657,25 +633,7 @@ public class Menues extends javax.swing.JFrame {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAddProductActionPerformed
-
-    private void lstTablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTablesMouseClicked
-        try {
-            tableSelected=tableCont.getTableById(lstTables.getSelectedIndex()+1);
-            if(tableSelected.getOrder().getWaiter().getId()!=1)
-                displayOrderFromTable();
-            else
-            {
-                openOrder sw = new openOrder(tableSelected.getOrder(),orderCont,this);
-                sw.setVisible(true);
-            }
-        } catch (DAOException ex) {
-            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        count++;
-        System.out.println("COUNT="+count);
-        pnlCategory.setVisible(true);
-    }//GEN-LAST:event_lstTablesMouseClicked
-
+    
     private void jMenu10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu10ActionPerformed
         
     }//GEN-LAST:event_jMenu10ActionPerformed
@@ -709,6 +667,21 @@ public class Menues extends javax.swing.JFrame {
         else
             tblOrder.setRowSelectionInterval(0,0);
     }//GEN-LAST:event_btnDownActionPerformed
+
+    private void lstTablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTablesMouseClicked
+        try {
+            tableSelected=tableCont.getTableById(lstTables.getSelectedValue().getId());
+            if(tableSelected.getOrder().getWaiter().getId()!=1)
+                displayOrderFromTable();
+            else{
+                openOrder sw = new openOrder(tableSelected.getOrder(),orderCont,this);
+                sw.setVisible(true);
+            }
+            pnlCategory.setVisible(true);
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lstTablesMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -756,7 +729,7 @@ public class Menues extends javax.swing.JFrame {
             lstTables.setModel(model);
             for(int i=0;i<t.size();i++)
             {
-                model.addElement(t.get(i).getName());
+                model.addElement(t.get(i));
             }
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
@@ -817,7 +790,6 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuBar jMenuBar4;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
@@ -827,7 +799,6 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
@@ -835,12 +806,11 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -848,9 +818,10 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JLabel lblOrderTotal;
     private javax.swing.JLabel lblOrderWaiter;
     private javax.swing.JLabel lblTableSelected;
-    private javax.swing.JList<String> lstTables;
+    private javax.swing.JList<Table> lstTables;
     private javax.swing.JMenuItem mItemAddTable;
     private javax.swing.JComboBox<String> mainCategories;
+    private javax.swing.JMenuItem mnItemTableEdit;
     private javax.swing.JPanel pnlCategory;
     private javax.swing.JPanel pnlOrder;
     private rojeru_san.RSLabelFecha rSLabelFecha1;
