@@ -20,8 +20,8 @@ public class ControllerStock
         this.productCont=null;
     }
     //Getters and setters
-    public ControllerProduct getProductController(){return this.productCont;}
-    public void setProductController(ControllerProduct cont){this.productCont=cont;}
+    public ControllerProduct getControllerProduct(){return this.productCont;}
+    public void setControllerProduct(ControllerProduct cont){this.productCont=cont;}
     //Functions
     public void addStock(int idProduct,int total) throws DAOException
     {

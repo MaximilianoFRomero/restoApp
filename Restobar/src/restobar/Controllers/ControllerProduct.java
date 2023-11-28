@@ -50,6 +50,11 @@ public class ControllerProduct
         p.setCategory(cat);
         return p;
     }
+    public Product getLastProduct() throws DAOException
+    {
+        int size=dao.listAll().size();
+        return this.mapper.convertDtoToObj(dao.byId(size));
+    }
     public List<Product> listAll() throws DAOException
     {
         //OPTIMIZE THIS

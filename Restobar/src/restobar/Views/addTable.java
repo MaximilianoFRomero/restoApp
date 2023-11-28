@@ -7,12 +7,14 @@ import restobar.Persistence.DAOException;
 
 public class addTable extends javax.swing.JFrame {
     private ControllerTable cont;
+    private Menues mainView;
     public addTable() {
         initComponents();
     }
-    public addTable(ControllerTable cont) {
+    public addTable(ControllerTable cont,Menues mainView) {
         initComponents();
         this.cont=cont;
+        this.mainView=mainView;
     }
 
     /**
@@ -127,6 +129,7 @@ public class addTable extends javax.swing.JFrame {
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         try {
             this.cont.addTable(txtName.getText());
+            mainView.listTables();
         } catch (DAOException ex) {
             Logger.getLogger(addTable.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -65,7 +65,7 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
     @Override
     public void update(DTOOrder t) throws DAOException {
         java.sql.Timestamp dateOpen=new java.sql.Timestamp(t.getDateOpen().getTime());
-        java.sql.Timestamp dateClose=new java.sql.Timestamp(t.getDateClose().getTime());
+        
         
         Connection con=null;
         PreparedStatement stmt=null;
@@ -79,7 +79,12 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
             stmt.setInt(2,t.getIdWaiter());
             stmt.setInt(3,t.getCutlery());
             stmt.setTimestamp(4, dateOpen);
-            stmt.setTimestamp(5, dateClose);
+            if(t.getDateClose()!=null)
+            {
+                java.sql.Timestamp dateClose=new java.sql.Timestamp(t.getDateClose().getTime());
+                stmt.setTimestamp(5, dateClose);
+            }else
+                stmt.setTimestamp(5, null);
             stmt.setInt(6,t.getId());
             stmt.executeUpdate();
         }catch(SQLException ex)

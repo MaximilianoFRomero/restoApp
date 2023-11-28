@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-11-2023 a las 20:13:10
+-- Tiempo de generación: 28-11-2023 a las 02:31:19
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -64,7 +64,7 @@ CREATE TABLE `orders` (
   `idWaiter` int(11) NOT NULL,
   `cutlery` int(11) NOT NULL,
   `dateOpen` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `dateClose` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `dateClose` timestamp NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

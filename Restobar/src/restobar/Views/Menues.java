@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 import restobar.Controllers.ControllerOrder;
 import restobar.Controllers.ControllerProduct;
@@ -23,6 +24,9 @@ public class Menues extends javax.swing.JFrame {
     ControllerStock stockCont;
     ControllerOrder orderCont;
     ControllerTable tableCont;
+    
+    private Table tableSelected;
+    
     public Menues() {
         initComponents();
         this.setExtendedState(6);
@@ -31,7 +35,7 @@ public class Menues extends javax.swing.JFrame {
         
         this.productCont=new ControllerProduct();
         this.stockCont=new ControllerStock();
-        this.stockCont.setProductController(productCont);
+        this.stockCont.setControllerProduct(productCont);
         
         this.orderCont=new ControllerOrder();
         this.orderCont.setControllerWaiter(waiterCont);
@@ -40,7 +44,7 @@ public class Menues extends javax.swing.JFrame {
         this.tableCont=new ControllerTable();
         this.tableCont.setControllerOrder(orderCont);
         
-        listCategories();
+        listCategories(mainCategories);
         listProductsByCategory(1);
         listTables();
         pnlCategory.setVisible(false);
@@ -76,6 +80,8 @@ public class Menues extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         rSLabelHora1 = new rojeru_san.RSLabelHora();
         rSLabelFecha1 = new rojeru_san.RSLabelFecha();
+        lblOrderWaiter = new javax.swing.JLabel();
+        lblOrderCutlery = new javax.swing.JLabel();
         pnlCategory = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -88,7 +94,7 @@ public class Menues extends javax.swing.JFrame {
         lstTables = new javax.swing.JList<>();
         jMenuBar4 = new javax.swing.JMenuBar();
         jMenu8 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        mItemAddTable = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -240,6 +246,10 @@ public class Menues extends javax.swing.JFrame {
             tblOrder.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        lblOrderWaiter.setText("Mozo:");
+
+        lblOrderCutlery.setText("Cubiertos:");
+
         javax.swing.GroupLayout pnlOrderLayout = new javax.swing.GroupLayout(pnlOrder);
         pnlOrder.setLayout(pnlOrderLayout);
         pnlOrderLayout.setHorizontalGroup(
@@ -259,11 +269,7 @@ public class Menues extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
-                        .addGroup(pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4)
-                            .addGroup(pnlOrderLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblOrderTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane4)
                         .addGap(104, 104, 104))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOrderLayout.createSequentialGroup()
                         .addComponent(lblTableSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +280,14 @@ public class Menues extends javax.swing.JFrame {
                                 .addComponent(rSLabelFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rSLabelHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(pnlOrderLayout.createSequentialGroup()
+                        .addComponent(lblOrderWaiter, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblOrderCutlery, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblOrderTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         pnlOrderLayout.setVerticalGroup(
             pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +306,10 @@ public class Menues extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblOrderTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOrderTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblOrderWaiter)
+                    .addComponent(lblOrderCutlery))
                 .addGap(5, 5, 5)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -393,13 +409,13 @@ public class Menues extends javax.swing.JFrame {
 
         jMenu8.setText("Mesas");
 
-        jMenuItem8.setText("Añadir mesa");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        mItemAddTable.setText("Añadir mesa");
+        mItemAddTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                mItemAddTableActionPerformed(evt);
             }
         });
-        jMenu8.add(jMenuItem8);
+        jMenu8.add(mItemAddTable);
 
         jMenuItem9.setText("Eliminar mesa");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -581,14 +597,16 @@ public class Menues extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        addProduct p1 = new addProduct(productCont,tblProducts,mainCategories,this);
-        p1.setVisible(true);
+        //addProduct p1 = new addProduct(productCont,tblProducts,mainCategories,this);
+        //p1.setVisible(true);
+        addProduct win=new addProduct(stockCont,this);
+        win.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        addTable t1 = new addTable(tableCont);
+    private void mItemAddTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemAddTableActionPerformed
+        addTable t1 = new addTable(tableCont,this);
         t1.setVisible(true);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_mItemAddTableActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         modifyTable modifyT = new modifyTable();
@@ -643,7 +661,17 @@ public class Menues extends javax.swing.JFrame {
 
     private void lstTablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTablesMouseClicked
         lblTableSelected.setText("Pedido="+lstTables.getSelectedValue());
-        displayOrderFromTable(lstTables.getSelectedIndex()+1);
+        try {
+            if(tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getWaiter().getId()!=1)
+                displayOrderFromTable(lstTables.getSelectedIndex()+1);
+            else
+            {
+                openOrder sw = new openOrder(orderCont,tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getId());
+                sw.setVisible(true);
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pnlCategory.setVisible(true);
     }//GEN-LAST:event_lstTablesMouseClicked
 
@@ -686,11 +714,11 @@ public class Menues extends javax.swing.JFrame {
             }
         });
     }
-    private void listCategories(){
+    public void listCategories(JComboBox cmb){
         try {
             List<Category> c=this.productCont.getCategoryController().listAll();
             for (int i = 0; i < c.size();i++){
-                mainCategories.addItem(c.get(i).getName());
+                cmb.addItem(c.get(i).getName());
             }
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
@@ -744,21 +772,24 @@ public class Menues extends javax.swing.JFrame {
             model.addColumn("Importe");
             tblOrder.setModel(model);
             String [] datos = new String[4];
-            Product p;
             for(int i=0;i<o.getItems().size();i++)
             {
-                p=productCont.getProductById(o.getItems().get(i).getProduct().getId());
-                datos[0]=p.getId()+"";
+                Product p=productCont.getProductById(o.getItem(i).getProduct().getId());
+                datos[0]=o.getItems().get(i).getProduct().getId()+"";
                 datos[1]=p.getName();
                 datos[2]=o.getItems().get(i).getTotalProduct()+"";
                 datos[3]=o.getItems().get(i).calculateTotalPrice()+"";
                 model.addRow(datos);
             }
-            this.lblOrderTotal.setText("Total="+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().calculatePrice());
+            //Metodo precio total en tiempo real
+            this.lblOrderTotal.setText("Total = "+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().calculatePrice());
+            this.lblOrderCutlery.setText("Cubiertos: "+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getCutlery());
+            this.lblOrderWaiter.setText("Mozo: "+tableCont.getTableById(lstTables.getSelectedIndex()+1).getOrder().getWaiter().getName());
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public JComboBox getCmbCategories(){return this.mainCategories;}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -801,7 +832,6 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
@@ -811,9 +841,12 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel lblOrderCutlery;
     private javax.swing.JLabel lblOrderTotal;
+    private javax.swing.JLabel lblOrderWaiter;
     private javax.swing.JLabel lblTableSelected;
     private javax.swing.JList<String> lstTables;
+    private javax.swing.JMenuItem mItemAddTable;
     private javax.swing.JComboBox<String> mainCategories;
     private javax.swing.JPanel pnlCategory;
     private javax.swing.JPanel pnlOrder;

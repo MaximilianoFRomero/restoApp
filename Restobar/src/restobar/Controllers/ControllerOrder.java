@@ -61,7 +61,7 @@ public class ControllerOrder
     public Order getOrderById(int id) throws DAOException
     {
         Order o=mapper.convertDtoToObj(dao.byId(id));
-        
+        o.setWaiter(waiterCont.getWaiterById(o.getWaiter().getId()));
         o.addItems(mapperItem.convertListDtoToListObj(daoItem.findByIdOrder(id)));
         return o;
     }
