@@ -280,12 +280,51 @@ public class DAOItemSQL implements DAOInterface<DTOItem>
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="DELETE FROM items WHERE idOrder=?;";
+        String sql="DELETE FROM items WHERE idOrder="+idOrder+";";
         try
         {
             con=connect();
             stmt=con.prepareStatement(sql);
-            stmt.setInt(2,idOrder);
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
+            throw new DAOException(ex.getMessage());
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                    stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con=null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+    }
+    public void deleteByIdProduct(int idProduct) throws DAOException
+    {
+        Connection con=null;
+        PreparedStatement stmt=null;
+        
+        String sql="DELETE FROM items WHERE idProduct="+idProduct+";";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
             stmt.executeUpdate();
         }catch(SQLException ex)
         {

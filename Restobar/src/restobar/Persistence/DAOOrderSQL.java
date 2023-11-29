@@ -19,7 +19,7 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
         PreparedStatement stmt=null;
         ResultSet res=null;
         
-        String sql="INSERT INTO orders(idTable,idWaiter,cutlery,dateOpen,dateClose) VALUES(?,?,?,?,NULL);";
+        String sql="INSERT INTO orders(idTable,idWaiter,cutlery,dateOpen,dateClose,totalPrice) VALUES(?,?,?,?,NULL,?);";
         try
         {
             con=connect();
@@ -28,6 +28,7 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
             stmt.setInt(2,t.getIdWaiter());
             stmt.setInt(3,t.getCutlery());
             stmt.setTimestamp(4, dateOpen);
+            stmt.setFloat(5,t.getTotalPrice());
             stmt.executeUpdate();
             res=stmt.getGeneratedKeys();
             if(res.next())
@@ -80,7 +81,7 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="UPDATE orders SET idTable=?, idWaiter=?, cutlery=?, dateOpen=?, dateClose=? WHERE id=?;";
+        String sql="UPDATE orders SET idTable=?, idWaiter=?, cutlery=?, dateOpen=?, dateClose=?, totalPrice=? WHERE id=?;";
         try
         {
             con=connect();
@@ -95,7 +96,8 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
                 stmt.setTimestamp(5, dateClose);
             }else
                 stmt.setTimestamp(5, null);
-            stmt.setInt(6,t.getId());
+            stmt.setFloat(6,t.getTotalPrice());
+            stmt.setInt(7,t.getId());
             stmt.executeUpdate();
         }catch(SQLException ex)
         {
@@ -171,7 +173,7 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
 
     @Override
     public DTOOrder byId(int id) throws DAOException {
-        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose "
+        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose, totalPrice "
                 + "FROM orders WHERE id="+id+";";
         DTOOrder output = null;
         
@@ -223,8 +225,8 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
 
     @Override
     public List<DTOOrder> listAll() throws DAOException {
-        String sql = "SELECT or.id, or.idTable, or.idWaiter, or.cutlery, or.dateOpen, or.dateClose "
-                + "FROM orders or;";
+        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose, totalPrice "
+                + "FROM orders;";
         List<DTOOrder> output = new ArrayList();
         
         Connection con=null;
@@ -289,12 +291,148 @@ public class DAOOrderSQL implements DAOInterface<DTOOrder>
             dto.setDateClose(res.getDate(6));
         else
             dto.setDateClose(null);
+        dto.setTotalPrice(res.getFloat(7));
         return dto;
     }
     public List<DTOOrder> findByIdTable(int idTable) throws DAOException
     {
-        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose "
+        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose, totalPrice "
                 + "FROM orders WHERE idTable="+idTable+";";
+        List<DTOOrder> output = new ArrayList();
+        
+        Connection con=null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            con=connect();
+            stmt = con.createStatement();
+            res = stmt.executeQuery(sql);
+            convertToList(res, output);
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
+    }
+    public List<DTOOrder> findByIdWaiter(int idWaiter) throws DAOException
+    {
+        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose, totalPrice "
+                + "FROM orders WHERE idWaiter="+idWaiter+";";
+        List<DTOOrder> output = new ArrayList();
+        
+        Connection con=null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            con=connect();
+            stmt = con.createStatement();
+            res = stmt.executeQuery(sql);
+            convertToList(res, output);
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
+    }
+    public void changeByIdTableToNone(int idTable) throws DAOException {
+        Connection con=null;
+        PreparedStatement stmt=null;
+        
+        String sql="UPDATE orders SET idTable=1 WHERE idTable="+idTable+";";
+        try
+        {
+            con=connect();
+            stmt=con.prepareStatement(sql);
+            stmt.executeUpdate();
+        }catch(SQLException ex)
+        {
+            throw new DAOException(ex.getMessage());
+        }finally
+        {
+            if(stmt != null)
+            {
+                try
+                {
+                    stmt.close();
+                    stmt = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+    }
+    public List<DTOOrder> findClosedOrdersByIdTable(int idTable) throws DAOException
+    {
+        String sql = "SELECT id, idTable, idWaiter, cutlery, dateOpen, dateClose, totalPrice "
+                + "FROM orders WHERE idTable="+idTable+" AND dateClose IS NOT NULL;";
         List<DTOOrder> output = new ArrayList();
         
         Connection con=null;

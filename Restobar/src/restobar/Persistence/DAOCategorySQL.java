@@ -160,8 +160,8 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     @Override
     public DTOCategory byId(int id) throws DAOException
     {
-        String sql = "SELECT ca.id, ca.name "
-                + "FROM categories ca WHERE id="+id+";";
+        String sql = "SELECT id, name "
+                + "FROM categories WHERE id="+id+";";
         DTOCategory output=null;
         
         Connection con=null;
@@ -211,8 +211,8 @@ public class DAOCategorySQL implements DAOInterface<DTOCategory>
     @Override
     public List<DTOCategory> listAll() throws DAOException
     {
-        String sql = "SELECT ca.id, ca.name "
-                + "FROM categories ca;";
+        String sql = "SELECT id, name "
+                + "FROM categories;";
         List<DTOCategory> output = new ArrayList();
         
         Connection con=null;

@@ -1,6 +1,8 @@
 package restobar.Controllers;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import restobar.Mappers.MapperStock;
 import restobar.Models.Product;
 import restobar.Models.Stock;
@@ -40,6 +42,15 @@ public class ControllerStock
         o.setProduct(c);
         this.dao.delete(mapper.convertObjToDto(o));
     }
+    public void modifyStockByIdProduct(int idProduct,int total) throws DAOException
+    {
+        Stock o=new Stock();
+        Product c=new Product();
+        c.setId(idProduct);
+        o.setProduct(c);
+        o.setTotal(total);
+        this.dao.update(mapper.convertObjToDto(o));
+    }
     public Stock getStockByIdProduct(int idProduct) throws DAOException
     {
         Stock result=this.mapper.convertDtoToObj(dao.getStockFromIdProduct(idProduct));
@@ -54,5 +65,16 @@ public class ControllerStock
             results.get(i).setProduct(this.productCont.getProductById(results.get(i).getProduct().getId()));
         }
         return results;
+    }
+    public boolean hasStock(int idProduct)
+    {
+        boolean result=false;
+        try {
+            this.dao.byId(idProduct);
+            result=true;
+        } catch (DAOException ex) {
+            Logger.getLogger(ControllerStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 }

@@ -34,6 +34,14 @@ public class ControllerWaiter
         }else
             throw new DAOException("Not possible modify this waiter.");
     }
+    public void modifyWaiter(Waiter w) throws DAOException
+    {
+        if(w.getId()!=1)
+        {
+            this.dao.update(mapper.convertObjToDto(w));
+        }else
+            throw new DAOException("Not possible modify this waiter.");
+    }
     public void removeWaiterById(int id) throws DAOException
     {
         if(id!=1)

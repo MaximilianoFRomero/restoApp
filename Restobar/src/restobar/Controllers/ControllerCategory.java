@@ -33,6 +33,14 @@ public class ControllerCategory
         }else
             throw new DAOException("Not possible modify this category.");
     }
+    public void modifyCategory(Category c) throws DAOException
+    {
+        if(c.getId()!=1)
+        {
+            this.dao.update(mapper.convertObjToDto(c));
+        }else
+            throw new DAOException("Not possible modify this category.");
+    }
     public void removeCategoryById(int id) throws DAOException
     {
         if(id!=1)

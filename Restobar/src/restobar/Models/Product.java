@@ -102,4 +102,8 @@ public class Product//Producto
      * @param category
      */
     public void setCategory(Category category){this.category=category;}
+    public String toString()
+    {
+        return this.name;
+    }
 }

@@ -6,6 +6,7 @@ import restobar.Mappers.MapperItem;
 import restobar.Mappers.MapperOrder;
 import restobar.Models.Item;
 import restobar.Models.Order;
+import restobar.Models.Waiter;
 import restobar.Persistence.DAOException;
 import restobar.Persistence.DAOItemSQL;
 import restobar.Persistence.DAOOrderSQL;
@@ -61,7 +62,7 @@ public class ControllerOrder
     public Order getOrderById(int id) throws DAOException
     {
         Order o=mapper.convertDtoToObj(dao.byId(id));
-        //o.setWaiter(waiterCont.getWaiterById(o.getWaiter().getId()));
+        o.setWaiter(waiterCont.getWaiterById(o.getWaiter().getId()));
         o.addItems(mapperItem.convertListDtoToListObj(daoItem.findByIdOrder(id)));
         return o;
     }
@@ -119,10 +120,14 @@ public class ControllerOrder
         Item item=new Item(productCont.getProductById(idProduct),order.getId(),totalProduct);
         this.daoItem.update(mapperItem.convertObjToDto(item));
     }
-    //Found orders using idTable
-    public List<Order> listAllOrdersByIdTable(int idTable) throws DAOException
+    //Found orders by something
+    public List<Order> listAllOrdersByIdWaiter(int idWaiter) throws DAOException
     {
-        return this.mapper.convertListDtoToListObj(dao.findByIdTable(idTable));
+        return this.mapper.convertListDtoToListObj(dao.findByIdWaiter(idWaiter));
+    }
+    public List<Order> listAllClosedOrdersByIdTable(int idTable) throws DAOException
+    {
+        return this.mapper.convertListDtoToListObj(dao.findClosedOrdersByIdTable(idTable));
     }
     public Order foundActiveOrderByIdTable(int idTable) throws DAOException
     {
@@ -140,5 +145,22 @@ public class ControllerOrder
                 i++;
         }
         return result;
+    }
+    //Control
+    public void changeWaiterToNone(List<Order> list) throws DAOException
+    {
+        for(int i=0;i<list.size();i++)
+        {
+            list.get(i).getWaiter().setId(1);
+            dao.update(mapper.convertObjToDto(list.get(i)));
+        }
+    }
+    public void removeItemsByIdProduct(int idProduct) throws DAOException
+    {
+        this.daoItem.deleteByIdProduct(idProduct);
+    }
+    public void changeIdTableToNoneByIdTable(int idTable) throws DAOException
+    {
+        this.dao.changeByIdTableToNone(idTable);
     }
 }

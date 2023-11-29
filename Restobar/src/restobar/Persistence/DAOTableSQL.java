@@ -157,8 +157,8 @@ public class DAOTableSQL implements DAOInterface<DTOTable>
 
     @Override
     public DTOTable byId(int id) throws DAOException {
-        String sql = "SELECT ta.id, ta.name, ta.idOrder "
-                + "FROM tables ta WHERE id="+id+";";
+        String sql = "SELECT id, name, idOrder "
+                + "FROM tables WHERE id="+id+";";
         DTOTable output = null;
         
         Connection con = null;
@@ -209,8 +209,8 @@ public class DAOTableSQL implements DAOInterface<DTOTable>
 
     @Override
     public List<DTOTable> listAll() throws DAOException {
-        String sql = "SELECT ta.id, ta.name, ta.idOrder "
-                + "FROM tables ta;";
+        String sql = "SELECT id, name, idOrder "
+                + "FROM tables;";
         List<DTOTable> output = new ArrayList();
         
         Connection con = null;
@@ -276,13 +276,11 @@ public class DAOTableSQL implements DAOInterface<DTOTable>
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="UPDATE tables SET idOrder=? WHERE id=?;";
+        String sql="UPDATE tables SET idOrder=1 WHERE id="+id+";";
         try
         {
             con=connect();
             stmt=con.prepareStatement(sql);
-            stmt.setInt(1,1);
-            stmt.setInt(2,id);
             stmt.executeUpdate();
         }catch(SQLException ex)
         {

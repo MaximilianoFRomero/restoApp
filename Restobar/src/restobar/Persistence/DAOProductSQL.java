@@ -313,7 +313,6 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
             output.add(createDTO(res));
         }
     }    
-
     @Override
     public DTOProduct createDTO(ResultSet res) throws SQLException {
         DTOProduct dto = new DTOProduct();
@@ -323,5 +322,55 @@ public class DAOProductSQL implements DAOInterface<DTOProduct>
         dto.setPrice(res.getFloat(4));
         dto.setIdCategory(res.getInt(5));
         return dto;
+    }
+    public DTOProduct getLast() throws DAOException{
+        String sql = "SELECT id, name, description, price, idCategory "
+                + "FROM products ORDER BY id DESC;";
+        DTOProduct output = null;
+        
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet res = null;
+        
+        try {
+            con = connect();
+            stmt = con.createStatement();
+            res = stmt.executeQuery(sql);
+            if(res.next())
+                output=createDTO(res);
+            else
+                throw new DAOException("Product not founded.");
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage());
+        } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                    res = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    stmt = null;
+                } catch (SQLException ex) {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+            if(con != null)
+            {
+                try
+                {
+                    con.close();
+                    con = null;
+                }catch (SQLException ex)
+                {
+                    throw new DAOException(ex.getMessage());
+                }
+            }
+        }
+        return output;
     }
 }

@@ -35,10 +35,15 @@ public class ControllerTable
         Table t=new Table(id,name,order);
         this.dao.update(mapper.convertObjToDto(t));
     }
+    public void modifyTable(Table t) throws DAOException
+    {
+        this.dao.update(mapper.convertObjToDto(t));
+    }
     public void removeTablebyId(int id) throws DAOException
     {
         Table t=new Table();
         t.setId(id);
+        this.orderCont.changeIdTableToNoneByIdTable(id);
         this.dao.delete(mapper.convertObjToDto(t));
     }
     public Table getTableById(int id) throws DAOException
@@ -58,10 +63,10 @@ public class ControllerTable
     {
         return this.mapper.convertListDtoToListObj(dao.listAll());
     }
-    public void endOrderByIdTable(int id) throws DAOException
+    public void endOrderByIdTable(int id,float discount) throws DAOException
     {
         Table tableSelected=getTableById(id);
-        this.orderCont.modifyOrder(tableSelected.endCurrentOrder());
+        this.orderCont.modifyOrder(tableSelected.endCurrentOrder(discount));
         this.dao.endOrderById(id);
     }
 }

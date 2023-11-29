@@ -3,6 +3,7 @@ package restobar.Views;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ public class Menues extends javax.swing.JFrame {
     private ControllerTable tableCont;
     
     private Table tableSelected;
+    private int selectedCategoryID;
     
     public Menues() {
         initComponents();
@@ -44,8 +46,8 @@ public class Menues extends javax.swing.JFrame {
         this.tableCont=new ControllerTable();
         this.tableCont.setControllerOrder(orderCont);
         
-        listCategories(mainCategories);
-        listProductsByCategory(1);
+        this.selectedCategoryID=1;
+        listCategories(0);
         listTables();
         pnlCategory.setVisible(false);
     }
@@ -85,7 +87,7 @@ public class Menues extends javax.swing.JFrame {
         pnlCategory = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        mainCategories = new javax.swing.JComboBox<>();
+        cmbCategories = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblProducts = new javax.swing.JTable();
         btnAddProduct = new javax.swing.JButton();
@@ -93,26 +95,23 @@ public class Menues extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTables = new javax.swing.JList<>();
         jMenuBar4 = new javax.swing.JMenuBar();
-        jMenu8 = new javax.swing.JMenu();
-        mItemAddTable = new javax.swing.JMenuItem();
+        mnTable = new javax.swing.JMenu();
+        mnItemTableAdd = new javax.swing.JMenuItem();
         mnItemTableEdit = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu9 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
-        jMenu11 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenu10 = new javax.swing.JMenu();
-        jMenuItem20 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        mnItemTableHistory = new javax.swing.JMenuItem();
+        mnProduct = new javax.swing.JMenu();
+        mnItemProductAdd = new javax.swing.JMenuItem();
+        mnItemProductEdit = new javax.swing.JMenuItem();
+        mnItemProductList = new javax.swing.JMenuItem();
+        mnWaiter = new javax.swing.JMenu();
+        mnItemWaiterAdd = new javax.swing.JMenuItem();
+        mnItemWaiterEdit = new javax.swing.JMenuItem();
+        mnItemWaiterList = new javax.swing.JMenuItem();
+        mnStock = new javax.swing.JMenu();
+        mnItemStockList = new javax.swing.JMenuItem();
+        mnCategory = new javax.swing.JMenu();
+        mnItemCategoryAdd = new javax.swing.JMenuItem();
+        mnItemCategoryEdit = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -322,9 +321,9 @@ public class Menues extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Categorias:");
 
-        mainCategories.addActionListener(new java.awt.event.ActionListener() {
+        cmbCategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mainCategoriesActionPerformed(evt);
+                cmbCategoriesActionPerformed(evt);
             }
         });
 
@@ -368,7 +367,7 @@ public class Menues extends javax.swing.JFrame {
                     .addGroup(pnlCategoryLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mainCategories, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbCategories, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlCategoryLayout.createSequentialGroup()
                                 .addGroup(pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnAddProduct)
@@ -385,7 +384,7 @@ public class Menues extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAddProduct)
                 .addGap(18, 18, 18)
@@ -400,15 +399,15 @@ public class Menues extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstTables);
 
-        jMenu8.setText("Mesas");
+        mnTable.setText("Mesas");
 
-        mItemAddTable.setText("Añadir mesa");
-        mItemAddTable.addActionListener(new java.awt.event.ActionListener() {
+        mnItemTableAdd.setText("Añadir mesa");
+        mnItemTableAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mItemAddTableActionPerformed(evt);
+                mnItemTableAddActionPerformed(evt);
             }
         });
-        jMenu8.add(mItemAddTable);
+        mnTable.add(mnItemTableAdd);
 
         mnItemTableEdit.setText("Eliminar/Modificar mesa");
         mnItemTableEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -416,109 +415,105 @@ public class Menues extends javax.swing.JFrame {
                 mnItemTableEditActionPerformed(evt);
             }
         });
-        jMenu8.add(mnItemTableEdit);
+        mnTable.add(mnItemTableEdit);
 
-        jMenuItem6.setText("Historial de pedidos");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        mnItemTableHistory.setText("Historial de pedidos");
+        mnItemTableHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                mnItemTableHistoryActionPerformed(evt);
             }
         });
-        jMenu8.add(jMenuItem6);
+        mnTable.add(mnItemTableHistory);
 
-        jMenuBar4.add(jMenu8);
+        jMenuBar4.add(mnTable);
 
-        jMenu9.setText("Productos");
+        mnProduct.setText("Productos");
 
-        jMenuItem3.setText("Añadir producto");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        mnItemProductAdd.setText("Añadir producto");
+        mnItemProductAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                mnItemProductAddActionPerformed(evt);
             }
         });
-        jMenu9.add(jMenuItem3);
+        mnProduct.add(mnItemProductAdd);
 
-        jMenuItem10.setText("Modificar producto");
-        jMenu9.add(jMenuItem10);
-
-        jMenuItem11.setText("Eliminar producto");
-        jMenu9.add(jMenuItem11);
-
-        jMenuItem18.setText("Listado de productos");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+        mnItemProductEdit.setText("Eliminar/Modificar producto");
+        mnItemProductEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
+                mnItemProductEditActionPerformed(evt);
             }
         });
-        jMenu9.add(jMenuItem18);
+        mnProduct.add(mnItemProductEdit);
 
-        jMenuBar4.add(jMenu9);
-
-        jMenu11.setText("Mozos");
-
-        jMenuItem2.setText("Añadir mozo");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mnItemProductList.setText("Listado de productos");
+        mnItemProductList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mnItemProductListActionPerformed(evt);
             }
         });
-        jMenu11.add(jMenuItem2);
+        mnProduct.add(mnItemProductList);
 
-        jMenuItem15.setText("Modificar mozo");
-        jMenu11.add(jMenuItem15);
+        jMenuBar4.add(mnProduct);
 
-        jMenuItem16.setText("Eliminar mozo");
-        jMenu11.add(jMenuItem16);
+        mnWaiter.setText("Mozos");
 
-        jMenuItem17.setText("Listado de mozos");
-        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+        mnItemWaiterAdd.setText("Añadir mozo");
+        mnItemWaiterAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem17ActionPerformed(evt);
+                mnItemWaiterAddActionPerformed(evt);
             }
         });
-        jMenu11.add(jMenuItem17);
+        mnWaiter.add(mnItemWaiterAdd);
 
-        jMenuBar4.add(jMenu11);
-
-        jMenu10.setText("Stock");
-        jMenu10.addActionListener(new java.awt.event.ActionListener() {
+        mnItemWaiterEdit.setText("Eliminar/Modificar mozo");
+        mnItemWaiterEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu10ActionPerformed(evt);
+                mnItemWaiterEditActionPerformed(evt);
             }
         });
+        mnWaiter.add(mnItemWaiterEdit);
 
-        jMenuItem20.setText("Lista");
-        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+        mnItemWaiterList.setText("Listado de mozos");
+        mnItemWaiterList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem20ActionPerformed(evt);
+                mnItemWaiterListActionPerformed(evt);
             }
         });
-        jMenu10.add(jMenuItem20);
+        mnWaiter.add(mnItemWaiterList);
 
-        jMenuBar4.add(jMenu10);
+        jMenuBar4.add(mnWaiter);
 
-        jMenu1.setText("Categorias");
+        mnStock.setText("Stock");
 
-        jMenuItem12.setText("Añadir categoria");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        mnItemStockList.setText("Lista");
+        mnItemStockList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                mnItemStockListActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem12);
+        mnStock.add(mnItemStockList);
 
-        jMenuItem13.setText("Modificar categoria");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar4.add(mnStock);
+
+        mnCategory.setText("Categorias");
+
+        mnItemCategoryAdd.setText("Añadir categoria");
+        mnItemCategoryAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
+                mnItemCategoryAddActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem13);
+        mnCategory.add(mnItemCategoryAdd);
 
-        jMenuItem14.setText("Eliminar categoria");
-        jMenu1.add(jMenuItem14);
+        mnItemCategoryEdit.setText("Eliminar/Modificar categoria");
+        mnItemCategoryEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItemCategoryEditActionPerformed(evt);
+            }
+        });
+        mnCategory.add(mnItemCategoryEdit);
 
-        jMenuBar4.add(jMenu1);
+        jMenuBar4.add(mnCategory);
 
         setJMenuBar(jMenuBar4);
 
@@ -554,7 +549,7 @@ public class Menues extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseOrderActionPerformed
-        PayView newPayView = new PayView(tableCont,lstTables.getSelectedIndex()+1);
+        CloseOrder newPayView = new CloseOrder(tableCont,tableSelected.getId());
         newPayView.setVisible(true);
     }//GEN-LAST:event_btnCloseOrderActionPerformed
 
@@ -568,60 +563,59 @@ public class Menues extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddOneProductToOrderActionPerformed
 
     private void mnItemTableEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemTableEditActionPerformed
-        editTable deleteT = new editTable(tableCont,this);
-        deleteT.setVisible(true);
+        EditTable win = new EditTable(tableCont,this);
+        win.setVisible(true);
     }//GEN-LAST:event_mnItemTableEditActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        CargaMozo m1 = new CargaMozo();
-        m1.setWaiterController(waiterCont);
-        m1.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        addProduct win=new addProduct(stockCont,this);
+    private void mnItemWaiterAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemWaiterAddActionPerformed
+        AddWaiter win=new AddWaiter(waiterCont);
         win.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_mnItemWaiterAddActionPerformed
 
-    private void mItemAddTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemAddTableActionPerformed
-        addTable t1 = new addTable(tableCont,this);
-        t1.setVisible(true);
-    }//GEN-LAST:event_mItemAddTableActionPerformed
+    private void mnItemProductAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemProductAddActionPerformed
+        AddProduct win=new AddProduct(stockCont,this);
+        win.setVisible(true);
+    }//GEN-LAST:event_mnItemProductAddActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        selectTable selectT = new selectTable();
-        selectT.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void mnItemTableAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemTableAddActionPerformed
+        AddTable win = new AddTable(tableCont,this);
+        win.setVisible(true);
+    }//GEN-LAST:event_mnItemTableAddActionPerformed
 
-    private void mainCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainCategoriesActionPerformed
-        listProductsByCategory(mainCategories.getSelectedIndex()+1);
-    }//GEN-LAST:event_mainCategoriesActionPerformed
+    private void mnItemTableHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemTableHistoryActionPerformed
+        HistoryTable win=new HistoryTable(tableCont);
+        win.setVisible(true);
+    }//GEN-LAST:event_mnItemTableHistoryActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        addCategory addCatWin = new addCategory(productCont.getCategoryController());
-        addCatWin.setVisible(true);
-        addCatWin.setCmbCategories(mainCategories);
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    private void cmbCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriesActionPerformed
+        this.selectedCategoryID=cmbCategories.getItemAt(cmbCategories.getSelectedIndex()).getId();//Getting the idCategory for display specific products
+        listProductsByCategorySelected();
+    }//GEN-LAST:event_cmbCategoriesActionPerformed
 
-    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+    private void mnItemCategoryAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemCategoryAddActionPerformed
+        AddCategory win = new AddCategory(this.productCont.getControllerCategory(),this);
+        win.setVisible(true);
+    }//GEN-LAST:event_mnItemCategoryAddActionPerformed
+
+    private void mnItemWaiterListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemWaiterListActionPerformed
         try {
-            waiterList wList = new waiterList();
-            wList.setVisible(true);
-            wList.listAllWaiters(waiterCont.listAll());
+            ListWaiter win=new ListWaiter();
+            win.setVisible(true);
+            win.listAllWaiters(waiterCont.listAll());
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem17ActionPerformed
+    }//GEN-LAST:event_mnItemWaiterListActionPerformed
 
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        TESTproductList l=new TESTproductList(productCont);
+    private void mnItemProductListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemProductListActionPerformed
+        ListProduct l=new ListProduct(productCont);
         l.setVisible(true);
-    }//GEN-LAST:event_jMenuItem18ActionPerformed
+    }//GEN-LAST:event_mnItemProductListActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        modifyCategory m = new modifyCategory(productCont.getCategoryController());
-        m.setVisible(true);
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
+    private void mnItemCategoryEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemCategoryEditActionPerformed
+        EditCategory win = new EditCategory(this.productCont,this);
+        win.setVisible(true);
+    }//GEN-LAST:event_mnItemCategoryEditActionPerformed
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         try {
@@ -634,14 +628,10 @@ public class Menues extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddProductActionPerformed
     
-    private void jMenu10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu10ActionPerformed
-        
-    }//GEN-LAST:event_jMenu10ActionPerformed
-
-    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-        listStock ls = new listStock(stockCont);
+    private void mnItemStockListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemStockListActionPerformed
+        ListStock ls = new ListStock(stockCont);
         ls.setVisible(true);
-    }//GEN-LAST:event_jMenuItem20ActionPerformed
+    }//GEN-LAST:event_mnItemStockListActionPerformed
 
     private void btnSubProductToOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubProductToOrderActionPerformed
         try {
@@ -674,14 +664,26 @@ public class Menues extends javax.swing.JFrame {
             if(tableSelected.getOrder().getWaiter().getId()!=1)
                 displayOrderFromTable();
             else{
-                openOrder sw = new openOrder(tableSelected.getOrder(),orderCont,this);
+                OpenOrder sw = new OpenOrder(tableCont,tableSelected.getId(),this);
                 sw.setVisible(true);
             }
+            //Display panel of category when a table is selected
+            listProductsByCategorySelected();
             pnlCategory.setVisible(true);
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lstTablesMouseClicked
+
+    private void mnItemWaiterEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemWaiterEditActionPerformed
+        EditWaiter win=new EditWaiter(orderCont);
+        win.setVisible(true);
+    }//GEN-LAST:event_mnItemWaiterEditActionPerformed
+
+    private void mnItemProductEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemProductEditActionPerformed
+        EditProduct win=new EditProduct(stockCont,orderCont,this);
+        win.setVisible(true);
+    }//GEN-LAST:event_mnItemProductEditActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -689,52 +691,6 @@ public class Menues extends javax.swing.JFrame {
                 new Menues().setVisible(true);
             }
         });
-    }
-    public void listCategories(JComboBox cmb){
-        try {
-            List<Category> c=this.productCont.getCategoryController().listAll();
-            for (int i = 0; i < c.size();i++){
-                cmb.addItem(c.get(i).getName());
-            }
-        } catch (DAOException ex) {
-            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void listProductsByCategory(int idCategory)
-    {
-        try {
-            List<Product> p=this.productCont.getProductsFromCategory(idCategory);
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Codigo");
-            model.addColumn("Descripcion");
-            model.addColumn("Importe");
-            tblProducts.setModel(model);
-            String [] datos = new String[3];
-            for(int i=0;i<p.size();i++)
-            {
-                datos[0]=p.get(i).getId()+"";
-                datos[1]=p.get(i).getName();
-                datos[2]=p.get(i).getPrice().getValue()+"";
-                model.addRow(datos);
-            }
-        } catch (DAOException ex) {
-            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void listTables()
-    {
-        try {
-            List<Table> t=this.tableCont.listAll();
-            DefaultListModel model = new DefaultListModel();
-            lstTables.setModel(model);
-            for(int i=0;i<t.size();i++)
-            {
-                model.addElement(t.get(i));
-            }
-        } catch (DAOException ex) {
-            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
     public void displayOrderFromTable()
     {
@@ -758,16 +714,83 @@ public class Menues extends javax.swing.JFrame {
                 model.addRow(datos);
             }
             //Metodo precio total en tiempo real
-            this.lblOrderTotal.setText("Total = "+tableSelected.getOrder().calculatePrice());
+            this.lblOrderTotal.setText("Total = "+tableSelected.getOrder().calculatePrice(0));
             this.lblOrderCutlery.setText("Cubiertos: "+tableSelected.getOrder().getCutlery());
             this.lblOrderWaiter.setText("Mozo: "+waiterCont.getWaiterById(tableSelected.getOrder().getWaiter().getId()));
         } catch (DAOException ex) {
             Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public JComboBox getCmbCategories(){return this.mainCategories;}
-
-
+    public JComboBox getCmbCategories(){return this.cmbCategories;}
+    //BASIC UPDATES
+    public void listCategories(int indexStart){
+        try {
+            int temp=selectedCategoryID;
+            DefaultComboBoxModel model=new DefaultComboBoxModel();
+            cmbCategories.setModel(model);
+            List<Category> c=this.productCont.getControllerCategory().listAll();
+            for (int i = 0; i < c.size();i++){
+                cmbCategories.addItem(c.get(i));
+            }
+            
+            System.out.println("CATEGORIAS = "+cmbCategories.getItemCount());
+            if(indexStart<cmbCategories.getItemCount())
+                cmbCategories.setSelectedIndex(indexStart);
+            else
+                cmbCategories.setSelectedIndex(0);
+            
+            selectedCategoryID=temp;
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void listProductsByCategorySelected()
+    {
+        try {
+            List<Product> p=this.productCont.getProductsFromCategory(selectedCategoryID);
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Codigo");
+            model.addColumn("Descripcion");
+            model.addColumn("Importe");
+            tblProducts.setModel(model);
+            String [] datos = new String[3];
+            for(int i=0;i<p.size();i++)
+            {
+                datos[0]=p.get(i).getId()+"";
+                datos[1]=p.get(i).getName();
+                datos[2]=p.get(i).getPrice().getValue()+"";
+                model.addRow(datos);
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void listTables()
+    {
+        try {
+            List<Table> t=this.tableCont.listAll();
+            DefaultListModel model = new DefaultListModel();
+            lstTables.setModel(model);
+            for(int i=1;i<t.size();i++)
+            {
+                model.addElement(t.get(i));
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(Menues.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    @Override
+    public String toString()
+    {
+        //This method it's like a generic update function
+        listCategories(cmbCategories.getSelectedIndex());
+        listProductsByCategorySelected();
+        listTables();
+        if(tableSelected!=null)
+            displayOrderFromTable();
+        return "UPDATED";
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOneProductToOrder;
     private javax.swing.JButton btnAddProduct;
@@ -775,36 +798,19 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JButton btnDown;
     private javax.swing.JButton btnSubProductToOrder;
     private javax.swing.JButton btnUp;
+    private javax.swing.JComboBox<Category> cmbCategories;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuBar jMenuBar4;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -819,9 +825,23 @@ public class Menues extends javax.swing.JFrame {
     private javax.swing.JLabel lblOrderWaiter;
     private javax.swing.JLabel lblTableSelected;
     private javax.swing.JList<Table> lstTables;
-    private javax.swing.JMenuItem mItemAddTable;
-    private javax.swing.JComboBox<String> mainCategories;
+    private javax.swing.JMenu mnCategory;
+    private javax.swing.JMenuItem mnItemCategoryAdd;
+    private javax.swing.JMenuItem mnItemCategoryEdit;
+    private javax.swing.JMenuItem mnItemProductAdd;
+    private javax.swing.JMenuItem mnItemProductEdit;
+    private javax.swing.JMenuItem mnItemProductList;
+    private javax.swing.JMenuItem mnItemStockList;
+    private javax.swing.JMenuItem mnItemTableAdd;
     private javax.swing.JMenuItem mnItemTableEdit;
+    private javax.swing.JMenuItem mnItemTableHistory;
+    private javax.swing.JMenuItem mnItemWaiterAdd;
+    private javax.swing.JMenuItem mnItemWaiterEdit;
+    private javax.swing.JMenuItem mnItemWaiterList;
+    private javax.swing.JMenu mnProduct;
+    private javax.swing.JMenu mnStock;
+    private javax.swing.JMenu mnTable;
+    private javax.swing.JMenu mnWaiter;
     private javax.swing.JPanel pnlCategory;
     private javax.swing.JPanel pnlOrder;
     private rojeru_san.RSLabelFecha rSLabelFecha1;

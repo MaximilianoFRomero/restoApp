@@ -18,7 +18,7 @@ public class Table//Mesa
      */
     public Table()
     {
-        this.id=0;
+        this.id=1;
         this.name="";
         this.order=new Order();
     }
@@ -100,10 +100,11 @@ public class Table//Mesa
      *Closes current table active order
      * @return oldOrder
      */
-    public Order endCurrentOrder()
+    public Order endCurrentOrder(float discount)
     {
         Order oldOrder=this.order;
         oldOrder.setDateClose(new Date());
+        oldOrder.calculatePrice(discount);
         return oldOrder;
     }
     public String toString()

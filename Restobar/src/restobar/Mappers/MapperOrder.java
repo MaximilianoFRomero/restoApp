@@ -23,6 +23,7 @@ public class MapperOrder implements MapperInterface<DTOOrder,Order>
         o.setCutlery(dto.getCutlery());
         o.setDateOpen(dto.getDateOpen());
         o.setDateClose(dto.getDateClose());
+        o.setTotalPrice(dto.getTotalPrice());
         return o;
     }
 
@@ -35,6 +36,7 @@ public class MapperOrder implements MapperInterface<DTOOrder,Order>
         dto.setCutlery(o.getCutlery());
         dto.setDateOpen(o.getDateOpen());
         dto.setDateClose(o.getDateClose());
+        dto.setTotalPrice(o.getTotalPrice());
         return dto;
     }
 

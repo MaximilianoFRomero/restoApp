@@ -74,7 +74,7 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
         Connection con=null;
         PreparedStatement stmt=null;
         
-        String sql="UPDATE categories SET name=?, lastName=? WHERE id=?;";
+        String sql="UPDATE waiters SET name=?, lastName=? WHERE id=?;";
         try
         {
             con=connect();
@@ -157,8 +157,8 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
 
     @Override
     public DTOWaiter byId(int id) throws DAOException{
-        String sql = "SELECT wa.id, wa.name, wa.lastName "
-                + "FROM waiters wa WHERE id="+id+";";
+        String sql = "SELECT id, name, lastName "
+                + "FROM waiters WHERE id="+id+";";
         DTOWaiter output = null;
         
         Connection con = null;
@@ -210,8 +210,8 @@ public class DAOWaiterSQL implements DAOInterface<DTOWaiter>
 
     @Override
     public List<DTOWaiter> listAll() throws DAOException{
-        String sql = "SELECT wa.id, wa.name, wa.lastName "
-                + "FROM waiters wa;";
+        String sql = "SELECT id, name, lastName "
+                + "FROM waiters;";
         List<DTOWaiter> output = new ArrayList();
         
         Connection con = null;

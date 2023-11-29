@@ -37,6 +37,7 @@ public class Order//Pedido
      * It represents a Item List
      */
     private List<Item> items;
+    private float totalPrice;
     //Constructors
     /**
      * It create an instance of class Order
@@ -50,6 +51,7 @@ public class Order//Pedido
         this.dateOpen=new Date();
         this.dateClose=null;
         this.items=new ArrayList();
+        this.totalPrice=0;
     }
     /**
      * 
@@ -68,6 +70,7 @@ public class Order//Pedido
         this.dateOpen=dateOpen;
         this.dateClose=dateClose;
         this.items=new ArrayList();
+        this.totalPrice=0;
     }
     //Getters and setters
     /**
@@ -100,6 +103,7 @@ public class Order//Pedido
      * @return dateClose
      */
     public Date getDateClose(){return this.dateClose;}
+    public float getTotalPrice(){return this.totalPrice;}
     /**
      * Sets order id
      * @param id 
@@ -130,6 +134,7 @@ public class Order//Pedido
      * @param dateClose 
      */
     public void setDateClose(Date dateClose){this.dateClose=dateClose;}
+    public void setTotalPrice(float totalPrice){this.totalPrice=totalPrice;}
     //Functions
     /**
      * Adds item to order
@@ -177,11 +182,12 @@ public class Order//Pedido
      * Calculates order price
      * @return result - order price
      */
-    public float calculatePrice()
+    public float calculatePrice(float discount)
     {
-        float result=0;
+        float result=0-discount;
         for(int i=0;i<items.size();i++)
             result+=items.get(i).calculateTotalPrice();
+        this.totalPrice=result;
         return result;
     }
 }

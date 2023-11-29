@@ -21,7 +21,7 @@ public class ControllerProduct
         this.categoryCont=new ControllerCategory();
     }
     //Getters and setters
-    public ControllerCategory getCategoryController(){return this.categoryCont;}
+    public ControllerCategory getControllerCategory(){return this.categoryCont;}
     //Funcitons
     public void addProduct(String name,String description,float price,int idCategory) throws DAOException
     {
@@ -35,6 +35,10 @@ public class ControllerProduct
     public void modifyProduct(int id,String name,String description,Price price,Category category) throws DAOException
     {
         Product p=new Product(id,name,description,price.getValue(),category);
+        this.dao.update(mapper.convertObjToDto(p));
+    }
+    public void modifyProduct(Product p) throws DAOException
+    {
         this.dao.update(mapper.convertObjToDto(p));
     }
     public void removeProductById(int id) throws DAOException
@@ -52,8 +56,7 @@ public class ControllerProduct
     }
     public Product getLastProduct() throws DAOException
     {
-        int size=dao.listAll().size();
-        return this.mapper.convertDtoToObj(dao.byId(size));
+        return this.mapper.convertDtoToObj(dao.getLast());
     }
     public List<Product> listAll() throws DAOException
     {
@@ -75,6 +78,7 @@ public class ControllerProduct
         }
         return results;
     }
+    //Control
     public void changeCategoryToNone(List<Product> list) throws DAOException
     {
         for(int i=0;i<list.size();i++)
